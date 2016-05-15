@@ -1,15 +1,14 @@
 import React, { PropTypes } from 'react'
-import classes from './CheckInForm.scss'
+import classes from './ServicesForm.scss'
 
 const onSubmit = () => {
   console.log('hello')
 }
 
-export const CheckInForm = (props) => {
+export const ServicesForm = (props) => {
   const {
     fields: {
-      firstName,
-      lastName
+      code
     },
     resetForm,
     handleSubmit,
@@ -18,33 +17,28 @@ export const CheckInForm = (props) => {
 
   return (
     <form
-      className={classes.checkInForm}
+      className={classes.servicesForm}
       onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <label>First Name</label>
-        <input type="text" placeholder="First Name" {...firstName} />
-        {firstName.touched && firstName.error && <div>{firstName.error}</div>}
-      </div>
-      <div>
-        <label>Last Name</label>
-        <input type="text" placeholder="Last Name" {...lastName} />
-        {lastName.touched && lastName.error && <div>{lastName.error}</div>}
+        <label>Code</label>
+        <input type="text" placeholder="Code" {...code} />
+        {code.touched && code.error && <div>{code.error}</div>}
       </div>
       <button type="submit" disabled={submitting}>
         {submitting ? <i/> : <i/>} Log In
       </button>
       <button type="button" disabled={submitting} onClick={resetForm}>
-        Clear Values
+        Clear
       </button>
     </form>
   )
 }
 
-CheckInForm.propTypes = {
+ServicesForm.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 }
 
-export default CheckInForm
+export default ServicesForm

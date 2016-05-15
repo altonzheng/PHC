@@ -23,7 +23,7 @@ const initialState = {
 
 }
 
-export default function checkInReducer (state = initialState, action) {
+export default function servicesReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 
   return handler ? handler(state, action) : state
