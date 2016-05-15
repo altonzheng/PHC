@@ -16,6 +16,7 @@
   },
   "rules": {
     "semi" : [2, "never"],
-    "max-len": [2, 120, 2]
+    "max-len": [2, 120, 2],
+    "jsx-quotes": [0]
   }
 }
