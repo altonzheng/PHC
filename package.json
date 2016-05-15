@@ -1,7 +1,6 @@
 {
-  "name": "react-redux-starter-kit",
-  "version": "3.0.0-alpha.0",
-  "description": "Get started with React, Redux, and React-Router!",
+  "name": "phc",
+  "version": "0.0.1",
   "main": "index.js",
   "engines": {
     "node": ">=4.2.0",
@@ -72,9 +71,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davezuko/react-redux-starter-kit.git"
+    "url": "git+https://github.com/altonzheng/PHC.git"
   },
-  "author": "David Zukowski <david@zuko.me> (http://zuko.me)",
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.5.1",
@@ -113,6 +111,7 @@
     "react-router": "^2.2.0",
     "react-router-redux": "^4.0.0",
     "redux": "^3.0.0",
+    "redux-form": "^5.2.3",
     "redux-thunk": "^2.0.0",
     "rimraf": "^2.5.1",
     "sass-loader": "^3.0.0",
