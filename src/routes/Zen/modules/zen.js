@@ -35,7 +35,7 @@ export const fetchZen = (): Function => {
 
 		return fetch('https://api.github.com/zen')
 			.then(data => data.text())
-			.then(text => dispatch(recieveZen(text)))
+			.then(text => dispatch(receiveZen(text)))
 	}
 }
 

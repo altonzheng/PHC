@@ -1,18 +1,23 @@
 import { injectReducer } from '../../store/reducers'
-import * as Zen from './containers/ZenContainer'
-import * as zenReducer from './modules/zen'
 
 export default (store) => ({
   path: 'zen',
 
   getComponent (nextState, next) {
-    
-    injectReducer(store, {
-      key: 'zen',
-      reducer: zenReducer
-    })
 
-    next(null, Zen)
+    require.ensure([], (require) => {
+      const Zen = require('./containers/ZenContainer').default
+      const reducer = require('./modules/zen').default
+
+      injectReducer(store, {
+        key: 'zen',
+        reducer: reducer
+      })
+
+      next(null, Zen)
+
+    }, 'zen')
+
   }
-  
+
 })

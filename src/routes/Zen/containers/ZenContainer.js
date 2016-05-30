@@ -9,7 +9,7 @@ import type { ZenObject } from '../interfaces/zen'
 const mapActionCreators: { fetchZen: Function, saveCurrentZen: Function } = {
 	fetchZen,
 	saveCurrentZen
-} 
+}
 
 const mapStateToProps = (state): { zen: ?ZenObject, saved:Array<ZenObject> } => ({
 	zen: state.zen.zens.find(zen => zen.id === state.zen.current),
