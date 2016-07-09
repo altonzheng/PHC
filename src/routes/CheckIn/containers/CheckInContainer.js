@@ -2,19 +2,48 @@ import { reduxForm } from 'redux-form'
 
 import CheckIn from 'components/CheckIn'
 
-const fields = ['firstName', 'lastName']
+const fields = [
+  'firstName',
+  'lastName',
+  'socialSecurityNumber',
+  'dateOfBirth',
+  'phoneNumber',
+  'emailAddress',
+
+  'gender',
+  'isTransexual',
+  'isLGBTQ',
+
+  'ethnicity',
+
+  'language',
+
+  'hasBeenInFosterCare',
+
+  'hasServedInTheMilitary',
+
+  'primaryHealthcareLocation',
+
+  'isHomeless',
+  'lengthOfHomelessness',
+];
 
 const validate = (values) => {
   const errors = {}
-  if (!values.firstName) {
-    errors.firstName = 'Required'
+  if (!values.first) {
+    errors.first = 'Required'
   }
 
-  if (!values.lastName) {
-    errors.lastName = 'Required'
+  if (!values.last) {
+    errors.last = 'Required'
   }
-}
 
+  if (!values.dob) {
+    errors.last = 'Required'
+  }
+
+  return errors;
+};
 /*  Object of action creators (can also be function that returns object).
     Keys will be passed as props to presentational components. Here we are
     implementing our wrapper around increment; the component doesn't care   */

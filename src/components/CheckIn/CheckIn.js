@@ -33,9 +33,7 @@ CheckIn.propTypes = {
   resetForm: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 
-  // Other stuff
-
-
+  // TODO: Any other stuff
 }
 
 export default CheckIn
