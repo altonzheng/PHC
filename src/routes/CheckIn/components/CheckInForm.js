@@ -1,10 +1,6 @@
 import React, { PropTypes } from 'react'
 import classes from './CheckInForm.scss'
 
-const onSubmit = () => {
-  console.log('hello')
-}
-
 export const CheckInForm = (props) => {
   const {
     fields: {
@@ -34,13 +30,18 @@ export const CheckInForm = (props) => {
     },
     resetForm,
     handleSubmit,
-    submitting
+    submitting,
+    updatePrimaryInfo,
   } = props
+
+  const _onSubmit = () => {
+    props.updatePrimaryInfo(props.fields)
+  }
 
   return (
     <form
       className={classes.checkInForm}
-      onSubmit={handleSubmit(onSubmit)}>
+      onSubmit={handleSubmit(_onSubmit)}>
       <div>
         <label>First Name</label>
         <input type="text" placeholder="First Name" {...firstName} />
@@ -113,19 +114,36 @@ export const CheckInForm = (props) => {
       </div>
 
       <div>
-        <label>Foster Care</label>
-        <input type="checkbox" {...hasBeenInFosterCare} />I've been in Foster Care
-        {hasBeenInFosterCare.touched && hasBeenInFosterCare.error && <div>{hasBeenInFosterCare.error}</div>}
+        <label>Have you ever been in foster care?</label>
+        <input type="radio" {...hasBeenInFosterCare} />Yes
+        <input type="radio" {...hasBeenInFosterCare} />No
       </div>
 
       <div>
-        <label>Military</label>
-        <input type="checkbox" {...hasServedInTheMilitary} />I've served in the military
-        {hasServedInTheMilitary.touched && hasServedInTheMilitary.error && <div>{hasServedInTheMilitary.error}</div>}
+        <label>Have you ever served in the military?</label>
+        <input type="radio" {...hasServedInTheMilitary} />Yes
+        <input type="radio" {...hasServedInTheMilitary} />No
+      </div>
+
+      <div>
+        <label>Where do you usually go for healthcare when you are not feeling well?</label>
+        <input type="text" {...primaryHealthcareLocation} />
+        {primaryHealthcareLocation.touched && primaryHealthcareLocation.error && <div>{primaryHealthcareLocation.error}</div>}
+      </div>
+
+      <div>
+        <label>Are you homeless?</label>
+        <input type="checkbox" {...isHomeless} />
+      </div>
+
+      // TODO: Only show this box if the prior one is checked.
+      <div>
+        <label>How long have you been homeless for?</label>
+        <input type="text" {...lengthOfHomelessness} />
       </div>
 
       <button type="submit" disabled={submitting}>
-        {submitting ? <i/> : <i/>} Log In
+        {submitting ? <i/> : <i/>} Submit
       </button>
       <button type="button" disabled={submitting} onClick={resetForm}>
         Clear Values
@@ -138,7 +156,8 @@ CheckInForm.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired
+  submitting: PropTypes.bool.isRequired,
+  updatePrimaryInfo: PropTypes.func.isRequired,
 }
 
 export default CheckInForm
