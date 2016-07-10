@@ -16,8 +16,10 @@ const fields = [
   'isLGBTQ',
 
   'ethnicity',
+  'ethnicityOther',
 
   'language',
+  'languageOther',
 
   'hasBeenInFosterCare',
 
@@ -31,17 +33,17 @@ const fields = [
 
 const validate = (values) => {
   const errors = {}
-  if (!values.firstName) {
-    errors.firstName = 'Required'
-  }
-
-  if (!values.lastName) {
-    errors.lastName = 'Required'
-  }
-
-  if (!values.dateOfBirth) {
-    errors.dateOfBirth = 'Required'
-  }
+  // if (!values.firstName) {
+  //   errors.firstName = 'Required'
+  // }
+  //
+  // if (!values.lastName) {
+  //   errors.lastName = 'Required'
+  // }
+  //
+  // if (!values.dateOfBirth) {
+  //   errors.dateOfBirth = 'Required'
+  // }
 
   return errors
 }

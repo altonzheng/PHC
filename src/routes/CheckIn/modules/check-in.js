@@ -26,15 +26,10 @@ export const actions = {
 const ACTION_HANDLERS = {
   [UPDATE_PRIMARY_INFO]: (state, action) => {
     const fields = action.payload
-    const newState = {}
 
-    for (let field in fields) {
-      if (fields[field].touched && fields[field].value) {
-        newState[field] = fields[field].value
-      }
-    }
-
-    return Object.assign({}, state, newState)
+    return Object.assign({}, state, {
+      ...fields
+    })
   }
 }
 
