@@ -1,5 +1,6 @@
 import webpack from 'webpack'
 import cssnano from 'cssnano'
+import lost from 'lost'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from '../config'
@@ -236,7 +237,8 @@ webpackConfig.postcss = [
     reduceIdents: false,
     safe: true,
     sourcemap: true
-  })
+  }),
+  lost,
 ]
 
 // File loaders

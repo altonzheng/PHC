@@ -2,22 +2,24 @@ import React from 'react'
 import classes from './Counter.scss'
 
 export const Counter = (props) => (
-  <div>
-    <h2 className={classes.counterContainer}>
+  <section className={classes.counterSection}>
+    <h2>
       Counter:
       {' '}
-      <span className={classes['counter--green']}>
+      <span>
         {props.counter}
       </span>
     </h2>
-    <button className='btn btn-default' onClick={props.increment}>
-      Increment
-    </button>
-    {' '}
-    <button className='btn btn-default' onClick={props.doubleAsync}>
-      Double (Async)
-    </button>
-  </div>
+    <div className={classes.actionButtons}>
+      <button className={classes.actionButton} onClick={props.increment}>
+        Increment
+      </button>
+      {' '}
+      <button className={classes.actionButton} onClick={props.doubleAsync}>
+        Double (Async)
+      </button>
+    </div>
+  </section>
 )
 
 Counter.propTypes = {

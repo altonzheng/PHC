@@ -1,12 +1,11 @@
-.counter {
-  font-weight: bold;
+.counterSection {
+  lost-center: 800px;
 }
 
-.counter--green {
-  composes: counter;
-  color: rgb(25,200,25);
+.actionButtons {
+  lost-utility: clearfix;
 }
 
-.counterContainer {
-  margin: 1em auto;
+.actionButton {
+  lost-column: 1/2;
 }
