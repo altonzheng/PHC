@@ -5,8 +5,8 @@ import CheckInForm from '../containers/CheckInFormContainer'
 
 export const CheckIn = (props) => {
   return (
-    <div>
-      <h2 className={classes.checkInContainer}>
+    <div className={classes.container}>
+      <h2 className={classes.header}>
         Check In
       </h2>
       <CheckInForm />

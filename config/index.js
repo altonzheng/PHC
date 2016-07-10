@@ -58,7 +58,13 @@ const config = {
   coverage_reporters : [
     { type : 'text-summary' },
     { type : 'lcov', dir : 'coverage' }
-  ]
+  ],
+
+  // ----------------------------------
+  // Sass Configuration
+  // ----------------------------------
+
+  sassIncludes : path.resolve(__dirname, '..') + '/src/styles/_base.scss',
 }
 
 /************************************************

@@ -178,7 +178,7 @@ if (isUsingCSSModules) {
       'style',
       cssModulesLoader,
       'postcss',
-      'sass?sourceMap'
+      'sass?sourceMap',
     ]
   })
 
@@ -202,7 +202,7 @@ webpackConfig.module.loaders.push({
     'style',
     BASE_CSS_LOADER,
     'postcss',
-    'sass?sourceMap'
+    'sass?sourceMap',
   ]
 })
 webpackConfig.module.loaders.push({

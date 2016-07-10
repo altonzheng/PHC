@@ -1,3 +1,101 @@
-.checkInForm {
-  color: green;
+@import '../../../styles/base';
+
+.form {
+
+}
+
+.inputGroup {
+  text-align: left;
+}
+
+.inputs {
+
+}
+
+.horizontalInputs {
+  // TODO: uncomment below line if we ever add styling to `.inputs`
+  // compose: inputs
+  .toggleInputGroup {
+    display: inline-block;
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.toggleInputGroup {
+  input {
+    margin-right: 5px;
+  }
+}
+
+.header {
+
+}
+
+.section {
+  lost-utility: clearfix;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  &:first-child, &:last-child {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.basic {
+  .inputGroup {
+    lost-column: 1/2;
+
+    @include breakpoint(tablet) {
+      & {
+        lost-column: 1/3;
+      }
+    }
+  }
+}
+
+.gender {
+  .inputGroup {
+    lost-column: 1/2;
+  }
+}
+
+.ethnicity {
+  .inputGroup {
+    lost-column: 1;
+
+    @include breakpoint(tablet) {
+      & {
+        lost-column: 1/2;
+      }
+    }
+  }
+}
+
+.background {
+  .inputGroup {
+    lost-column: 1;
+
+    @include breakpoint(tablet) {
+      & {
+        lost-column: 1/2;
+      }
+    }
+  }
+}
+
+.homeless {
+  .inputGroup {
+    lost-column: 1;
+
+    @include breakpoint(tablet) {
+      & {
+        lost-column: 1/2;
+      }
+    }
+  }
 }
