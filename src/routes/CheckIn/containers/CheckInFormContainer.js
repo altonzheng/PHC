@@ -1,7 +1,7 @@
 import { reduxForm } from 'redux-form'
 
 import CheckInForm from '../components/CheckInForm'
-import { updatePrimaryInfo } from '../modules/check-in'
+import { updatePrimaryInfo, clearPrimaryInfo } from '../modules/check-in'
 
 const fields = [
   'firstName',
@@ -50,11 +50,12 @@ const validate = (values) => {
 
 
 const mapStateToProps = (state) => ({
-
+  initialValues: state.checkIn.primaryInfo,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   updatePrimaryInfo: (fields) => dispatch(updatePrimaryInfo(fields)),
+  clearPrimaryInfo: () => dispatch(clearPrimaryInfo()),
 })
 
 export default reduxForm({

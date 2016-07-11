@@ -2,8 +2,7 @@
 // Constants
 // ------------------------------------
 export const UPDATE_PRIMARY_INFO = 'UPDATE_PRIMARY_INFO'
-export const UPDATE_PRIMARY_INFO_SUCCESS = 'UPDATE_PRIMARY_INFO_SUCCESS'
-export const UPDATE_PRIMARY_INFO_FAIL = 'UPDATE_PRIMARY_INFO_FAIL'
+export const CLEAR_PRIMARY_INFO = 'CLEAR_PRIMARY_INFO'
 
 // ------------------------------------
 // Actions
@@ -15,9 +14,17 @@ export function updatePrimaryInfo (fields) {
   }
 }
 
+export function clearPrimaryInfo () {
+  return {
+    type: CLEAR_PRIMARY_INFO,
+    payload: null,
+  }
+}
+
 
 export const actions = {
   updatePrimaryInfo,
+  clearPrimaryInfo,
 }
 
 // ------------------------------------
@@ -28,9 +35,16 @@ const ACTION_HANDLERS = {
     const fields = action.payload
 
     return Object.assign({}, state, {
-      ...fields
+      primaryInfo: {
+        ...fields
+      },
     })
-  }
+  },
+  [CLEAR_PRIMARY_INFO]: (state, action) => {
+    const newState = Object.assign({}, state)
+    delete newState.primaryInfo
+    return newState
+  },
 }
 
 // ------------------------------------

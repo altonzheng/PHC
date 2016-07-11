@@ -1,3 +1,25 @@
-.checkInContainer {
-  margin: 1em auto;
+@import '../../../styles/base';
+
+.container {
+  lost-center: 300px;
+
+  // Tablet
+  @include breakpoint(tablet) {
+    & {
+      lost-center: 540px;
+    }
+  }
+
+  // Desktop
+  @include breakpoint(desktop) {
+    & {
+      lost-center: 800px;
+    }
+  }
+}
+
+.header {
+  font-weight: $weight-bold;
+  color: $black-medium;
+  margin-bottom: 30px;
 }
