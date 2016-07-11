@@ -13,7 +13,7 @@ export default (store) => ({
       const reducer = require('./modules/check-in').default
 
       /*  Add the reducer to the store on key 'counter'  */
-      injectReducer(store, { key: 'check-in', reducer })
+      injectReducer(store, { key: 'checkIn', reducer })
 
       /*  Return getComponent   */
       cb(null, CheckIn)

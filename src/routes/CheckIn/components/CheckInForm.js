@@ -49,12 +49,11 @@ export const CheckInForm = (props) => {
     resetForm,
     handleSubmit,
     submitting,
-    updatePrimaryInfo,
   } = props
 
   const _onSubmit = () => {
     const fields = props.fields
-    const newFields = {};
+    const newFields = {}
 
     for (let field in fields) {
 
@@ -73,6 +72,11 @@ export const CheckInForm = (props) => {
     }
 
     props.updatePrimaryInfo(newFields)
+  }
+
+  const _onClear = () => {
+    props.clearPrimaryInfo()
+    resetForm()
   }
 
   return (
@@ -339,7 +343,7 @@ export const CheckInForm = (props) => {
       <button type="submit" disabled={submitting}>
         {submitting ? <i/> : <i/>} Submit
       </button>
-      <button type="button" disabled={submitting} onClick={resetForm}>
+      <button type="button" disabled={submitting} onClick={_onClear}>
         Clear Values
       </button>
     </form>
@@ -352,6 +356,7 @@ CheckInForm.propTypes = {
   resetForm: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   updatePrimaryInfo: PropTypes.func.isRequired,
+  clearPrimaryInfo: PropTypes.func.isRequired,
 }
 
 export default CheckInForm
