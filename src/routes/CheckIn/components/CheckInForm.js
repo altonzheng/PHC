@@ -11,22 +11,13 @@ import classes from './CheckInForm.scss'
 export const CheckInForm = (props) => {
   let {
     fields: {
-      firstName,
-      lastName,
-      socialSecurityNumber,
-      dateOfBirth,
-      phoneNumber,
-      emailAddress,
+      firstName, lastName, socialSecurityNumber, dateOfBirth, phoneNumber, emailAddress,
 
-      gender,
-      isTransexual,
-      isLGBTQ,
+      gender, isTransexual, isLGBTQ,
 
-      ethnicity,
-      ethnicityOther,
+      ethnicity, ethnicityOther,
 
-      language,
-      languageOther,
+      language, languageOther,
 
       hasBeenInFosterCare,
 
@@ -34,11 +25,9 @@ export const CheckInForm = (props) => {
 
       primaryHealthcareLocation,
 
-      isHomeless,
-      lengthOfHomelessness,
+      isHomeless, lengthOfHomelessness,
 
-      medicalServices,
-      supportServices,
+      medicalServices, supportServices,
     },
     resetForm,
     handleSubmit,
@@ -55,13 +44,13 @@ export const CheckInForm = (props) => {
 
     for (let field in fields) {
 
-      // skip alt fields
+      // skip alt fields, which have their own handlers to update fields correctly
       if (field.endsWith('Other')) continue
 
       // deal with checkboxes, and checkbox-like inputs differently
       if (fields[field].checked !== undefined) {
         newFields[field] = fields[field].checked
-      } else {
+      } else if (fields[field].value !== ""){
         newFields[field] = fields[field].value
       }
 
