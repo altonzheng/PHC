@@ -339,65 +339,96 @@ export const CheckInForm = (props) => {
       <div className={classes.medical + " " + classes.section}>
         <div className={classes.inputGroup}>
           <label>What medical services would you like today?</label>
-            <div className={classes.inputColumns}>
-              <div className={classes.inputs + " " + classes.inputColumn}>
-                {MEDICAL_CHOICES.filter((e, i) => i % 2 === 0).map(_medicalChoice => (
-                  <div className={classes.toggleInputGroup}>
-                    <label>
-                      <ArrayCheckbox field={medicalServices} value={_medicalChoice}/>
-                      {_medicalChoice}
-                    </label>
-                  </div>
-                ))}
-              </div>
-              <div className={classes.inputs + " " + classes.inputColumn}>
-                {MEDICAL_CHOICES.filter((e, i) => i % 2 === 1).map(_medicalChoice => (
-                  <div className={classes.toggleInputGroup}>
-                    <label>
-                      <ArrayCheckbox field={medicalServices} value={_medicalChoice}/>
-                      {_medicalChoice}
-                    </label>
-                  </div>
-                ))}
-              </div>
+          <div className={classes.inputColumns + " hide-on-phone"}>
+            <div className={classes.inputs + " " + classes.inputColumn}>
+              {MEDICAL_CHOICES.filter((e, i) => i % 2 === 0).map(_medicalChoice => (
+                <div className={classes.toggleInputGroup}>
+                  <label>
+                    <ArrayCheckbox field={medicalServices} value={_medicalChoice}/>
+                    {_medicalChoice}
+                  </label>
+                </div>
+              ))}
             </div>
+            <div className={classes.inputs + " " + classes.inputColumn}>
+              {MEDICAL_CHOICES.filter((e, i) => i % 2 === 1).map(_medicalChoice => (
+                <div className={classes.toggleInputGroup}>
+                  <label>
+                    <ArrayCheckbox field={medicalServices} value={_medicalChoice}/>
+                    {_medicalChoice}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={classes.inputs + "hide-on-tablet"}>
+            {MEDICAL_CHOICES.map(_medicalChoice => (
+              <div className={classes.toggleInputGroup}>
+                <label>
+                  <ArrayCheckbox field={medicalServices} value={_medicalChoice}/>
+                  {_medicalChoice}
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       <div className={classes.support + " " + classes.section}>
         <div className={classes.inputGroup}>
           <label>What support services would you like today?</label>
-            <div className={classes.inputColumns}>
-              <div className={classes.inputs + " " + classes.inputColumn}>
-                {SUPPORT_CHOICES.filter((e, i) => i % 2 === 0).map(_supportChoice => (
-                  <div className={classes.toggleInputGroup}>
-                    <label>
-                      <ArrayCheckbox field={supportServices} value={_supportChoice}/>
-                      {_supportChoice}
-                    </label>
-                  </div>
-                ))}
-              </div>
-              <div className={classes.inputs + " " + classes.inputColumn}>
-                {SUPPORT_CHOICES.filter((e, i) => i % 2 === 1).map(_supportChoice => (
-                  <div className={classes.toggleInputGroup}>
-                    <label>
-                      <ArrayCheckbox field={supportServices} value={_supportChoice}/>
-                      {_supportChoice}
-                    </label>
-                  </div>
-                ))}
-              </div>
+          <div className={classes.inputColumns + " hide-on-phone"}>
+            <div className={classes.inputs + " " + classes.inputColumn}>
+              {SUPPORT_CHOICES.filter((e, i) => i % 2 === 0).map(_supportChoice => (
+                <div className={classes.toggleInputGroup}>
+                  <label>
+                    <ArrayCheckbox field={supportServices} value={_supportChoice} />
+                    {_supportChoice}
+                  </label>
+                </div>
+              ))}
             </div>
+            <div className={classes.inputs + " " + classes.inputColumn}>
+              {SUPPORT_CHOICES.filter((e, i) => i % 2 === 1).map(_supportChoice => (
+                <div className={classes.toggleInputGroup}>
+                  <label>
+                    <ArrayCheckbox field={supportServices} value={_supportChoice} />
+                    {_supportChoice}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={classes.inputs + " hide-on-tablet"}>
+            {SUPPORT_CHOICES.map(_supportChoice => (
+              <div className={classes.toggleInputGroup}>
+                <label>
+                  <ArrayCheckbox field={supportServices} value={_supportChoice} />
+                  {_supportChoice}
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <button type="submit" disabled={submitting}>
-        {submitting ? <i/> : <i/>} Continue
-      </button>
-      <button type="button" disabled={submitting} onClick={_onClear}>
-        Clear Values
-      </button>
+      <div className={classes.footer}>
+        <button
+          className="button button--large button--success"
+          type="submit"
+          disabled={submitting}
+        >
+          {submitting ? <i/> : <i/>} Continue
+        </button>
+        <button
+          className="button button--large button--default-inverted"
+          type="button"
+          disabled={submitting}
+          onClick={_onClear}
+        >
+          Clear Values
+        </button>
+      </div>
     </form>
   )
 }

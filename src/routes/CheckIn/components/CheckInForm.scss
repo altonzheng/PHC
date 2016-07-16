@@ -1,9 +1,5 @@
 @import '../../../styles/base';
 
-.form {
-
-}
-
 .inputGroup {
   text-align: left;
 }
@@ -16,13 +12,7 @@
   lost-column: 1;
 }
 
-.inputs {
-
-}
-
 .horizontalInputs {
-  // TODO: uncomment below line if we ever add styling to `.inputs`
-  // compose: inputs
   .toggleInputGroup {
     display: inline-block;
     margin-right: 20px;
@@ -39,8 +29,17 @@
   }
 }
 
-.header {
+.footer {
+  display: flex;
+  justify-content: center;
 
+  button {
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
 .section {

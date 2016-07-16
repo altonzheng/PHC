@@ -1,0 +1,57 @@
+.button {
+  box-shadow: none;
+  border: none;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button--large {
+  width: 120px;
+  height: 50px;
+}
+
+.button--default {
+  background-color: $grey-darker;
+  color: $white;
+}
+
+.button--success {
+  background-color: $green;
+  color: $white;
+}
+
+.button--danger {
+  background-color: $red;
+  color: $white;
+}
+
+.button--info {
+  background-color: $blue;
+  color: $white;
+}
+
+.button--default-inverted {
+  border: 1px solid $grey-darker;
+  background-color: $white;
+  color: $grey-darker;
+}
+
+.button--success-inverted {
+  border: 1px solid $green;
+  background-color: $white;
+  color: $green;
+}
+
+.button--danger-inverted {
+  border: 1px solid $red;
+  background-color: $white;
+  color: $red;
+}
+
+.button--info-inverted {
+  border: 1px solid $blue;
+  background-color: $white;
+  color: $blue;
+}

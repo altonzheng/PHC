@@ -1,0 +1,15 @@
+.hide-on-phone {
+  display: none;
+
+  @include breakpoint(tablet) {
+    display: block;
+  }
+}
+
+.hide-on-tablet {
+  display: block;
+
+  @include breakpoint(tablet) {
+    display: none;
+  }
+}
