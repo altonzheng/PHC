@@ -418,7 +418,7 @@ export const CheckInForm = (props) => {
           type="submit"
           disabled={submitting}
         >
-          {submitting ? <i/> : <i/>} Continue
+          {submitting ? <i/> : <i/>} Submit
         </button>
         <button
           className="button button--large button--default-inverted"
