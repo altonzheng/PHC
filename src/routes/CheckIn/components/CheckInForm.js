@@ -341,7 +341,7 @@ export const CheckInForm = (props) => {
       </div>
 
       <button type="submit" disabled={submitting}>
-        {submitting ? <i/> : <i/>} Submit
+        {submitting ? <i/> : <i/>} Continue 
       </button>
       <button type="button" disabled={submitting} onClick={_onClear}>
         Clear Values
