@@ -9,6 +9,8 @@ export const CLEAR_PRIMARY_INFO = 'CLEAR_PRIMARY_INFO'
 // ------------------------------------
 // Actions
 // ------------------------------------
+
+// TODO: Change this from Primary Info to just Info or something
 export function requestUpdatePrimaryInfo () {
   return {
     type: UPDATE_PRIMARY_INFO,

@@ -8,6 +8,9 @@ import {
 } from '../constants/check-in';
 import classes from './CheckInForm.scss'
 
+// TODO: Space single-columns out on mobile, looks weird.
+// TODO: make sure inputs have a box around them, hard to see otherwise.
+
 export const CheckInForm = (props) => {
   let {
     fields: {
