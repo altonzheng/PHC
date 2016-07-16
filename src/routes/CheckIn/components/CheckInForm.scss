@@ -1,6 +1,8 @@
 @import '../../../styles/base';
 
 .inputGroup {
+  display: flex;
+  flex-flow: column;
   text-align: left;
 }
 

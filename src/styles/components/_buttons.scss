@@ -15,43 +15,51 @@
 .button--default {
   background-color: $grey-darker;
   color: $white;
+  font-weight: $weight-regular;
 }
 
 .button--success {
   background-color: $green;
   color: $white;
+  font-weight: $weight-regular;
 }
 
 .button--danger {
   background-color: $red;
   color: $white;
+  font-weight: $weight-regular;
 }
 
 .button--info {
   background-color: $blue;
   color: $white;
+  font-weight: $weight-regular;
 }
 
 .button--default-inverted {
   border: 1px solid $grey-darker;
   background-color: $white;
+  font-weight: $weight-light;
   color: $grey-darker;
 }
 
 .button--success-inverted {
   border: 1px solid $green;
   background-color: $white;
+  font-weight: $weight-light;
   color: $green;
 }
 
 .button--danger-inverted {
   border: 1px solid $red;
   background-color: $white;
+  font-weight: $weight-light;
   color: $red;
 }
 
 .button--info-inverted {
   border: 1px solid $blue;
   background-color: $white;
+  font-weight: $weight-light;
   color: $blue;
 }

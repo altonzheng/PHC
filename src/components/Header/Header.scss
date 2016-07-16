@@ -1,5 +1,9 @@
+@import '../../styles/base';
+
 .heading {
   margin: 0;
   margin-top: 20px;
   padding: 20px;
+  color: $black-dark;
+  font-weight: $weight-medium;
 }
