@@ -1,24 +1,15 @@
 import React, { PropTypes } from 'react'
+import ArrayCheckbox from '../../../components/ArrayCheckbox';
+import {
+  LANGUAGE_CHOICES,
+  ETHNICITY_CHOICES,
+  MEDICAL_CHOICES,
+  SUPPORT_CHOICES,
+} from '../constants/check-in';
 import classes from './CheckInForm.scss'
 
-const ETHNICITY_CHOICES = [
-  'African American',
-  'Asian / Pacific Islander',
-  'Caucasian',
-  'Latino',
-  'Native American',
-]
-
-const LANGUAGE_CHOICES = [
-  'English',
-  'Cantonese / Mandarin',
-  'Russian',
-  'Spanish',
-  'Vietnamese',
-]
-
 export const CheckInForm = (props) => {
-  const {
+  let {
     fields: {
       firstName,
       lastName,
@@ -45,11 +36,18 @@ export const CheckInForm = (props) => {
 
       isHomeless,
       lengthOfHomelessness,
+
+      medicalServices,
+      supportServices,
     },
     resetForm,
     handleSubmit,
     submitting,
   } = props
+
+  // initialize array fields to empty arrays
+  medicalServices.value = medicalServices.value || [];
+  supportServices.value = supportServices.value || [];
 
   const _onSubmit = () => {
     const fields = props.fields
@@ -63,9 +61,7 @@ export const CheckInForm = (props) => {
       // deal with checkboxes, and checkbox-like inputs differently
       if (fields[field].checked !== undefined) {
         newFields[field] = fields[field].checked
-
-      // don't update value if it hasn't been touched, that's useless
-      } else if (fields[field].dirty && fields[field].value) {
+      } else {
         newFields[field] = fields[field].value
       }
 
@@ -332,7 +328,7 @@ export const CheckInForm = (props) => {
 
         {
           /* only show the duration if ``isHomeless`` */
-          isHomeless.value &&
+          isHomeless.value === "true" &&
             <div className={classes.inputGroup}>
               <label>How long have you been homeless for?</label>
               <input type="text" {...lengthOfHomelessness} />
@@ -340,8 +336,64 @@ export const CheckInForm = (props) => {
         }
       </div>
 
+      <div className={classes.medical + " " + classes.section}>
+        <div className={classes.inputGroup}>
+          <label>What medical services would you like today?</label>
+            <div className={classes.inputColumns}>
+              <div className={classes.inputs + " " + classes.inputColumn}>
+                {MEDICAL_CHOICES.filter((e, i) => i % 2 === 0).map(_medicalChoice => (
+                  <div className={classes.toggleInputGroup}>
+                    <label>
+                      <ArrayCheckbox field={medicalServices} value={_medicalChoice}/>
+                      {_medicalChoice}
+                    </label>
+                  </div>
+                ))}
+              </div>
+              <div className={classes.inputs + " " + classes.inputColumn}>
+                {MEDICAL_CHOICES.filter((e, i) => i % 2 === 1).map(_medicalChoice => (
+                  <div className={classes.toggleInputGroup}>
+                    <label>
+                      <ArrayCheckbox field={medicalServices} value={_medicalChoice}/>
+                      {_medicalChoice}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div className={classes.support + " " + classes.section}>
+        <div className={classes.inputGroup}>
+          <label>What support services would you like today?</label>
+            <div className={classes.inputColumns}>
+              <div className={classes.inputs + " " + classes.inputColumn}>
+                {SUPPORT_CHOICES.filter((e, i) => i % 2 === 0).map(_supportChoice => (
+                  <div className={classes.toggleInputGroup}>
+                    <label>
+                      <ArrayCheckbox field={supportServices} value={_supportChoice}/>
+                      {_supportChoice}
+                    </label>
+                  </div>
+                ))}
+              </div>
+              <div className={classes.inputs + " " + classes.inputColumn}>
+                {SUPPORT_CHOICES.filter((e, i) => i % 2 === 1).map(_supportChoice => (
+                  <div className={classes.toggleInputGroup}>
+                    <label>
+                      <ArrayCheckbox field={supportServices} value={_supportChoice}/>
+                      {_supportChoice}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+        </div>
+      </div>
+
       <button type="submit" disabled={submitting}>
-        {submitting ? <i/> : <i/>} Continue 
+        {submitting ? <i/> : <i/>} Continue
       </button>
       <button type="button" disabled={submitting} onClick={_onClear}>
         Clear Values

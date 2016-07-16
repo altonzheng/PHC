@@ -29,6 +29,9 @@ const fields = [
 
   'isHomeless',
   'lengthOfHomelessness',
+
+  'medicalServices',
+  'supportServices',
 ]
 
 const validate = (values) => {

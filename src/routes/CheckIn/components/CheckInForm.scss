@@ -8,6 +8,14 @@
   text-align: left;
 }
 
+.inputColumns {
+  lost-utility: clearfix;
+}
+
+.inputColumn {
+  lost-column: 1;
+}
+
 .inputs {
 
 }
@@ -90,6 +98,30 @@
 
 .homeless {
   .inputGroup {
+    lost-column: 1;
+
+    @include breakpoint(tablet) {
+      & {
+        lost-column: 1/2;
+      }
+    }
+  }
+}
+
+.medical {
+  .inputColumn {
+    lost-column: 1;
+
+    @include breakpoint(tablet) {
+      & {
+        lost-column: 1/2;
+      }
+    }
+  }
+}
+
+.support {
+  .inputColumn {
     lost-column: 1;
 
     @include breakpoint(tablet) {
