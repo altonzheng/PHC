@@ -1,5 +1,13 @@
 @import '../../../styles/base';
 
+$label-spacing: 6px;
+$input-spacing: 4px;
+$section-spacing: 30px;
+
+label {
+  margin-bottom: $label-spacing;
+}
+
 .inputGroup {
   display: flex;
   flex-flow: column;
@@ -15,6 +23,7 @@
 }
 
 .horizontalInputs {
+  margin-bottom: $input-spacing;
   .toggleInputGroup {
     display: inline-block;
     margin-right: 20px;
@@ -26,9 +35,22 @@
 }
 
 .toggleInputGroup {
+  margin-bottom: $input-spacing;
   input {
     margin-right: 5px;
   }
+}
+
+.textInput {
+  border: 1px solid $grey-medium;
+  border-radius: 3px;
+  padding: 6px;
+}
+
+.otherTextInput {
+  @extend .textInput;
+
+  margin-left: 5px;
 }
 
 .footer {
@@ -46,8 +68,7 @@
 
 .section {
   lost-utility: clearfix;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: $section-spacing;
 
   &:first-child, &:last-child {
     margin-top: 0;
@@ -58,6 +79,7 @@
 .basic {
   .inputGroup {
     lost-column: 1/2;
+    margin-bottom: 12px;
 
     @include breakpoint(tablet) {
       & {
@@ -76,10 +98,16 @@
 .ethnicity {
   .inputGroup {
     lost-column: 1;
+    margin-bottom: $section-spacing;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     @include breakpoint(tablet) {
       & {
         lost-column: 1/2;
+        margin-bottom: 0;
       }
     }
   }
@@ -88,10 +116,16 @@
 .background {
   .inputGroup {
     lost-column: 1;
+    margin-bottom: $section-spacing;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     @include breakpoint(tablet) {
       & {
         lost-column: 1/2;
+        margin-bottom: 0;
       }
     }
   }
