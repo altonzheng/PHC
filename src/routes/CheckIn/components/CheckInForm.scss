@@ -2,6 +2,7 @@
 
 $label-spacing: 6px;
 $input-spacing: 4px;
+$section-spacing: 30px;
 
 label {
   margin-bottom: $label-spacing;
@@ -46,6 +47,12 @@ label {
   padding: 6px;
 }
 
+.otherTextInput {
+  @extend .textInput;
+
+  margin-left: 5px;
+}
+
 .footer {
   display: flex;
   justify-content: center;
@@ -61,8 +68,7 @@ label {
 
 .section {
   lost-utility: clearfix;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: $section-spacing;
 
   &:first-child, &:last-child {
     margin-top: 0;
@@ -92,10 +98,16 @@ label {
 .ethnicity {
   .inputGroup {
     lost-column: 1;
+    margin-bottom: $section-spacing;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     @include breakpoint(tablet) {
       & {
         lost-column: 1/2;
+        margin-bottom: 0;
       }
     }
   }
@@ -104,10 +116,16 @@ label {
 .background {
   .inputGroup {
     lost-column: 1;
+    margin-bottom: $section-spacing;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     @include breakpoint(tablet) {
       & {
         lost-column: 1/2;
+        margin-bottom: 0;
       }
     }
   }

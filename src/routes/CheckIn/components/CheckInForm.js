@@ -176,6 +176,7 @@ export const CheckInForm = (props) => {
               <label>
                 Other
                 <input
+                  className={classes.otherTextInput}
                   type="text"
                   {...ethnicityOther}
                   onChange={(value) => ethnicityOther.onChange(value) && ethnicity.onChange(value)}
@@ -209,6 +210,7 @@ export const CheckInForm = (props) => {
               <label>
                 Other
                 <input
+                  className={classes.otherTextInput}
                   type="text"
                   {...languageOther}
                   onChange={(value) => languageOther.onChange(value) && language.onChange(value)}
