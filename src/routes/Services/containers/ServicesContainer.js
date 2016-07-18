@@ -1,6 +1,6 @@
 import { reduxForm } from 'redux-form'
 
-import Services from 'components/Services'
+import Services from '../components/Services'
 
 const fields = ['code']
 
