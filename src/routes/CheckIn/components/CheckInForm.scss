@@ -1,5 +1,12 @@
 @import '../../../styles/base';
 
+$label-spacing: 6px;
+$input-spacing: 4px;
+
+label {
+  margin-bottom: $label-spacing;
+}
+
 .inputGroup {
   display: flex;
   flex-flow: column;
@@ -15,6 +22,7 @@
 }
 
 .horizontalInputs {
+  margin-bottom: $input-spacing;
   .toggleInputGroup {
     display: inline-block;
     margin-right: 20px;
@@ -26,9 +34,16 @@
 }
 
 .toggleInputGroup {
+  margin-bottom: $input-spacing;
   input {
     margin-right: 5px;
   }
+}
+
+.textInput {
+  border: 1px solid $grey-medium;
+  border-radius: 3px;
+  padding: 6px;
 }
 
 .footer {
@@ -58,6 +73,7 @@
 .basic {
   .inputGroup {
     lost-column: 1/2;
+    margin-bottom: 12px;
 
     @include breakpoint(tablet) {
       & {

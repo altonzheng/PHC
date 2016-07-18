@@ -75,37 +75,37 @@ export const CheckInForm = (props) => {
       <div className={classes.basic + " " + classes.section}>
         <div className={classes.inputGroup}>
           <label>First Name</label>
-          <input type="text" placeholder="First Name" {...firstName} />
+          <input className={classes.textInput} type="text" {...firstName} />
           {firstName.touched && firstName.error && <div>{firstName.error}</div>}
         </div>
 
         <div className={classes.inputGroup}>
           <label>Last Name</label>
-          <input type="text" placeholder="Last Name" {...lastName} />
+          <input className={classes.textInput} type="text" {...lastName} />
           {lastName.touched && lastName.error && <div>{lastName.error}</div>}
         </div>
 
         <div className={classes.inputGroup}>
           <label>SSN</label>
-          <input type="phone" placeholder="xxx-xx-xxxx" {...socialSecurityNumber} />
+          <input className={classes.textInput} type="phone" {...socialSecurityNumber} />
           {socialSecurityNumber.touched && socialSecurityNumber.error && <div>{socialSecurityNumber.error}</div>}
         </div>
 
         <div className={classes.inputGroup}>
           <label>Date of Birth</label>
-          <input type="text" placeholder="xx-xx-xxxx" {...dateOfBirth} />
+          <input className={classes.textInput} type="text" {...dateOfBirth} />
           {dateOfBirth.touched && dateOfBirth.error && <div>{dateOfBirth.error}</div>}
         </div>
 
         <div className={classes.inputGroup}>
           <label>Phone</label>
-          <input type="text" placeholder="xxx-xxx-xxxx" {...phoneNumber} />
+          <input className={classes.textInput} type="text" {...phoneNumber} />
           {phoneNumber.touched && phoneNumber.error && <div>{phoneNumber.error}</div>}
         </div>
 
         <div className={classes.inputGroup}>
           <label>Email Address</label>
-          <input type="email" placeholder="johndoe@google.com" {...emailAddress} />
+          <input className={classes.textInput} type="email" {...emailAddress} />
           {emailAddress.touched && emailAddress.error && <div>{emailAddress.error}</div>}
         </div>
       </div>
@@ -283,7 +283,7 @@ export const CheckInForm = (props) => {
       <div className={classes.section}>
         <div className={classes.inputGroup}>
           <label>Where do you usually go for healthcare when you are not feeling well?</label>
-          <input type="text" {...primaryHealthcareLocation} />
+          <input className={classes.textInput} type="text" {...primaryHealthcareLocation} />
           {primaryHealthcareLocation.touched && primaryHealthcareLocation.error && <div>{primaryHealthcareLocation.error}</div>}
         </div>
       </div>
@@ -323,7 +323,7 @@ export const CheckInForm = (props) => {
           isHomeless.value === "true" &&
             <div className={classes.inputGroup}>
               <label>How long have you been homeless for?</label>
-              <input type="text" {...lengthOfHomelessness} />
+              <input className={classes.textInput} type="text" {...lengthOfHomelessness} />
             </div>
         }
       </div>
@@ -353,7 +353,7 @@ export const CheckInForm = (props) => {
               ))}
             </div>
           </div>
-          <div className={classes.inputs + "hide-on-tablet"}>
+          <div className={classes.inputs + " hide-on-tablet"}>
             {MEDICAL_CHOICES.map(_medicalChoice => (
               <div className={classes.toggleInputGroup}>
                 <label>
