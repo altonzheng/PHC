@@ -3,6 +3,7 @@ import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import Home from './Home'
 import CheckInRoute from './CheckIn'
 import ServicesRoute from './Services'
+import AccountRoute from './Account'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -14,6 +15,7 @@ export const createRoutes = (store) => ({
   childRoutes: [
     CheckInRoute(store),
     ServicesRoute(store),
+    AccountRoute(store)
   ]
 })
 

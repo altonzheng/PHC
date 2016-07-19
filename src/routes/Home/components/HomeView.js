@@ -13,6 +13,10 @@ export const HomeView = () => (
     <Link to='/services'>
       Services
     </Link>
+    {' · '}
+    <Link to='/account'>
+      Accounts
+    </Link>
   </div>
 )
 
