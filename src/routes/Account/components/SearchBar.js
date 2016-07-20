@@ -17,7 +17,10 @@ class SearchBar extends React.Component {
   }
 
   getSuggestions(value) {
-    const f = new Fuse(this.props.accounts, { keys: ["FirstName", "LastName"] })
+    const f = new Fuse(this.props.accounts, {
+      keys: ["FirstName", "LastName"],
+      threshold: 0.3
+    })
     return f.search(value);
   }
 
