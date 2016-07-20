@@ -8,7 +8,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => ({
-  accounts: state.account.accounts
+  accounts: state.account.accounts,
+  fetching: state.account.fetching
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Account)

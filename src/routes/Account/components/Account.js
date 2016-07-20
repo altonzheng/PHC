@@ -1,10 +1,13 @@
 import React from 'react'
+import SearchBar from './SearchBar'
 import classes from './Account.scss'
 
 export const Account = (props) => (
   <div>
-    <button className='btn btn-default' onClick={props.fetchAccounts}>
-      Fetch Accounts!
+    <SearchBar {...props}/>
+
+    <button className='btn btn-default' onClick={props.fetchAccounts} disabled={props.fetching} >
+      { props.fetching ? "Loading..." : "Load Salesforce Accounts" }
     </button>
       <div>
         {
