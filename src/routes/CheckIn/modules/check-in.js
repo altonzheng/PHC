@@ -1,9 +1,9 @@
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const UPDATE_PRIMARY_INFO = 'UPDATE_PRIMARY_INFO'
-export const UPDATE_PRIMARY_INFO_SUCCESS = 'UPDATE_PRIMARY_INFO_SUCCESS';
-export const UPDATE_PRIMARY_INFO_FAILURE = 'UPDATE_PRIMARY_INFO_FAILURE';
+export const UPDATE_INFO_REQUEST = 'UPDATE_INFO_REQUEST'
+export const UPDATE_INFO_SUCCESS = 'UPDATE_INFO_SUCCESS';
+export const UPDATE_INFO_FAILURE = 'UPDATE_INFO_FAILURE';
 export const CLEAR_PRIMARY_INFO = 'CLEAR_PRIMARY_INFO'
 
 // ------------------------------------
@@ -11,50 +11,50 @@ export const CLEAR_PRIMARY_INFO = 'CLEAR_PRIMARY_INFO'
 // ------------------------------------
 
 // TODO: Change this from Primary Info to just Info or something
-export function requestUpdatePrimaryInfo () {
+export function updateInfoRequest () {
   return {
-    type: UPDATE_PRIMARY_INFO,
+    type: UPDATE_INFO_REQUEST,
   }
 }
 
-export function updatePrimaryInfoSuccess (fields) {
+export function updateInfoSuccess (fields) {
   return {
-    type: UPDATE_PRIMARY_INFO_SUCCESS,
+    type: UPDATE_INFO_SUCCESS,
     payload: fields,
   }
 }
 
-export function updatePrimaryInfoFailure () {
+export function updateInfoFailure () {
   return {
-    type: UPDATE_PRIMARY_INFO_FAILURE,
+    type: UPDATE_INFO_FAILURE,
   }
 }
 
-export function clearPrimaryInfo () {
+export function clearInfo () {
   return {
     type: CLEAR_PRIMARY_INFO,
     payload: null,
   }
 }
 
-export function updatePrimaryInfo (fields) {
+export function updateInfo (fields) {
   return (dispatch) => {
-    dispatch(requestUpdatePrimaryInfo())
+    dispatch(updateInfoRequest())
 
     // TODO: Replace this with actual fetch request to server.
     return new Promise((resolve, reject) => {
         window.setTimeout(() => resolve(), 2000)
       }).then(() => {
-        dispatch(updatePrimaryInfoSuccess(fields));
+        dispatch(updateInfoSuccess(fields));
       }).catch(() => {
-        dispatch(updatePrimaryInfoFailure());
+        dispatch(updateInfoFailure());
       })
   }
 }
 
 export const actions = {
-  updatePrimaryInfo,
-  clearPrimaryInfo,
+  updateInfo,
+  clearInfo,
 }
 
 // ------------------------------------
@@ -64,7 +64,7 @@ export const actions = {
 // TODO: Make sure that on network fail, we don't lose all our form data.
 // TODO: On network fail, store form state and batch for later submission.
 const ACTION_HANDLERS = {
-  [UPDATE_PRIMARY_INFO_SUCCESS]: (state, action) => {
+  [UPDATE_INFO_SUCCESS]: (state, action) => {
     const fields = action.payload
 
     return Object.assign({}, state, {

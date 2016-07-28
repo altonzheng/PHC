@@ -19,13 +19,31 @@ const paths = config.utils_paths
 const app = new Koa()
 const router = new Router({ prefix: '/api' })
 
+// basic error logging
+app.on('error', (err, ctx) => {
+  console.log(err)
+  console.log(ctx)
+})
+
 // Enable koa-proxy if it has been enabled in the config.
 if (config.proxy && config.proxy.enabled) {
   app.use(convert(proxy(config.proxy.options)))
 }
 
-loadRoutes(router);
+// use json
 app.use(json());
+
+// log all requests
+app.use((ctx, next) => {
+  const start = new Date()
+  return next().then(_ => {
+    const ms = new Date() - start
+    console.log('%s %s - %s ms', ctx.method, ctx.url, ms)
+  })
+})
+
+// use router for api
+loadRoutes(router);
 app.use(router.routes());
 app.use(router.allowedMethods());
 

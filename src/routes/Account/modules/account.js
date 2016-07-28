@@ -3,64 +3,56 @@
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const REQUEST_ACCOUNTS = 'REQUEST_ACCOUNTS'
-export const REQUEST_ACCOUNTS_SUCCESS = 'REQUEST_ACCOUNTS_SUCCESS'
-export const REQUEST_ACCOUNTS_FAILURE = 'REQUEST_ACCOUNTS_FAILURE'
+export const FETCH_ACCOUNTS_REQUEST = 'FETCH_ACCOUNTS_REQUEST'
+export const FETCH_ACCOUNTS_SUCCESS = 'FETCH_ACCOUNTS_SUCCESS'
+export const FETCH_ACCOUNTS_FAILURE = 'FETCH_ACCOUNTS_FAILURE'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function requestAccounts() {
+export function fetchAccountsRequest() {
   return {
-    type: REQUEST_ACCOUNTS
+    type: FETCH_ACCOUNTS_REQUEST,
   }
 }
 
-export function requestAccountsSuccess(value) {
+export function fetchAccountsSuccess(value) {
   return {
-    type: REQUEST_ACCOUNTS_SUCCESS,
+    type: FETCH_ACCOUNTS_SUCCESS,
     payload: value
   }
 }
 
-export function requestAccountsFailure(error) {
+export function fetchAccountsFailure(error) {
   return {
-    type: REQUEST_ACCOUNTS_FAILURE,
+    type: FETCH_ACCOUNTS_FAILURE,
     error: error
   }
 }
 
 export const fetchAccounts = (): Function => {
   return (dispatch: Function): Promise => {
-    dispatch(requestAccounts());
+    dispatch(fetchAccountsRequest())
 
     return fetch('/api/accounts')
       .then(data => data.text())
-      .then(text => {
-        try {
-          dispatch(requestAccountsSuccess(JSON.parse(text).records));
-        } catch(err) {
-          dispatch(requestAccountsFailure(err));
-        }
-      })
+      .then(text => dispatch(fetchAccountsSuccess(JSON.parse(text).records)))
+      .catch(err => dispatch(fetchAccountsFailure(err)))
   }
 }
 
 export const actions = {
-  requestAccounts,
-  requestAccountsSuccess,
-  requestAccountsFailure,
   fetchAccounts
 }
 
 const ACCOUNT_ACTION_HANDLERS = {
-  [REQUEST_ACCOUNTS]: (state) => {
+  [FETCH_ACCOUNTS_REQUEST]: (state) => {
     return ({...state, accounts: [], fetching: true})
   },
-  [REQUEST_ACCOUNTS_SUCCESS]: (state, action) => {
+  [FETCH_ACCOUNTS_SUCCESS]: (state, action) => {
     return ({...state, accounts: action.payload, fetching: false})
   },
-  [REQUEST_ACCOUNTS_FAILURE]: (state, action) => {
+  [FETCH_ACCOUNTS_FAILURE]: (state, action) => {
     return ({...state, error: action.error, fetching: false})
   }
 }

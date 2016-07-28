@@ -56,11 +56,11 @@ export const CheckInForm = (props) => {
 
     }
 
-    props.updatePrimaryInfo(newFields)
+    props.updateInfo(newFields)
   }
 
   const _onClear = () => {
-    props.clearPrimaryInfo()
+    props.clearInfo()
     resetForm()
   }
 
@@ -429,8 +429,8 @@ CheckInForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
-  updatePrimaryInfo: PropTypes.func.isRequired,
-  clearPrimaryInfo: PropTypes.func.isRequired,
+  updateInfo: PropTypes.func.isRequired,
+  clearInfo: PropTypes.func.isRequired,
 }
 
 export default CheckInForm
