@@ -36,17 +36,25 @@ const fields = [
 
 const validate = (values) => {
   const errors = {}
-  // if (!values.firstName) {
-  //   errors.firstName = 'Required'
-  // }
-  //
-  // if (!values.lastName) {
-  //   errors.lastName = 'Required'
-  // }
-  //
-  // if (!values.dateOfBirth) {
-  //   errors.dateOfBirth = 'Required'
-  // }
+  if (!values.firstName) {
+    errors.firstName = 'Required'
+  }
+
+  if (!values.lastName) {
+    errors.lastName = 'Required'
+  }
+
+  if (!values.socialSecurityNumber) {
+    errors.socialSecurityNumber = 'Required'
+  } else if (values.socialSecurityNumber.length < 11) {
+    errors.socialSecurityNumber = 'Incomplete'
+  }
+
+  if (!values.phoneNumber) {
+    errors.phoneNumber = 'Required'
+  } else if (values.phoneNumber.length < 14) {
+    errors.phoneNumber = 'Incomplete'
+  }
 
   return errors
 }
