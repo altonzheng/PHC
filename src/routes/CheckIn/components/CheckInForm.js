@@ -164,7 +164,7 @@ export const CheckInForm = (props) => {
             ))}
 
             <div>
-              <label>
+              <label className={classes.otherInput}>
                 Other
                 <input
                   className={classes.otherTextInput}
@@ -198,7 +198,7 @@ export const CheckInForm = (props) => {
             ))}
 
             <div>
-              <label>
+              <label className={classes.otherInput}>
                 Other
                 <input
                   className={classes.otherTextInput}
@@ -215,7 +215,7 @@ export const CheckInForm = (props) => {
 
       <div className={classes.background + " " + classes.section}>
         <div className={classes.inputGroup}>
-          <label>Have you ever been in foster care?</label>
+          <label className={classes.fieldName}>Have you ever been in foster care?</label>
           <div className={classes.horizontalInputs}>
             <div className={classes.toggleInputGroup}>
               <label>
@@ -244,7 +244,7 @@ export const CheckInForm = (props) => {
         </div>
 
         <div className={classes.inputGroup}>
-          <label>Have you ever served in the military?</label>
+          <label className={classes.fieldName}>Have you ever served in the military?</label>
           <div className={classes.horizontalInputs}>
             <div className={classes.toggleInputGroup}>
               <label>
@@ -275,7 +275,7 @@ export const CheckInForm = (props) => {
 
       <div className={classes.section}>
         <div className={classes.inputGroup}>
-          <label>Where do you usually go for healthcare when you are not feeling well?</label>
+          <label className={classes.fieldName}>Where do you usually go for healthcare when you are not feeling well?</label>
           <input className={classes.textInput} type="text" {...primaryHealthcareLocation} />
           {primaryHealthcareLocation.touched && primaryHealthcareLocation.error && <span className={classes.errorMessage}>{primaryHealthcareLocation.error}</span>}
         </div>
@@ -283,7 +283,7 @@ export const CheckInForm = (props) => {
 
       <div className={classes.homeless + " " + classes.section}>
         <div className={classes.inputGroup}>
-          <label>Are you currently homeless?</label>
+          <label className={classes.fieldName}>Are you currently homeless?</label>
           <div className={classes.horizontalInputs}>
             <div className={classes.toggleInputGroup}>
               <label>
@@ -315,7 +315,7 @@ export const CheckInForm = (props) => {
           /* only show the duration if ``isHomeless`` */
           isHomeless.value === "true" &&
             <div className={classes.inputGroup}>
-              <label>How long have you been homeless for?</label>
+              <label className={classes.fieldName}>How long have you been homeless for?</label>
               <input className={classes.textInput} type="text" {...lengthOfHomelessness} />
             </div>
         }
@@ -323,9 +323,9 @@ export const CheckInForm = (props) => {
 
       <div className={classes.medical + " " + classes.section}>
         <div className={classes.inputGroup}>
-          <label>What medical services would you like today?</label>
-          <div className={classes.inputColumns + " hide-on-phone"}>
-            <div className={classes.inputs + " " + classes.inputColumn}>
+          <label className={classes.fieldName}>What medical services would you like today?</label>
+          <div className={classes.inputColumns + " " + classes["hide-on-phone"]}>
+            <div className={classes.inputColumn}>
               {MEDICAL_CHOICES.filter((e, i) => i % 2 === 0).map(_medicalChoice => (
                 <div className={classes.toggleInputGroup}>
                   <label>
@@ -335,7 +335,7 @@ export const CheckInForm = (props) => {
                 </div>
               ))}
             </div>
-            <div className={classes.inputs + " " + classes.inputColumn}>
+            <div className={classes.inputColumn}>
               {MEDICAL_CHOICES.filter((e, i) => i % 2 === 1).map(_medicalChoice => (
                 <div className={classes.toggleInputGroup}>
                   <label>
@@ -346,7 +346,7 @@ export const CheckInForm = (props) => {
               ))}
             </div>
           </div>
-          <div className={classes.inputs + " hide-on-tablet"}>
+          <div className={classes["hide-on-tablet"]}>
             {MEDICAL_CHOICES.map(_medicalChoice => (
               <div className={classes.toggleInputGroup}>
                 <label>
@@ -361,9 +361,9 @@ export const CheckInForm = (props) => {
 
       <div className={classes.support + " " + classes.section}>
         <div className={classes.inputGroup}>
-          <label>What support services would you like today?</label>
-          <div className={classes.inputColumns + " hide-on-phone"}>
-            <div className={classes.inputs + " " + classes.inputColumn}>
+          <label className={classes.fieldName}>What support services would you like today?</label>
+          <div className={classes.inputColumns + " " + classes["hide-on-phone"]}>
+            <div className={classes.inputColumn}>
               {SUPPORT_CHOICES.filter((e, i) => i % 2 === 0).map(_supportChoice => (
                 <div className={classes.toggleInputGroup}>
                   <label>
@@ -373,7 +373,7 @@ export const CheckInForm = (props) => {
                 </div>
               ))}
             </div>
-            <div className={classes.inputs + " " + classes.inputColumn}>
+            <div className={classes.inputColumn}>
               {SUPPORT_CHOICES.filter((e, i) => i % 2 === 1).map(_supportChoice => (
                 <div className={classes.toggleInputGroup}>
                   <label>
@@ -384,7 +384,7 @@ export const CheckInForm = (props) => {
               ))}
             </div>
           </div>
-          <div className={classes.inputs + " hide-on-tablet"}>
+          <div className={classes["hide-on-tablet"]}>
             {SUPPORT_CHOICES.map(_supportChoice => (
               <div className={classes.toggleInputGroup}>
                 <label>
