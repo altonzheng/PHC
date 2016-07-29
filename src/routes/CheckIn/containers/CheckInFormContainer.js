@@ -2,6 +2,7 @@ import { reduxForm } from 'redux-form'
 
 import CheckInForm from '../components/CheckInForm'
 import { updateInfo, clearInfo } from '../modules/check-in'
+import { validEmailRegex } from '../../../utils/regex'
 
 const fields = [
   'firstName',
@@ -44,16 +45,21 @@ const validate = (values) => {
     errors.lastName = 'Required'
   }
 
-  if (!values.socialSecurityNumber) {
-    errors.socialSecurityNumber = 'Required'
-  } else if (values.socialSecurityNumber.length < 11) {
+  // TODO: Not currently enforced in the Android PHC app, but should we enforce?
+  if (!values.dateOfBirth) {
+    errors.dateOfBirth = 'Required'
+  }
+
+  if (values.socialSecurityNumber && values.socialSecurityNumber.length < 11) {
     errors.socialSecurityNumber = 'Incomplete'
   }
 
-  if (!values.phoneNumber) {
-    errors.phoneNumber = 'Required'
-  } else if (values.phoneNumber.length < 14) {
+  if (values.phoneNumber && values.phoneNumber.length < 14) {
     errors.phoneNumber = 'Incomplete'
+  }
+
+  if (values.emailAddress && !validEmailRegex.test(values.emailAddress)) {
+    errors.emailAddress = 'Invalid'
   }
 
   return errors
