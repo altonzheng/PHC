@@ -1,5 +1,8 @@
 $white: #FFFFFF;
+
 $red: #D64541;  // Taken from Android repo, which presumably is from the PHC logo
+$red-dark: darken($red, 10%);
+
 $blue: #59ABE3;
 $green: #53C043;
 $green-lighter: #87D37C;

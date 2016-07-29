@@ -71,45 +71,39 @@ export const CheckInForm = (props) => {
 
       <div className={classes.basic + " " + classes.section}>
         <div className={classes.inputGroup}>
-          <label>First Name</label>
+          <label className={classes.fieldName}>First Name {firstName.touched && firstName.error && <span className={classes.errorMessage}>{firstName.error}</span>}</label>
           <input className={classes.textInput} type="text" {...firstName} />
-          {firstName.touched && firstName.error && <div>{firstName.error}</div>}
         </div>
 
         <div className={classes.inputGroup}>
-          <label>Last Name</label>
+          <label className={classes.fieldName}>Last Name {lastName.touched && lastName.error && <span className={classes.errorMessage}>{lastName.error}</span>}</label>
           <input className={classes.textInput} type="text" {...lastName} />
-          {lastName.touched && lastName.error && <div>{lastName.error}</div>}
         </div>
 
         <div className={classes.inputGroup}>
-          <label>SSN</label>
+          <label className={classes.fieldName}>Social Security Number {socialSecurityNumber.touched && socialSecurityNumber.error && <span className={classes.errorMessage}>{socialSecurityNumber.error}</span>}</label>
           <input className={classes.textInput} type="phone" {...socialSecurityNumber} />
-          {socialSecurityNumber.touched && socialSecurityNumber.error && <div>{socialSecurityNumber.error}</div>}
         </div>
 
         <div className={classes.inputGroup}>
-          <label>Date of Birth</label>
-          <input className={classes.textInput} type="text" {...dateOfBirth} />
-          {dateOfBirth.touched && dateOfBirth.error && <div>{dateOfBirth.error}</div>}
+          <label className={classes.fieldName}>Date of Birth {dateOfBirth.touched && dateOfBirth.error && <span className={classes.errorMessage}>{dateOfBirth.error}</span>}</label>
+          <input className={classes.textInput} type="phone" {...dateOfBirth} />
         </div>
 
         <div className={classes.inputGroup}>
-          <label>Phone</label>
-          <input className={classes.textInput} type="text" {...phoneNumber} />
-          {phoneNumber.touched && phoneNumber.error && <div>{phoneNumber.error}</div>}
+          <label className={classes.fieldName}>Phone {phoneNumber.touched && phoneNumber.error && <span className={classes.errorMessage}>{phoneNumber.error}</span>}</label>
+          <input className={classes.textInput} type="phone" {...phoneNumber} />
         </div>
 
         <div className={classes.inputGroup}>
-          <label>Email Address</label>
+          <label className={classes.fieldName}>Email Address {emailAddress.touched && emailAddress.error && <span className={classes.errorMessage}>{emailAddress.error}</span>}</label>
           <input className={classes.textInput} type="email" {...emailAddress} />
-          {emailAddress.touched && emailAddress.error && <div>{emailAddress.error}</div>}
         </div>
       </div>
 
       <div className={classes.gender + " " + classes.section}>
         <div className={classes.inputGroup}>
-          <label>Gender</label>
+          <label className={classes.fieldName}>Gender</label>
 
           <div className={classes.horizontalInputs}>
             <div className={classes.toggleInputGroup}>
@@ -136,11 +130,11 @@ export const CheckInForm = (props) => {
             </div>
           </div>
 
-          {gender.touched && gender.error && <div>{gender.error}</div>}
+          {gender.touched && gender.error && <span className={classes.errorMessage}>{gender.error}</span>}
         </div>
 
         <div className={classes.inputGroup}>
-          <label>Sexuality</label>
+          <label className={classes.fieldName}>Sexuality</label>
 
           <div className={classes.toggleInputGroup}>
             <input type="checkbox" {...isLGBTQ} />
@@ -151,7 +145,7 @@ export const CheckInForm = (props) => {
 
       <div className={classes.ethnicity + " " + classes.section}>
         <div className={classes.inputGroup}>
-          <label>Ethnicity</label>
+          <label className={classes.fieldName}>Ethnicity</label>
           <div className={classes.inputs}>
             {ETHNICITY_CHOICES.map(_ethnicity => (
               <div className={classes.toggleInputGroup}>
@@ -181,11 +175,11 @@ export const CheckInForm = (props) => {
               </label>
             </div>
           </div>
-          {ethnicityOther.touched && ethnicityOther.error && <div>{ethnicityOther.error}</div>}
+          {ethnicityOther.touched && ethnicityOther.error && <span className={classes.errorMessage}>{ethnicityOther.error}</span>}
         </div>
 
         <div className={classes.inputGroup}>
-          <label>Primary Language</label>
+          <label className={classes.fieldName}>Primary Language</label>
           <div className={classes.inputs}>
             {LANGUAGE_CHOICES.map(_language => (
               <div className={classes.toggleInputGroup}>
@@ -215,7 +209,7 @@ export const CheckInForm = (props) => {
               </label>
             </div>
           </div>
-          {languageOther.touched && languageOther.error && <div>{languageOther.error}</div>}
+          {languageOther.touched && languageOther.error && <span className={classes.errorMessage}>{languageOther.error}</span>}
         </div>
       </div>
 
@@ -283,7 +277,7 @@ export const CheckInForm = (props) => {
         <div className={classes.inputGroup}>
           <label>Where do you usually go for healthcare when you are not feeling well?</label>
           <input className={classes.textInput} type="text" {...primaryHealthcareLocation} />
-          {primaryHealthcareLocation.touched && primaryHealthcareLocation.error && <div>{primaryHealthcareLocation.error}</div>}
+          {primaryHealthcareLocation.touched && primaryHealthcareLocation.error && <span className={classes.errorMessage}>{primaryHealthcareLocation.error}</span>}
         </div>
       </div>
 
