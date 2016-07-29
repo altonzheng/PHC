@@ -48,6 +48,8 @@ const validate = (values) => {
   // TODO: Not currently enforced in the Android PHC app, but should we enforce?
   if (!values.dateOfBirth) {
     errors.dateOfBirth = 'Required'
+  } else if (isNaN(new Date(values.dateOfBirth)) || new Date(values.dateOfBirth) > new Date()) {
+    errors.dateOfBirth = 'Invalid'
   }
 
   if (values.socialSecurityNumber && values.socialSecurityNumber.length < 11) {

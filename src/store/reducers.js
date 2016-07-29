@@ -11,6 +11,7 @@ export const makeRootReducer = (asyncReducers) => {
       checkIn: {
         socialSecurityNumber: normalizers.ssn,
         phoneNumber: normalizers.phone,
+        dateOfBirth: normalizers.dob,
       }
     }),
     ...asyncReducers

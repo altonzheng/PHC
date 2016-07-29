@@ -1,4 +1,4 @@
-const normalizeSsn = (value, previousValue) => {
+const normalizeSocialSecurityNumber = (value, previousValue) => {
   if (!value) {
     return value
   }
@@ -21,4 +21,4 @@ const normalizeSsn = (value, previousValue) => {
   return onlyNums.slice(0, 3) + '-' + onlyNums.slice(3, 5) + '-' + onlyNums.slice(5, 9)
 }
 
-export default normalizeSsn
+export default normalizeSocialSecurityNumber
