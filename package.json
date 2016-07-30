@@ -100,6 +100,7 @@
     "jsforce": "^1.7.0",
     "json-loader": "^0.5.4",
     "koa": "^2.0.0-alpha.3",
+    "koa-bodyparser": "^2.2.0",
     "koa-connect-history-api-fallback": "^0.3.0",
     "koa-convert": "^1.2.0",
     "koa-json": "^1.1.3",

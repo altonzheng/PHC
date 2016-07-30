@@ -1,19 +1,24 @@
 import Router from 'koa-router'
-import login from './login'
+import Q from 'q'
+import verify from './verify'
 
 const router = Router()
 
-router.get('/',
+router.post('/',
   (ctx, next) => {
-    return login()
-      .then(result => {
-        ctx.body = result.message
-      })
-      .catch(result => {
-        ctx.throw(result.message, 503)
-      })
-  }
+    let username, password
 
+    try {
+      username = ctx.request.body.username
+      password = ctx.request.body.password
+    } catch (error) {
+      ctx.throw('bad user input', 400)
+    }
+
+    if (!verify(username, password)) {
+      ctx.throw('unauthenticated', 401)
+    }
+  }
 )
 
 export default router

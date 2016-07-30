@@ -1,0 +1,23 @@
+@import '../../../styles/base';
+
+.form {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.inputLabel {
+  margin-right: 5px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

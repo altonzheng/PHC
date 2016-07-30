@@ -2,8 +2,8 @@
 // Constants
 // ------------------------------------
 export const UPDATE_INFO_REQUEST = 'UPDATE_INFO_REQUEST'
-export const UPDATE_INFO_SUCCESS = 'UPDATE_INFO_SUCCESS';
-export const UPDATE_INFO_FAILURE = 'UPDATE_INFO_FAILURE';
+export const UPDATE_INFO_SUCCESS = 'UPDATE_INFO_SUCCESS'
+export const UPDATE_INFO_FAILURE = 'UPDATE_INFO_FAILURE'
 export const CLEAR_PRIMARY_INFO = 'CLEAR_PRIMARY_INFO'
 
 // ------------------------------------
@@ -45,9 +45,9 @@ export function updateInfo (fields) {
     return new Promise((resolve, reject) => {
         window.setTimeout(() => resolve(), 2000)
       }).then(() => {
-        dispatch(updateInfoSuccess(fields));
+        dispatch(updateInfoSuccess(fields))
       }).catch(() => {
-        dispatch(updateInfoFailure());
+        dispatch(updateInfoFailure())
       })
   }
 }

@@ -1,12 +1,12 @@
 import Koa from 'koa'
 import Router from 'koa-router'
 import convert from 'koa-convert'
+import bodyParser from 'koa-bodyparser'
 import webpack from 'webpack'
 import webpackConfig from '../build/webpack.config'
 import historyApiFallback from 'koa-connect-history-api-fallback'
 import serve from 'koa-static'
 import proxy from 'koa-proxy'
-import Q from 'q'
 import _debug from 'debug'
 import config from '../config'
 import webpackDevMiddleware from './middleware/webpack-dev'
@@ -30,8 +30,8 @@ if (config.proxy && config.proxy.enabled) {
   app.use(convert(proxy(config.proxy.options)))
 }
 
-// use json
-app.use(json());
+app.use(json())
+app.use(bodyParser())
 
 // log all requests
 app.use((ctx, next) => {
@@ -43,9 +43,9 @@ app.use((ctx, next) => {
 })
 
 // use router for api
-loadRoutes(router);
-app.use(router.routes());
-app.use(router.allowedMethods());
+loadRoutes(router)
+app.use(router.routes())
+app.use(router.allowedMethods())
 
 // This rewrites all routes requests to the root /index.html file
 // (ignoring file requests). If you want to implement isomorphic

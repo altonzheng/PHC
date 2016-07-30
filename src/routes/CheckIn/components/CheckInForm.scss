@@ -4,13 +4,7 @@ $label-spacing: 6px;
 $input-spacing: 4px;
 $section-spacing: 30px;
 
-input {
-  font-size: 20px;
-  color: $black-medium;
-}
-
 label {
-  font-size: 16px;
   margin-bottom: $label-spacing;
 }
 
@@ -45,12 +39,6 @@ label {
   input {
     margin-right: 5px;
   }
-}
-
-.textInput {
-  border: 1px solid $grey-medium;
-  border-radius: 3px;
-  padding: 6px;
 }
 
 .otherTextInput {

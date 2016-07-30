@@ -17,6 +17,10 @@ export const HomeView = () => (
     <Link to='/account'>
       Accounts
     </Link>
+    {' · '}
+    <Link to='/login'>
+      Login
+    </Link>
   </div>
 )
 

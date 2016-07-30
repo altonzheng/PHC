@@ -65,9 +65,7 @@ export const CheckInForm = (props) => {
   }
 
   return (
-    <form
-      className={classes.form}
-      onSubmit={handleSubmit(_onSubmit)}>
+    <form onSubmit={handleSubmit(_onSubmit)}>
 
       <div className={classes.basic + " " + classes.section}>
         <div className={classes.inputGroup}>
@@ -403,7 +401,7 @@ export const CheckInForm = (props) => {
           type="submit"
           disabled={submitting}
         >
-          {submitting ? <i/> : <i/>} Submit
+          Submit
         </button>
         <button
           className="button button--large button--default-inverted"
