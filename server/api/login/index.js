@@ -18,6 +18,8 @@ router.post('/',
     if (!verify(username, password)) {
       ctx.throw('unauthenticated', 401)
     }
+
+    ctx.status = 200
   }
 )
 

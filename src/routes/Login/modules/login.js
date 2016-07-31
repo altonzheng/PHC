@@ -33,7 +33,9 @@ export function login (username, password) {
     return fetch(
       '/api/login',
       {
-        'Content-Type': 'application/json',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         method: 'POST',
         body: JSON.stringify({ username, password })
       }
