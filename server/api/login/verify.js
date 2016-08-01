@@ -1,5 +1,8 @@
-// TODO: use env vars to specify possible logins instead of a hardcoded string
+const {
+  LOGIN_USERNAME,
+  LOGIN_PASSWORD,
+} = process.env
 
 export default function verify (username, password) {
-  return (username === 'asdf' && password === 'asdf')
+  return (username === LOGIN_USERNAME && password === LOGIN_PASSWORD)
 }
