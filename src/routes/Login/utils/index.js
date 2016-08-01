@@ -3,7 +3,7 @@
 export default (store) => (nextState, replace, cb) => {
   const state = store.getState()
 
-  if (state.login && !state.login.authenticated) {
+  if (!state.login || state.login && !state.login.authenticated) {
     replace(`/login`)
   }
 

@@ -12,10 +12,12 @@ export default (store) => ({
       const reducer = require('./modules/check-in').default
 
       injectReducer(store, {
-        key: 'checkIn', reducer
+        key: 'checkIn',
+        reducer
       })
 
       cb(null, CheckIn)
     }, 'check-in')
-  }
+  },
+  onEnter: requireAuth(store),
 })
