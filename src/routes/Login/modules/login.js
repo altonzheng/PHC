@@ -1,3 +1,5 @@
+import { push } from 'react-router-redux'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -43,6 +45,10 @@ export function login (username, password) {
     .then(response => {
       if (response.ok) {
         dispatch(loginSuccess())
+
+        // Redirect to home after successful login
+        // @TODO: Redirect to the page that you were on before this
+        dispatch(push('/'))
       } else {
         dispatch(loginFailure())
       }
@@ -75,7 +81,7 @@ const ACTION_HANDLERS = {
     ...state,
     isAuthenticating: false,
     authenticated: false,
-  }),
+  })
 }
 
 // ------------------------------------

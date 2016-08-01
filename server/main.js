@@ -13,6 +13,7 @@ import webpackDevMiddleware from './middleware/webpack-dev'
 import webpackHMRMiddleware from './middleware/webpack-hmr'
 import loadRoutes from './api'
 import json from 'koa-json'
+import dotenv from 'dotenv'
 
 const debug = _debug('app:server')
 const paths = config.utils_paths
@@ -33,14 +34,8 @@ if (config.proxy && config.proxy.enabled) {
 app.use(json())
 app.use(bodyParser())
 
-// log all requests
-app.use((ctx, next) => {
-  const start = new Date()
-  return next().then(_ => {
-    const ms = new Date() - start
-    console.log('%s %s - %s ms', ctx.method, ctx.url, ms)
-  })
-})
+// Load ENV vars
+dotenv.config();
 
 // use router for api
 loadRoutes(router)

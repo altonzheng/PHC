@@ -1,12 +1,20 @@
 import Q from 'q'
 import jsforce from 'jsforce'
 
-const loginUrl = 'https://test.salesforce.com'
-const username = 'howardxchen@gmail.com.blueprint'
-const password = 'beautifulEngineering1' + '4ARuPtBouu2rf3A3cDCoZ0fu'
-
+// Storing the current connection locally so
+// we don't need to authenticate multiple times. Might be a better
+// place to put this.
 let currentConnection
 
+const {
+  SALESFORCE_SANDBOX_HOST,
+  SALESFORCE_SANDBOX_USER,
+  SALESFORCE_SANDBOX_PASSWORD
+} = process.env
+
+// This class contains logic to login to Salesforce and returns a
+// promise containining the connection, which can be used to query
+// for rows.
 export default function login() {
   const deferred = Q.defer()
 
@@ -17,10 +25,10 @@ export default function login() {
     })
   } else {
     const conn = new jsforce.Connection({
-      loginUrl,
-    })
+      loginUrl : SALESFORCE_SANDBOX_HOST
+    });
 
-    conn.login(username, password, function(err, userInfo) {
+    conn.login(SALESFORCE_SANDBOX_USER, SALESFORCE_SANDBOX_PASSWORD, function(err, userInfo) {
       if (err) {
         deferred.reject({
           message: err,
@@ -28,7 +36,7 @@ export default function login() {
       } else {
         currentConnection = conn
         deferred.resolve({
-          message: "Successfully logged in.",
+          message: "Successfully authenticated to Salesforce.",
           connection: currentConnection,
         })
       }

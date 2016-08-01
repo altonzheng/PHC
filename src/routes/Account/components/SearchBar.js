@@ -24,8 +24,8 @@ class SearchBar extends React.Component {
     return f.search(value);
   }
 
-  getSuggestionValue(suggestion) { // when suggestion selected, this function tells
-    return suggestion.FirstName + " " + suggestion.LastName;        // what should be the value of the input
+  getSuggestionValue(suggestion) {
+    return suggestion.FirstName + " " + suggestion.LastName;
   }
 
   renderSuggestion(suggestion) {

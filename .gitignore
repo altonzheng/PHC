@@ -32,4 +32,7 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
+# Env variables
+.env
+
 .DS_Store
