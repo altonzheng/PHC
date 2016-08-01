@@ -1,15 +1,18 @@
 import { connect } from 'react-redux'
-import { fetchAccounts } from '../modules/account'
+import { fetchAccounts, loadAccountData } from '../modules/account'
 
 import Account from '../components/Account'
 
 const mapActionCreators = {
-  fetchAccounts
+  fetchAccounts,
+  loadAccountData
 }
 
 const mapStateToProps = (state) => ({
   accounts: state.account.accounts,
-  fetching: state.account.fetching
+  fetching: state.account.fetching,
+  accountSelected: state.account.accountSelected,
+  currentAccount: state.account.currentAccount
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Account)

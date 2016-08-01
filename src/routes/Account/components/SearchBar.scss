@@ -10,6 +10,11 @@
 
 
 }
+
+.accountList .li {
+  color: #f0f0f5;
+}
+
 .suggestion {
   list-style-type: none;
 
@@ -17,4 +22,18 @@
 
 .suggestionFocused {
 
+}
+
+.suggestionItem {
+  .firstName {
+
+  }
+
+  .lastName {
+
+  }
+
+  .salesforceId {
+
+  }
 }
