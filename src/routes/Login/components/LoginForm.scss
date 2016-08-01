@@ -8,16 +8,21 @@
 .inputGroup {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-bottom: 10px;
 }
 
 .inputLabel {
-  margin-right: 5px;
+  margin-right: 15px;
 }
 
 .footer {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+.loginTextInput {
+  @extend .textInput;
+  width: 210px;
 }

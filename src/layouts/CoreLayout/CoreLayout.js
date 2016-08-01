@@ -1,10 +1,12 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import Header from '../../components/Header'
 import classes from './CoreLayout.scss'
 import '../../styles/core.scss'
 
 export const CoreLayout = ({ children }) => (
   <div className={classes.layoutContainer}>
+    <Helmet title="Project Homeless Connect" />
     <Header />
     <div className={classes.mainContainer}>
       {children}

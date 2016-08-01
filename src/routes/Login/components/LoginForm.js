@@ -30,12 +30,12 @@ export const LoginForm = (props) => {
     >
       <div className={classes.inputGroup}>
         <label className={classes.inputLabel}>Username</label>
-        <input className={classes.textInput} type="text" {...username} />
+        <input className={classes.loginTextInput} type="text" {...username} />
       </div>
 
       <div className={classes.inputGroup}>
         <label className={classes.inputLabel}>Password</label>
-        <input className={classes.textInput} type="password" {...password} />
+          <input className={classes.loginTextInput} type="password" {...password} />
       </div>
 
       <div className={classes.footer}>
