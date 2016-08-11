@@ -14,9 +14,13 @@
     "__COVERAGE__" : false,
     "__BASENAME__" : false
   },
+  "plugins": [
+    "react"
+  ],
   "rules": {
     "semi" : [2, "never"],
     "max-len": [2, 120, 2],
-    "jsx-quotes": [0]
+    "jsx-quotes": [0],
+    "space-before-function-paren": [0]
   }
 }

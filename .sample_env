@@ -1,5 +1,6 @@
-SALESFORCE_SANDBOX_HOST=https://test.salesforce.com
-SALESFORCE_SANDBOX_USER=howardxchen@gmail.com.blueprint
-SALESFORCE_SANDBOX_PASSWORD=beautifulEngineering1EdTkaOvdnwIofcfdnSM4ry9aC
 LOGIN_USERNAME=cool_username
 LOGIN_PASSWORD=cool_password
+
+SALESFORCE_SANDBOX_HOST=https://test.salesforce.com
+SALESFORCE_SANDBOX_USER=test@test.salesforce.com
+SALESFORCE_SANDBOX_PASSWORD=test
