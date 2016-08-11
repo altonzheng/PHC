@@ -11,7 +11,6 @@ const mapActionCreators = {
 const mapStateToProps = (state) => ({
   accounts: state.account.accounts,
   fetching: state.account.fetching,
-  accountSelected: state.account.accountSelected,
   currentAccount: state.account.currentAccount
 })
 

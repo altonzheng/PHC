@@ -1,4 +1,5 @@
 /* @flow */
+import { push } from 'react-router-redux'
 
 // ------------------------------------
 // Constants
@@ -20,10 +21,10 @@ export function fetchAccountsRequest() {
   }
 }
 
-export function fetchAccountsSuccess(payload) {
+export function fetchAccountsSuccess(records) {
   return {
     type: FETCH_ACCOUNTS_SUCCESS,
-    payload
+    records
   }
 }
 
@@ -41,10 +42,10 @@ export function loadAccountDataRequest(id) {
   }
 }
 
-export function loadAccountDataSuccess(account) {
+export function loadAccountDataSuccess(data) {
   return {
     type: LOAD_ACCOUNT_DATA_SUCCESS,
-    account
+    account: data.account
   }
 }
 
@@ -68,11 +69,13 @@ export function fetchAccounts(id) {
 
 export function loadAccountData(id) {
   return (dispatch) => {
+    console.log("Loading account data for " + id)
     dispatch(loadAccountDataRequest(id))
 
-    return fetch(`/api/account/${id}`)
+    return fetch(`/api/accounts/${id}`)
       .then(data => data.text())
       .then(text => dispatch(loadAccountDataSuccess(JSON.parse(text))))
+      .then(res => dispatch(push('/check-in')))
       .catch(err => dispatch(loadAccountDataFailure(err)))
   }
 }
@@ -106,7 +109,7 @@ const ACCOUNT_ACTION_HANDLERS = {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = { accounts: [], currentAccount: null, accountSelected: false, fetching: false }
+const initialState = { accounts: [], currentAccount: null, fetching: false }
 export default function accountReducer(state = initialState, action) {
   const handler = ACCOUNT_ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state

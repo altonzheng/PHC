@@ -11,7 +11,7 @@ class AccountSuggestion extends React.Component {
   }
 
   handleClick() {
-    this.props.loadAccountData(this.props.id)
+    this.props.loadAccountData(this.props.salesforceId)
   }
 
   render() {
@@ -41,7 +41,6 @@ class SearchBar extends React.Component {
 
   getSuggestions(value) {
     if (value.trim().length < 4) {
-      console.log('ya')
       return []
     }
 
