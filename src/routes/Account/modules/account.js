@@ -21,10 +21,10 @@ export function fetchAccountsRequest() {
   }
 }
 
-export function fetchAccountsSuccess(records) {
+export function fetchAccountsSuccess(data) {
   return {
     type: FETCH_ACCOUNTS_SUCCESS,
-    records
+    accounts: data.records
   }
 }
 
@@ -62,7 +62,7 @@ export function fetchAccounts(id) {
 
     return fetch('/api/accounts')
       .then(data => data.text())
-      .then(text => dispatch(fetchAccountsSuccess(JSON.parse(text).records)))
+      .then(text => dispatch(fetchAccountsSuccess(JSON.parse(text))))
       .catch(err => dispatch(fetchAccountsFailure(err)))
   }
 }
@@ -90,7 +90,7 @@ const ACCOUNT_ACTION_HANDLERS = {
     return ({...state, accounts: [], fetching: true})
   },
   [FETCH_ACCOUNTS_SUCCESS]: (state, action) => {
-    return ({...state, accounts: action.payload, fetching: false})
+    return ({...state, accounts: action.accounts, fetching: false})
   },
   [FETCH_ACCOUNTS_FAILURE]: (state, action) => {
     return ({...state, error: action.error, fetching: false})
