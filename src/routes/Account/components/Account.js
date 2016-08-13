@@ -12,7 +12,7 @@ export const Account = (props) => (
 
     <div>
       {
-        props.accounts.length
+        props.accounts && props.accounts.length
         ?
           <div>
               <h3> Salesforce Accounts </h3>

@@ -24,35 +24,41 @@ export function fetchAccountsRequest() {
 export function fetchAccountsSuccess(data) {
   return {
     type: FETCH_ACCOUNTS_SUCCESS,
-    accounts: data.records
+    payload: {
+      accounts: records,
+    },
   }
 }
 
 export function fetchAccountsFailure(error) {
   return {
     type: FETCH_ACCOUNTS_FAILURE,
-    error
+    error,
   }
 }
 
 export function loadAccountDataRequest(id) {
   return {
     type: LOAD_ACCOUNT_DATA_REQUEST,
-    id
+    payload: {
+      id,
+    },
   }
 }
 
 export function loadAccountDataSuccess(data) {
   return {
     type: LOAD_ACCOUNT_DATA_SUCCESS,
-    account: data.account
+    payload: {
+      account: data.account,
+    },
   }
 }
 
 export function loadAccountDataFailure(error) {
   return {
     type: LOAD_ACCOUNT_DATA_FAILURE,
-    error
+    error,
   }
 }
 
@@ -61,8 +67,8 @@ export function fetchAccounts(id) {
     dispatch(fetchAccountsRequest(id))
 
     return fetch('/api/accounts')
-      .then(data => data.text())
-      .then(text => dispatch(fetchAccountsSuccess(JSON.parse(text))))
+      .then(data => data.json())
+      .then(data => dispatch(fetchAccountsSuccess(data.records)))
       .catch(err => dispatch(fetchAccountsFailure(err)))
   }
 }
@@ -73,8 +79,8 @@ export function loadAccountData(id) {
     dispatch(loadAccountDataRequest(id))
 
     return fetch(`/api/accounts/${id}`)
-      .then(data => data.text())
-      .then(text => dispatch(loadAccountDataSuccess(JSON.parse(text))))
+      .then(data => data.json())
+      .then(data => dispatch(loadAccountDataSuccess(data)))
       .then(res => dispatch(push('/check-in')))
       .catch(err => dispatch(loadAccountDataFailure(err)))
   }
@@ -90,19 +96,19 @@ const ACCOUNT_ACTION_HANDLERS = {
     return ({...state, accounts: [], fetching: true})
   },
   [FETCH_ACCOUNTS_SUCCESS]: (state, action) => {
-    return ({...state, accounts: action.accounts, fetching: false})
+    return ({...state, accounts: action.payload.accounts, fetching: false})
   },
   [FETCH_ACCOUNTS_FAILURE]: (state, action) => {
-    return ({...state, error: action.error, fetching: false})
+    return ({...state, error: action.error.message, fetching: false})
   },
   [LOAD_ACCOUNT_DATA_REQUEST]: (state, action) => {
     return ({...state, currentAccount: null, fetching: true})
   },
   [LOAD_ACCOUNT_DATA_SUCCESS]: (state, action) => {
-    return ({...state, currentAccount: action.account, fetching: false})
+    return ({...state, currentAccount: action.payload.account, fetching: false})
   },
   [LOAD_ACCOUNT_DATA_FAILURE]: (state, action) => {
-    return ({...state, error: action.error, fetching: false})
+    return ({...state, error: action.error.message, fetching: false})
   }
 }
 
