@@ -28,6 +28,7 @@ export const CheckInForm = (props) => {
     resetForm,
     handleSubmit,
     submitting,
+    currentAccount,
   } = props
 
   // initialize array fields to empty arrays
@@ -52,7 +53,7 @@ export const CheckInForm = (props) => {
 
     }
 
-    props.updateInfo(newFields)
+    props.updateInfo(newFields, currentAccount && currentAccount.id)
   }
 
   const _onClear = () => {

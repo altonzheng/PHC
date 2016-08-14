@@ -4,8 +4,8 @@ import verify from './verify'
 
 const router = Router()
 
-router.post('/',
-  (ctx, next) => {
+router
+  .post('/', (ctx, next) => {
     let username, password
 
     try {
@@ -20,7 +20,6 @@ router.post('/',
     }
 
     ctx.status = 200
-  }
-)
+  })
 
 export default router

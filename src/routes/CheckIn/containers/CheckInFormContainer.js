@@ -2,6 +2,7 @@ import { reduxForm } from 'redux-form'
 
 import CheckInForm from '../components/CheckInForm'
 import { updateInfo, clearInfo } from '../modules/check-in'
+import { clearCurrentAccount } from '../../Account/modules/account';
 import { validEmailRegex } from '../../../utils/regex'
 
 const fields = [
@@ -67,14 +68,18 @@ const validate = (values) => {
   return errors
 }
 
-
+// TODO: Revise the way data flows here; it doesn't make a whole lot of sense for us to have to know about another state.
 const mapStateToProps = (state) => ({
   initialValues: state.checkIn.primaryInfo,
+  currentAccount: state.account && state.account.currentAccount,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  updateInfo: (fields) => dispatch(updateInfo(fields)),
-  clearInfo: () => dispatch(clearInfo()),
+  updateInfo: (fields, id) => dispatch(updateInfo(fields, id)),
+  clearInfo: () => {
+    dispatch(clearInfo())
+    dispatch(clearCurrentAccount())
+  },
 })
 
 export default reduxForm({

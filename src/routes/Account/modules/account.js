@@ -4,13 +4,15 @@ import { push } from 'react-router-redux'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const FETCH_ACCOUNTS_REQUEST = 'FETCH_ACCOUNTS_REQUEST'
-export const FETCH_ACCOUNTS_SUCCESS = 'FETCH_ACCOUNTS_SUCCESS'
-export const FETCH_ACCOUNTS_FAILURE = 'FETCH_ACCOUNTS_FAILURE'
+const FETCH_ACCOUNTS_REQUEST = 'FETCH_ACCOUNTS_REQUEST'
+const FETCH_ACCOUNTS_SUCCESS = 'FETCH_ACCOUNTS_SUCCESS'
+const FETCH_ACCOUNTS_FAILURE = 'FETCH_ACCOUNTS_FAILURE'
 
-export const LOAD_ACCOUNT_DATA_REQUEST = 'LOAD_ACCOUNT_DATA_REQUEST'
-export const LOAD_ACCOUNT_DATA_SUCCESS = 'LOAD_ACCOUNT_DATA_SUCCESS'
-export const LOAD_ACCOUNT_DATA_FAILURE = 'LOAD_ACCOUNT_DATA_FAILURE'
+const LOAD_ACCOUNT_DATA_REQUEST = 'LOAD_ACCOUNT_DATA_REQUEST'
+const LOAD_ACCOUNT_DATA_SUCCESS = 'LOAD_ACCOUNT_DATA_SUCCESS'
+const LOAD_ACCOUNT_DATA_FAILURE = 'LOAD_ACCOUNT_DATA_FAILURE'
+
+const CLEAR_CURRENT_ACCOUNT = 'CLEAR_CURRENT_ACCOUNT'
 
 // ------------------------------------
 // Actions
@@ -21,12 +23,12 @@ export function fetchAccountsRequest() {
   }
 }
 
-export function fetchAccountsSuccess(data) {
+export function fetchAccountsSuccess(accounts) {
   return {
     type: FETCH_ACCOUNTS_SUCCESS,
     payload: {
-      accounts: data,
-    }
+      accounts,
+    },
   }
 }
 
@@ -46,11 +48,11 @@ export function loadAccountDataRequest(id) {
   }
 }
 
-export function loadAccountDataSuccess(data) {
+export function loadAccountDataSuccess(account) {
   return {
     type: LOAD_ACCOUNT_DATA_SUCCESS,
     payload: {
-      account: data.account,
+      account,
     },
   }
 }
@@ -62,24 +64,42 @@ export function loadAccountDataFailure(error) {
   }
 }
 
+export function clearCurrentAccount() {
+  return {
+    type: CLEAR_CURRENT_ACCOUNT,
+    payload: null,
+  }
+}
+
 export function fetchAccounts(id) {
   return (dispatch) => {
     dispatch(fetchAccountsRequest(id))
 
     return fetch('/api/accounts')
-      .then(data => data.json())
-      .then(data => dispatch(fetchAccountsSuccess(data.records)))
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          dispatch(fetchAccountsFailure())
+        }
+      })
+      .then(data => dispatch(fetchAccountsSuccess(data.payload.accounts)))
       .catch(err => dispatch(fetchAccountsFailure(err)))
   }
 }
 
 export function loadAccountData(id) {
   return (dispatch) => {
-    console.log("Loading account data for " + id)
     dispatch(loadAccountDataRequest(id))
     return fetch(`/api/accounts/${id}`)
-      .then(data => data.json())
-      .then(data => dispatch(loadAccountDataSuccess(data)))
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          dispatch(loadAccountDataFailure())
+        }
+      })
+      .then(data => dispatch(loadAccountDataSuccess(data.payload.account)))
       .then(res => dispatch(push('/check-in')))
       .catch(err => dispatch(loadAccountDataFailure(err)))
   }
@@ -90,32 +110,73 @@ export const actions = {
   loadAccountData
 }
 
-const ACCOUNT_ACTION_HANDLERS = {
+const ACTION_HANDLERS = {
   [FETCH_ACCOUNTS_REQUEST]: (state) => {
-    return ({...state, accounts: [], fetching: true})
+    return ({
+      ...state,
+      accounts: [],
+      fetching: true,
+      error: null,
+    })
   },
   [FETCH_ACCOUNTS_SUCCESS]: (state, action) => {
-    return ({...state, accounts: action.payload.accounts, fetching: false})
+    return ({
+      ...state,
+      accounts: action.payload.accounts,
+      fetching: false,
+      error: null,
+    })
   },
   [FETCH_ACCOUNTS_FAILURE]: (state, action) => {
-    return ({...state, error: action.error.message, fetching: false})
+    return ({
+      ...state,
+      accounts: [],
+      fetching: false,
+      error: action.error.message,
+    })
   },
   [LOAD_ACCOUNT_DATA_REQUEST]: (state, action) => {
-    return ({...state, currentAccount: null, fetching: true})
+    return ({
+      ...state,
+      currentAccount: null,
+      fetching: true,
+      error: null,
+    })
   },
   [LOAD_ACCOUNT_DATA_SUCCESS]: (state, action) => {
-    return ({...state, currentAccount: action.payload.account, fetching: false})
+    return ({
+      ...state,
+      currentAccount: action.payload.account,
+      fetching: false,
+      error: null,
+    })
   },
   [LOAD_ACCOUNT_DATA_FAILURE]: (state, action) => {
-    return ({...state, error: action.error.message, fetching: false})
+    return ({
+      ...state,
+      currentAccount: null,
+      fetching: false,
+      error: action.error.message,
+    })
+  },
+  [CLEAR_CURRENT_ACCOUNT]: (state, action) => {
+    return ({
+      ...state,
+      currentAccount: null,
+    })
   }
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = { accounts: [], currentAccount: null, fetching: false }
+const initialState = {
+  accounts: [],
+  currentAccount: null,
+  fetching: false,
+  error: null,
+}
 export default function accountReducer(state = initialState, action) {
-  const handler = ACCOUNT_ACTION_HANDLERS[action.type]
+  const handler = ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state
 }

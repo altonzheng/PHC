@@ -1,4 +1,6 @@
 import { LOAD_ACCOUNT_DATA_SUCCESS } from '../../Account/modules/account'
+import { clearCurrentAccount } from '../../Account/modules/account'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -38,19 +40,30 @@ export function clearInfo () {
   }
 }
 
-export function updateInfo (fields) {
+export function updateInfo (fields, id) {
   return (dispatch) => {
     console.log("UPDATE INFO");
 
-    dispatch(updateInfoRequest())
-    // TODO: Replace this with actual fetch request to server.
-    return new Promise((resolve, reject) => {
-        window.setTimeout(() => resolve(), 2000)
-      }).then(() => {
-        dispatch(updateInfoSuccess(fields))
-      }).catch(() => {
+    let method = id ? 'PUT' : 'POST'
+    let endpoint = id ? `/api/accounts/${id}` : `/api/accounts`
+
+    return fetch(endpoint, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method,
+      body: JSON.stringify({ fields }),
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
         dispatch(updateInfoFailure())
-      })
+      }
+    })
+    .then(data => dispatch(updateInfoSuccess(fields, data.payload.account)))
+    .then(() => dispatch(clearCurrentAccount()))
+    .catch(() => dispatch(updateInfoFailure()))
   }
 }
 

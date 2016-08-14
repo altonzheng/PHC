@@ -8,12 +8,13 @@ import historyApiFallback from 'koa-connect-history-api-fallback'
 import serve from 'koa-static'
 import proxy from 'koa-proxy'
 import _debug from 'debug'
+import json from 'koa-json'
+import dotenv from 'dotenv'
 import config from '../config'
 import webpackDevMiddleware from './middleware/webpack-dev'
 import webpackHMRMiddleware from './middleware/webpack-hmr'
 import loadRoutes from './api'
-import json from 'koa-json'
-import dotenv from 'dotenv'
+import logger from './lib/logger'
 
 const debug = _debug('app:server')
 const paths = config.utils_paths
@@ -22,8 +23,8 @@ const router = new Router({ prefix: '/api' })
 
 // basic error logging
 app.on('error', (err, ctx) => {
-  console.log(err)
-  console.log(ctx)
+  logger.error(`Error: ${err}`)
+  logger.error(`ctx was ${ctx}`)
 })
 
 // Enable koa-proxy if it has been enabled in the config.
