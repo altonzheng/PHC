@@ -12,21 +12,13 @@ export const CheckInForm = (props) => {
   let {
     fields: {
       firstName, lastName, socialSecurityNumber, dateOfBirth, phoneNumber, emailAddress,
-
       gender, isTransexual, isLGBTQ,
-
       ethnicity, ethnicityOther,
-
       language, languageOther,
-
       hasBeenInFosterCare,
-
       hasServedInTheMilitary,
-
       primaryHealthcareLocation,
-
       isHomeless, lengthOfHomelessness,
-
       medicalServices, supportServices,
     },
     resetForm,
@@ -106,14 +98,14 @@ export const CheckInForm = (props) => {
           <div className={classes.horizontalInputs}>
             <div className={classes.toggleInputGroup}>
               <label>
-                <input type="radio" value="male" {...gender} />
+                <input type="radio" value="male" {...gender} checked={gender.value === 'male'} />
                 Male
               </label>
             </div>
 
             <div className={classes.toggleInputGroup}>
               <label>
-                <input type="radio" value="female" {...gender} />
+                <input type="radio" value="female" {...gender}  checked={gender.value === 'female'} />
                 Female
               </label>
             </div>

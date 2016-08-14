@@ -25,8 +25,8 @@ export function fetchAccountsSuccess(data) {
   return {
     type: FETCH_ACCOUNTS_SUCCESS,
     payload: {
-      accounts: records,
-    },
+      accounts: data,
+    }
   }
 }
 
@@ -77,7 +77,6 @@ export function loadAccountData(id) {
   return (dispatch) => {
     console.log("Loading account data for " + id)
     dispatch(loadAccountDataRequest(id))
-
     return fetch(`/api/accounts/${id}`)
       .then(data => data.json())
       .then(data => dispatch(loadAccountDataSuccess(data)))
