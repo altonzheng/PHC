@@ -39,7 +39,7 @@ function mapSalesforceAccountToPrimaryInfo(account) {
     //isTransexual: account.Gender__c.toLowerCase() === 'transgender',
     isLGBTQ: account.Identify_as_GLBT__c,
     // Salesforce serializes into 'race1;race2;race3 eg. African American;Asian / Pacific Islander'; we pass down array
-    ethnicity: account.Race__c.split(';'),
+    ethnicity: account.Race__c && account.Race__c.split(';'),
     ethnicityOther: account.Other_Race__c,
     language: account.Primary_Language__c,
     // This field doesn't exist yet in salesforce so it will be null. @TODO: Recreate in salesforce
@@ -57,6 +57,10 @@ function mapSalesforceAccountToPrimaryInfo(account) {
 function transformFieldForSalesforce (value, field) {
   if (field === 'Birthdate__c') {
     return transformDateForSalesforce(value)
+  } else if (field === 'SS_Num__c') {
+    return value.replace(/-/g, '')
+  } else if (value instanceof Array) {
+    return value.join(';')
   } else {
     return value
   }
@@ -144,7 +148,7 @@ function createAccount(connection, payload) {
     logger.debug(account)
 
     if (err || !account.success) {
-      logger.error(`Error fetching account ${id}: ${err}.`)
+      logger.error(`Error creating account: ${err}.`)
       deferred.reject({
         message: `Error creating account.`,
         error: err,
@@ -171,7 +175,7 @@ function updateAccount(connection, payload) {
     logger.debug(account)
 
     if (err || !account.success) {
-      logger.error(`Error fetching account ${id}: ${err}.`)
+      logger.error(`Error updating account ${id}: ${err}.`)
       deferred.reject({
         message: `Error updating account.`,
         error: err,

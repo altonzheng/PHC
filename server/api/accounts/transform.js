@@ -14,7 +14,7 @@ export function transformDateForSalesforce (dateString) {
 }
 
 // Transforms a date string from `YYYY-MM-DD` to `MM-DD-YYYY`
-function transformDateFromSalesforce (dateString) {
+export function transformDateFromSalesforce (dateString) {
   const date = new Date(dateString)
 
   const yyyy = date.getFullYear()
@@ -26,3 +26,4 @@ function transformDateFromSalesforce (dateString) {
   dd = dd < 10 ? '0' + dd : dd
 
   return [mm, dd, yyyy].join('-')
+}

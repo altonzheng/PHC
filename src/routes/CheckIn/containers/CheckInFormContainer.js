@@ -70,7 +70,7 @@ const validate = (values) => {
 
 // TODO: Revise the way data flows here; it doesn't make a whole lot of sense for us to have to know about another state.
 const mapStateToProps = (state) => ({
-  initialValues: state.checkIn.primaryInfo,
+  initialValues: state.account && state.account.currentAccount,
   currentAccount: state.account && state.account.currentAccount,
 })
 

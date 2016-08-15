@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
-import ArrayCheckbox from '../../../components/ArrayCheckbox';
+import Select from 'react-select'
+import 'react-select/dist/react-select.css'
+import ArrayCheckbox from '../../../components/ArrayCheckbox'
 import {
   LANGUAGE_CHOICES,
   ETHNICITY_CHOICES,
@@ -9,7 +9,7 @@ import {
   SUPPORT_CHOICES,
   PRIMARY_HEALTHCARE_CHOICES,
   LENGTH_OF_HOMELESSNESS_CHOICES
-} from '../constants/check-in';
+} from '../constants/check-in'
 import classes from './CheckInForm.scss'
 
 export const CheckInForm = (props) => {
@@ -32,8 +32,9 @@ export const CheckInForm = (props) => {
   } = props
 
   // initialize array fields to empty arrays
-  medicalServices.value = medicalServices.value || [];
-  supportServices.value = supportServices.value || [];
+  ethnicity.value = ethnicity.value || []
+  medicalServices.value = medicalServices.value || []
+  supportServices.value = supportServices.value || []
 
   const _onSubmit = () => {
     const fields = props.fields

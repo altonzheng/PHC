@@ -1,4 +1,3 @@
-import { LOAD_ACCOUNT_DATA_SUCCESS } from '../../Account/modules/account'
 import { clearCurrentAccount } from '../../Account/modules/account'
 
 // ------------------------------------
@@ -94,13 +93,6 @@ const ACTION_HANDLERS = {
     delete newState.primaryInfo
     return newState
   },
-  [LOAD_ACCOUNT_DATA_SUCCESS]: (state, action) => {
-    // Action dispatched when we successfully fetched an account's info
-    // We prepopulate the form with personal details
-    return Object.assign({}, state, {
-      primaryInfo: action.payload.account
-    })
-  }
 }
 
 // ------------------------------------
