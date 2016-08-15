@@ -1,10 +1,14 @@
 import React, { PropTypes } from 'react'
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 import ArrayCheckbox from '../../../components/ArrayCheckbox';
 import {
   LANGUAGE_CHOICES,
   ETHNICITY_CHOICES,
   MEDICAL_CHOICES,
   SUPPORT_CHOICES,
+  PRIMARY_HEALTHCARE_CHOICES,
+  LENGTH_OF_HOMELESSNESS_CHOICES
 } from '../constants/check-in';
 import classes from './CheckInForm.scss'
 
@@ -76,7 +80,7 @@ export const CheckInForm = (props) => {
         </div>
 
         <div className={classes.inputGroup}>
-          <label className={classes.fieldName}>Date of Birth {dateOfBirth.touched && dateOfBirth.error && <span className={classes.errorMessage}>{dateOfBirth.error}</span>}</label>
+          <label className={classes.fieldName}>Date of Birth (mm-dd-yyyy) {dateOfBirth.touched && dateOfBirth.error && <span className={classes.errorMessage}>{dateOfBirth.error}</span>}</label>
           <input className={classes.textInput} type="phone" {...dateOfBirth} />
         </div>
 
@@ -98,14 +102,24 @@ export const CheckInForm = (props) => {
           <div className={classes.horizontalInputs}>
             <div className={classes.toggleInputGroup}>
               <label>
-                <input type="radio" value="male" {...gender} checked={gender.value === 'male'} />
+                <input
+                  {...gender}
+                  type="radio"
+                  value="male"
+                  checked={gender.value === "male"}
+                />
                 Male
               </label>
             </div>
 
             <div className={classes.toggleInputGroup}>
               <label>
-                <input type="radio" value="female" {...gender}  checked={gender.value === 'female'} />
+                <input
+                  {...gender}
+                  type="radio"
+                  value="female"
+                  checked={gender.value === "female"}
+                />
                 Female
               </label>
             </div>
@@ -136,18 +150,12 @@ export const CheckInForm = (props) => {
       <div className={classes.ethnicity + " " + classes.section}>
         <div className={classes.inputGroup}>
           <label className={classes.fieldName}>Ethnicity</label>
+
           <div className={classes.inputs}>
             {ETHNICITY_CHOICES.map(_ethnicity => (
               <div className={classes.toggleInputGroup}>
                 <label>
-                  <input
-                    type="radio"
-                    {...ethnicity}
-                    key={_ethnicity}
-                    value={_ethnicity}
-                    checked={ethnicity.value === _ethnicity}
-                    onChange={(value) => ethnicity.onChange(value) && ethnicityOther.onChange("")}
-                  />
+                  <ArrayCheckbox field={ethnicity} value={_ethnicity}/>
                   {_ethnicity}
                 </label>
               </div>
@@ -266,8 +274,14 @@ export const CheckInForm = (props) => {
       <div className={classes.section}>
         <div className={classes.inputGroup}>
           <label className={classes.fieldName}>Where do you usually go for healthcare when you are not feeling well?</label>
-          <input className={classes.textInput} type="text" {...primaryHealthcareLocation} />
           {primaryHealthcareLocation.touched && primaryHealthcareLocation.error && <span className={classes.errorMessage}>{primaryHealthcareLocation.error}</span>}
+          <Select
+            {...primaryHealthcareLocation}
+            name="primaryHealthcareLocationSelect"
+            value={primaryHealthcareLocation.value || ''}
+            onBlur={() => primaryHealthcareLocation.onBlur(primaryHealthcareLocation.value)}
+            options={PRIMARY_HEALTHCARE_CHOICES}
+          />
         </div>
       </div>
 
@@ -306,7 +320,13 @@ export const CheckInForm = (props) => {
           isHomeless.value === "true" &&
             <div className={classes.inputGroup}>
               <label className={classes.fieldName}>How long have you been homeless for?</label>
-              <input className={classes.textInput} type="text" {...lengthOfHomelessness} />
+              <Select
+                {...lengthOfHomelessness}
+                name="primaryHealthcareLocationSelect"
+                value={lengthOfHomelessness.value || ''}
+                onBlur={() => lengthOfHomelessness.onBlur(lengthOfHomelessness.value)}
+                options={LENGTH_OF_HOMELESSNESS_CHOICES}
+              />
             </div>
         }
       </div>

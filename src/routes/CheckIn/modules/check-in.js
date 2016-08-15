@@ -85,33 +85,8 @@ const ACTION_HANDLERS = {
     // Action dispatched when we successfully fetched an account's info
     // We prepopulate the form with personal details
     return Object.assign({}, state, {
-      primaryInfo: mapSalesforceAccountToPrimaryInfo(action.payload.account)
+      primaryInfo: action.payload.account
     })
-  }
-}
-
-function mapSalesforceAccountToPrimaryInfo(account) {
-  return {
-    firstName: account.FirstName,
-    lastName: account.LastName,
-    socialSecurityNumber: account.SS_Num__cc,
-    dateOfBirth: account.Birthdate__c,
-    phoneNumber: account.Phone,
-    emailAddress: account.PersonEmail,
-    gender: account.Gender__c.toLowerCase(),
-    // isTransexual: null,
-    // isLGBTQ: null,
-    // ethnicity: null,
-    // ethnicityOther: null
-    // language: account.Primary_Language__c,
-    // languageOther:
-    hasBeenInFosterCare: account.Foster_Care__c.toString(),
-    hasServedInTheMilitary: account.Veteran__c.toString()
-    // primaryHealthcareLocation:
-    // isHomeless:
-    // lengthOfHomelessness:
-    // medicalServices:
-    // supportServices:
   }
 }
 
