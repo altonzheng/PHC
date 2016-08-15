@@ -44,6 +44,7 @@ export const LENGTH_OF_HOMELESSNESS_CHOICES = [
   { value: '15 years and more', label: '15 years and more' }
 ]
 
+// TODO: Fetch dynamically.
 export const MEDICAL_CHOICES = [
   'Acupuncture',
   'Addiction and Harm Reduction Services',
@@ -59,6 +60,7 @@ export const MEDICAL_CHOICES = [
   'Vision Prescription (voucher required)',
 ]
 
+// TODO: Fetch dynamically.
 export const SUPPORT_CHOICES = [
   'Adult Probation',
   'Banking',

@@ -1,5 +1,4 @@
 import Q from 'q'
-import jsforce from 'jsforce'
 import logger from '../../lib/logger'
 import { transformDateForSalesforce, transformDateFromSalesforce } from './transform'
 
