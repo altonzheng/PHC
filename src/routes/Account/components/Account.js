@@ -15,18 +15,8 @@ export const Account = (props) => (
         props.accounts && props.accounts.length
         ?
           <div>
-              <h3> Salesforce Accounts </h3>
-              <ul className='accountList' style={{listStyleType: 'none'}}>
-                {
-                  props.accounts.map(account =>
-                    <li key={ account.Id }>
-                      { account.FirstName + " " + account.LastName }
-                      { " (" +  account.Id + ") "}
-                    </li>
-                  )
-                }
-              </ul>
-            </div>
+            {props.accounts.length} accounts indexed
+          </div>
         : null
       }
     </div>

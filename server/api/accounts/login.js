@@ -7,9 +7,13 @@ import jsforce from 'jsforce'
 let currentConnection
 
 const {
+  SALESFORCE_ENV,
   SALESFORCE_SANDBOX_HOST,
   SALESFORCE_SANDBOX_USER,
-  SALESFORCE_SANDBOX_PASSWORD
+  SALESFORCE_SANDBOX_PASSWORD,
+  SALESFORCE_PRODUCTION_HOST,
+  SALESFORCE_PRODUCTION_USER,
+  SALESFORCE_PRODUCTION_PASSWORD
 } = process.env
 
 // This class contains logic to login to Salesforce and returns a
@@ -25,10 +29,13 @@ export default function login() {
     })
   } else {
     const conn = new jsforce.Connection({
-      loginUrl : SALESFORCE_SANDBOX_HOST
+      loginUrl: SALESFORCE_ENV === 'PROD' ? SALESFORCE_PRODUCTION_HOST : SALESFORCE_SANDBOX_HOST
     });
 
-    conn.login(SALESFORCE_SANDBOX_USER, SALESFORCE_SANDBOX_PASSWORD, function(err, userInfo) {
+    conn.login(
+      SALESFORCE_ENV === 'PROD' ? SALESFORCE_PRODUCTION_USER : SALESFORCE_SANDBOX_USER,
+      SALESFORCE_ENV === 'PROD' ? SALESFORCE_PRODUCTION_PASSWORD : SALESFORCE_SANDBOX_PASSWORD,
+      function(err, userInfo) {
       if (err) {
         deferred.reject({
           message: err,
