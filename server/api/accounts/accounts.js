@@ -4,7 +4,7 @@ import { transformDateForSalesforce, transformDateFromSalesforce } from './trans
 
 const Account = 'Account'
 
-const FETCH_ACCOUNTS_QUERY = "SELECT Id, FirstName, LastName FROM Account"
+const FETCH_ACCOUNTS_QUERY = 'SELECT Id, FirstName, LastName FROM Account'
 
 // TODO: Merge these two mapping functions together.
 const FORM_FIELD_TO_SALESFORCE_FIELD = {
@@ -16,7 +16,7 @@ const FORM_FIELD_TO_SALESFORCE_FIELD = {
   emailAddress: 'PersonEmail',
   gender: 'Gender__c',
   isLGBTQ: 'Identify_as_GLBT__c',
-  ethnicity: 'Ethnicity__pc',
+  ethnicity: 'Race__c',
   language: 'Primary_Language__c',
   hasBeenInFosterCare: 'Foster_Care__c',
   hasServedInTheMilitary: 'Veteran__c',
@@ -57,7 +57,7 @@ function transformFieldForSalesforce (value, field) {
   if (field === 'Birthdate__c') {
     return transformDateForSalesforce(value)
   } else if (field === 'SS_Num__c') {
-    return value.replace(/-/g, '')
+    return value && value.replace(/-/g, '')
   } else if (value instanceof Array) {
     return value.join(';')
   } else {
@@ -67,8 +67,8 @@ function transformFieldForSalesforce (value, field) {
 
 export function logApiUsage (connection) {
   if (connection.limitInfo.apiUsage) {
-    logger.debug("API Limit: " + connection.limitInfo.apiUsage.limit)
-    logger.debug("API Used: " + connection.limitInfo.apiUsage.used)
+    logger.debug('API Limit: ' + connection.limitInfo.apiUsage.limit)
+    logger.debug('API Used: ' + connection.limitInfo.apiUsage.used)
   }
 
   return {
@@ -78,28 +78,27 @@ export function logApiUsage (connection) {
 
 export function fetchAccounts(connection) {
   const deferred = Q.defer()
-  const records = []
+  const accounts = []
 
-  logger.debug('Started fetching records.')
+  logger.debug('Fetching accounts: starting')
   connection.bulk.query(FETCH_ACCOUNTS_QUERY)
     .on('record', (record) => {
-      logger.debug(record)
-      records.push(record)
+      accounts.push(record)
     })
     .on('end', () => {
-      logger.debug('Finished fetching records.')
+      logger.debug('Fetching accounts: complete', )
       deferred.resolve({
-        message: 'Successfully fetched ' + records.length + ' records!',
+        message: 'Successfully fetched ' + accounts.length + ' accounts!',
         payload: {
-          accounts: records
+          accounts,
         },
       })
     })
-    .on('error', (err) => {
-      logger.warn('Error fetching records.')
+    .on('error', (error) => {
+      logger.warn('Fetching accounts: error', { error})
       deferred.reject({
-        message: 'Error fetching records.',
-        error: err
+        message: 'Error fetching accounts.',
+        error,
       })
     })
 
@@ -114,21 +113,23 @@ export function getAccount(connection, id) {
 
   const deferred = Q.defer()
 
-  connection.sobject(Account).retrieve(id, (err, account) => {
-    logger.debug(account)
+  logger.debug('Fetching account: requesting', { id })
 
-    if (err) {
-      logger.error(`Error fetching account ${id}: ${err}.`)
+  connection.sobject(Account).retrieve(id, (error, account) => {
+    logger.debug('Fetching account: request complete', account)
+
+    if (error) {
+      logger.error('Fetching account: error', { id, error })
       deferred.reject({
         message: `Error fetching account ${id}.`,
-        error: err,
+        error,
       })
     } else {
       const payload = {
         account: mapSalesforceAccountToPrimaryInfo(account)
       }
 
-      payload['id'] = account.Id
+      payload.account.id = account.Id
 
       deferred.resolve({
         message: `Successfully retrieved account ${id}`,
@@ -143,14 +144,16 @@ export function getAccount(connection, id) {
 function createAccount(connection, payload) {
   const deferred = Q.defer()
 
-  connection.sobject(Account).create(payload, (err, account) => {
-    logger.debug(account)
+  logger.debug('Creating account: requesting', payload)
 
-    if (err || !account.success) {
-      logger.error(`Error creating account: ${err}.`)
+  connection.sobject(Account).create(payload, (error, account) => {
+    logger.debug('Creating account: request complete', account)
+
+    if (error || !account.success) {
+      logger.error('Creating account: error', { error })
       deferred.reject({
         message: `Error creating account.`,
-        error: err,
+        error,
       })
     } else {
       deferred.resolve({
@@ -170,14 +173,16 @@ function createAccount(connection, payload) {
 function updateAccount(connection, payload) {
   const deferred = Q.defer()
 
-  connection.sobject(Account).update(payload, (err, account) => {
-    logger.debug(account)
+  logger.debug('Updating account: requesting', payload)
 
-    if (err || !account.success) {
-      logger.error(`Error updating account ${id}: ${err}.`)
+  connection.sobject(Account).update(payload, (error, account) => {
+    logger.debug('Updating account: request complete', account)
+
+    if (error || !account.success) {
+      logger.error('Updating account: error', { error })
       deferred.reject({
         message: `Error updating account.`,
-        error: err,
+        error,
       })
     } else {
       deferred.resolve({
@@ -197,7 +202,7 @@ function updateAccount(connection, payload) {
 export function createOrUpdateAccount(connection, id, fields) {
   const payload = {}
 
-  logger.debug(fields)
+  logger.debug('Creating or updating account: parsing fields', { fields })
 
   for (let field in fields) {
     if (field in FORM_FIELD_TO_SALESFORCE_FIELD) {
@@ -205,8 +210,6 @@ export function createOrUpdateAccount(connection, id, fields) {
       payload[sfColumnName] = transformFieldForSalesforce(fields[field], sfColumnName)
     }
   }
-
-  logger.debug(payload)
 
   if (id) {
     payload['Id'] = id

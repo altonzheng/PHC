@@ -5,10 +5,10 @@ export default (store) => ({
   path: 'check-in',
   getComponent (nextState, cb) {
     require.ensure([
-        './components/CheckIn',
+        './containers/CheckInContainer',
         './modules/check-in',
       ], (require) => {
-      const CheckIn = require('./components/CheckIn').default
+      const CheckIn = require('./containers/CheckInContainer').default
       const reducer = require('./modules/check-in').default
 
       injectReducer(store, {

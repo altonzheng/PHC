@@ -76,10 +76,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateInfo: (fields, id) => dispatch(updateInfo(fields, id)),
-  clearInfo: () => {
-    dispatch(clearInfo())
-    dispatch(clearCurrentAccount())
-  },
+  clearInfo: () => dispatch(clearCurrentAccount()),
 })
 
 export default reduxForm({

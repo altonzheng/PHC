@@ -21,6 +21,7 @@ function handlePUTorPOST (ctx, next) {
       const connection = res.connection
 
       logApiUsage(connection)
+
       return createOrUpdateAccount(connection, id, fields)
         .then(res => createEventRegistration(connection, res.payload.account.id, events))
     })

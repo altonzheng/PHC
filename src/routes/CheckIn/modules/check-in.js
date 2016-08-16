@@ -6,7 +6,7 @@ import { clearCurrentAccount } from '../../Account/modules/account'
 export const UPDATE_INFO_REQUEST = 'UPDATE_INFO_REQUEST'
 export const UPDATE_INFO_SUCCESS = 'UPDATE_INFO_SUCCESS'
 export const UPDATE_INFO_FAILURE = 'UPDATE_INFO_FAILURE'
-export const CLEAR_PRIMARY_INFO = 'CLEAR_PRIMARY_INFO'
+export const RESET_FORM = 'RESET_FORM'
 
 // ------------------------------------
 // Actions
@@ -32,17 +32,14 @@ export function updateInfoFailure () {
   }
 }
 
-export function clearInfo () {
+export function resetForm () {
   return {
-    type: CLEAR_PRIMARY_INFO,
-    payload: null,
+    type: RESET_FORM,
   }
 }
 
 export function updateInfo (fields, id) {
   return (dispatch) => {
-    console.log("UPDATE INFO");
-
     let method = id ? 'PUT' : 'POST'
     let endpoint = id ? `/api/accounts/${id}` : `/api/accounts`
 
@@ -53,22 +50,15 @@ export function updateInfo (fields, id) {
       method,
       body: JSON.stringify({ fields }),
     })
-    .then((response) => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        dispatch(updateInfoFailure())
+    .then(response => {
+      if (!response.ok) {
+        throw Error('Unable to update info')
       }
     })
-    .then(data => dispatch(updateInfoSuccess(fields, data.payload.account)))
+    .then(() => dispatch(updateInfoSuccess()))
     .then(() => dispatch(clearCurrentAccount()))
-    .catch(() => dispatch(updateInfoFailure()))
+    .catch(err => dispatch(updateInfoFailure(err)))
   }
-}
-
-export const actions = {
-  updateInfo,
-  clearInfo,
 }
 
 // ------------------------------------
@@ -78,27 +68,51 @@ export const actions = {
 // TODO: Make sure that on network fail, we don't lose all our form data.
 // TODO: On network fail, store form state and batch for later submission.
 const ACTION_HANDLERS = {
-  [UPDATE_INFO_SUCCESS]: (state, action) => {
-    const fields = action.payload
+  [UPDATE_INFO_REQUEST]: (state, action) => {
+    return {
+      ...state,
+      requesting: true,
+      success: false,
+      failure: false,
+    }
+  },
 
-    // primaryInfo: { ... } - contains personal identifying information
-    return Object.assign({}, state, {
-      primaryInfo: {
-        ...fields
-      },
-    })
+  [UPDATE_INFO_FAILURE]: (state, action) => {
+    return {
+      ...state,
+      requesting: false,
+      success: false,
+      failure: true,
+    }
   },
-  [CLEAR_PRIMARY_INFO]: (state, action) => {
-    const newState = Object.assign({}, state)
-    delete newState.primaryInfo
-    return newState
+
+  [UPDATE_INFO_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      requesting: false,
+      success: true,
+      failure: false,
+    }
   },
+
+  [RESET_FORM]: (state, action) => {
+    return {
+      ...state,
+      requesting: false,
+      success: false,
+      failure: false,
+    }
+  }
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = { primaryInfo: {} }
+const initialState = {
+  requesting: false,
+  success: false,
+  failure: false,
+}
 
 export default function checkInReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
