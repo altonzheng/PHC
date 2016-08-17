@@ -17,12 +17,27 @@
   cursor: pointer;
   font-weight: $weight-regular;
   padding: 5px;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
 }
 
 .inputGroup {
   display: flex;
   align-items: center;
   flex-flow: column;
+}
+
+li.suggestionItem:last-child {
+  border: none;
+}
+
+span.name {
+  font-size: 20px
+}
+span.birthdate {
+  padding: 10px;
+  font-size: 10px;
+  float: right;
 }
 
 .searchInput {

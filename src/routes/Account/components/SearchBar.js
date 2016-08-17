@@ -9,8 +9,8 @@ const AccountSuggestion = (props) => {
 
   return (
     <li className={classes.suggestionItem} onClick={handleClick}>
-      <span>{ props.name }</span>
-      <span>{ this.props.birthdate }</span>
+      <span className={classes.name}>{ props.name }</span>
+      <span className={classes.birthdate}>{ props.birthdate }</span>
 
     </li>
   )
