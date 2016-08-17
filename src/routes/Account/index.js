@@ -2,7 +2,6 @@ import { injectReducer } from '../../store/reducers'
 import requireAuth from '../Login/utils'
 
 export default (store) => ({
-  path: 'account',
   getComponent(nextState, next) {
     require.ensure([
         './containers/AccountContainer',
