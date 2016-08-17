@@ -1,10 +1,10 @@
 import Q from 'q'
 import logger from '../../lib/logger'
-import { transformDateForSalesforce, transformDateFromSalesforce } from './transform'
+import { transformDateForSalesforce, transformDateFromSalesforce, getFormattedBirthdate } from './transform'
 
 const Account = 'Account'
 
-const FETCH_ACCOUNTS_QUERY = 'SELECT Id, FirstName, LastName FROM Account'
+const FETCH_ACCOUNTS_QUERY = 'SELECT Id, FirstName, LastName, Birthdate__c FROM Account'
 
 // TODO: Merge these two mapping functions together.
 const FORM_FIELD_TO_SALESFORCE_FIELD = {
@@ -93,7 +93,8 @@ export function fetchAccounts(connection) {
           accounts: accounts.map((account) => {
             return {
               name: `${account.FirstName} ${account.LastName}`,
-              id: account.Id
+              id: account.Id,
+              birthdate: getFormattedBirthdate(account.Birthdate__c)
             }
           })
         },

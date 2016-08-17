@@ -27,3 +27,10 @@ export function transformDateFromSalesforce (dateString) {
 
   return [mm, dd, yyyy].join('-')
 }
+
+// Formats date string to something like "Jan 1" for display on search results
+// TODO: Use a proper library for this
+export function getFormattedBirthdate (dateString) {
+  const date = new Date(dateString)
+  return date.toString().split(" ").slice(1,3).join(" ")
+}
