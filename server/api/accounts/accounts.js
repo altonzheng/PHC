@@ -82,15 +82,15 @@ export function fetchAccounts(connection) {
 
   logger.debug('Fetching accounts: starting')
   connection.bulk.query(FETCH_ACCOUNTS_QUERY)
-    .on('record', (record) => {
-      accounts.push(record)
+    .on('record', (account) => {
+      accounts.push(account)
     })
     .on('end', () => {
       logger.debug('Fetching accounts: complete', )
       deferred.resolve({
         message: 'Successfully fetched ' + accounts.length + ' accounts!',
         payload: {
-          accounts: records.map((account) => {
+          accounts: accounts.map((account) => {
             return {
               name: `${account.FirstName} ${account.LastName}`,
               id: account.Id
