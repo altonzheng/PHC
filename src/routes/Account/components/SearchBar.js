@@ -22,8 +22,8 @@ class SearchBar extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value, suggestions: []});
+  handleChange(e) {
+    this.setState({value: e.target.value, suggestions: []});
   }
 
   suggest() {
@@ -36,8 +36,15 @@ class SearchBar extends React.Component {
     })
   }
 
-  render() {
+  _handleKeyPress (e) {
+    e.persist()
 
+    if (e.key === 'Enter') {
+      this.suggest()
+    }
+  }
+
+  render() {
     const searchButton = (
       <button
         className="button button--large button--success"
@@ -66,6 +73,7 @@ class SearchBar extends React.Component {
             type="text"
             value={this.state.value}
             onChange={this.handleChange}
+            onKeyPress={this._handleKeyPress.bind(this)}
           />
 
         {this.props.accounts ? searchButton : loadAccountsButton}
