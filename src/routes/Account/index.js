@@ -4,10 +4,10 @@ import requireAuth from '../Login/utils'
 export default (store) => ({
   getComponent(nextState, next) {
     require.ensure([
-        './containers/AccountContainer',
+        './components/Account',
         './modules/account',
       ], (require) => {
-      const Account = require('./containers/AccountContainer').default;
+      const Account = require('./components/Account').default;
       const reducer = require('./modules/account').default;
 
       injectReducer(store, {

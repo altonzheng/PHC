@@ -9,14 +9,22 @@
 }
 
 .suggestionList {
+  padding: 0;
   list-style-type: none;
+}
+
+.suggestionItem {
+  cursor: pointer;
+  font-weight: $weight-regular;
+  padding: 5px;
 }
 
 .inputGroup {
   display: flex;
   align-items: center;
+  flex-flow: column;
 }
 
 .searchInput {
-  margin-right: 10px;
+  margin-bottom: 10px;
 }

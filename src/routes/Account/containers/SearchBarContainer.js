@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { fetchAccounts, loadAccountData } from '../modules/account'
-
-import Account from '../components/Account'
+import SearchBar from '../components/SearchBar'
 
 const mapActionCreators = {
   fetchAccounts,
@@ -15,4 +14,4 @@ const mapStateToProps = (state) => ({
   currentAccount: state.account.currentAccount
 })
 
-export default connect(mapStateToProps, mapActionCreators)(Account)
+export default connect(mapStateToProps, mapActionCreators)(SearchBar)

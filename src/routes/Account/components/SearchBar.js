@@ -2,23 +2,16 @@ import React from 'react'
 import Autosuggest from 'react-autosuggest'
 import classes from './SearchBar.scss'
 
-class AccountSuggestion extends React.Component {
-  constructor() {
-    super()
-    this.handleClick = this.handleClick.bind(this)
+const AccountSuggestion = (props) => {
+  const handleClick = () => {
+    props.loadAccountData(props.id)
   }
 
-  handleClick() {
-    this.props.loadAccountData(this.props.id)
-  }
-
-  render() {
-    return (
-      <li className={classes.suggestionItem} onClick={this.handleClick}>
-        <span>{ this.props.name }</span>
-      </li>
-    )
-  }
+  return (
+    <li className={classes.suggestionItem} onClick={handleClick}>
+      <span>{ props.name }</span>
+    </li>
+  )
 }
 
 class SearchBar extends React.Component {
@@ -44,6 +37,27 @@ class SearchBar extends React.Component {
   }
 
   render() {
+
+    const searchButton = (
+      <button
+        className="button button--large button--success"
+        onClick={this.suggest}
+        disabled={this.state.searching}
+      >
+        {this.state.searching ? "Searching..." : "Search!"}
+      </button>
+    )
+
+    const loadAccountsButton = (
+      <button
+        className="button button--large button--success"
+        onClick={this.props.fetchAccounts}
+        disabled={this.props.fetching}
+      >
+        {this.props.fetching ? "Loading..." : "Load Accounts"}
+      </button>
+    )
+
     return (
       <div>
         <div className={classes.inputGroup}>
@@ -54,9 +68,8 @@ class SearchBar extends React.Component {
             onChange={this.handleChange}
           />
 
-          <button className="button button--s button--default" onClick={this.suggest} disabled={this.state.searching} >
-            {this.state.searching ? "Searching..." : "Search!"}
-          </button>
+        {this.props.accounts ? searchButton : loadAccountsButton}
+
         </div>
 
         <ul className={classes.suggestionList}>
