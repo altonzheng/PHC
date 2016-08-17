@@ -11,7 +11,6 @@ const AccountSuggestion = (props) => {
     <li className={classes.suggestionItem} onClick={handleClick}>
       <span className={classes.name}>{ props.name }</span>
       <span className={classes.birthdate}>{ props.birthdate }</span>
-
     </li>
   )
 }
@@ -34,7 +33,17 @@ class SearchBar extends React.Component {
     }
 
     this.setState({
-      suggestions: this.props.accountSearcher.search(this.state.value).slice(0,5)
+      searching: true
+    })
+
+    setTimeout(this.getSuggestions.bind(this), 1)
+  }
+
+  getSuggestions() {
+    let suggestions = this.props.accountSearcher.search(this.state.value).slice(0,5)
+    this.setState({
+      suggestions: suggestions,
+      searching: false
     })
   }
 

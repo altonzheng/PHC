@@ -32,5 +32,10 @@ export function transformDateFromSalesforce (dateString) {
 // TODO: Use a proper library for this
 export function getFormattedBirthdate (dateString) {
   const date = new Date(dateString)
+
+  if (isNaN(date.getTime())) {
+    return ""
+  }
+
   return date.toString().split(" ").slice(1,3).join(" ")
 }
