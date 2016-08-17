@@ -36,6 +36,7 @@ label {
 
 .toggleInputGroup {
   margin-bottom: $input-spacing;
+
   input {
     margin-right: 5px;
   }
@@ -45,6 +46,7 @@ label {
   @extend .textInput;
 
   margin-left: 5px;
+  width: 190px;
 }
 
 .otherInput {

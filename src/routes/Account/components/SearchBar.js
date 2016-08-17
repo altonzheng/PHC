@@ -1,6 +1,6 @@
 import React from 'react'
 import Autosuggest from 'react-autosuggest'
-import theme from './SearchBar.scss'
+import classes from './SearchBar.scss'
 
 class AccountSuggestion extends React.Component {
   constructor() {
@@ -14,8 +14,8 @@ class AccountSuggestion extends React.Component {
 
   render() {
     return (
-      <li className='suggestionItem' onClick={ this.handleClick }>
-        <span className='name'>{ this.props.name }</span>
+      <li className={classes.suggestionItem} onClick={this.handleClick}>
+        <span>{ this.props.name }</span>
       </li>
     )
   }
@@ -46,17 +46,20 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <input
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
+        <div className={classes.inputGroup}>
+          <input
+            className={classes.searchInput + " textInput"}
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
 
-        <button className='button button--default' onClick={this.suggest} disabled={this.state.searching} >
-          { this.state.searching ? "Searching..." : "Search!" }
-        </button>
+          <button className="button button--s button--default" onClick={this.suggest} disabled={this.state.searching} >
+            {this.state.searching ? "Searching..." : "Search!"}
+          </button>
+        </div>
 
-        <ul className='suggestionsList' style={{listStyleType: 'none'}}>
+        <ul className={classes.suggestionList}>
           {
             this.state.suggestions.map(suggestion => {
               return (

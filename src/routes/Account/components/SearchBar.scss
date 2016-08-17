@@ -1,39 +1,22 @@
-.container {
-
-}
+@import '../../../styles/base';
 
 .input {
   width: 300px;
-}
-
-.suggestionsContainer {
-
-
 }
 
 .accountList .li {
   color: #f0f0f5;
 }
 
-.suggestion {
+.suggestionList {
   list-style-type: none;
-
 }
 
-.suggestionFocused {
-
+.inputGroup {
+  display: flex;
+  align-items: center;
 }
 
-.suggestionItem {
-  .firstName {
-
-  }
-
-  .lastName {
-
-  }
-
-  .salesforceId {
-
-  }
+.searchInput {
+  margin-right: 10px;
 }

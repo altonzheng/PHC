@@ -2,13 +2,24 @@
   box-shadow: none;
   border: none;
   border-radius: 100px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.button--s {
+  width: 80px;
+  height: 30px;
+}
+
 .button--large {
   width: 120px;
+  height: 50px;
+}
+
+.button--xl {
+  width: 180px;
   height: 50px;
 }
 
@@ -37,10 +48,10 @@
 }
 
 .button--default-inverted {
-  border: 1px solid $grey-medium;
+  border: 1px solid $black-medium;
   background-color: $white;
   font-weight: $weight-light;
-  color: $grey-medium;
+  color: $black-dark;
 }
 
 .button--success-inverted {
