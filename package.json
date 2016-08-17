@@ -19,18 +19,11 @@
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
-    "codecov": "cat coverage/*/lcov.info | codecov"
-    "start": "better-npm-run start:prod",
+    "codecov": "cat coverage/*/lcov.info | codecov",
     "serve": "better-npm-run start",
     "postinstall":"npm run deploy:prod"
   },
   "betterScripts": {
-    "start:prod": {
-      "command": "babel-node bin/server",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
     "compile": {
       "command": "babel-node bin/compile",
       "env": {
