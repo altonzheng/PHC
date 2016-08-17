@@ -28,7 +28,8 @@ const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Adult Probation': 'Adult_Probation__c',
   'Banking': 'Banking__c',
   'Books and Library Cards': 'Books__c',
-  'CAAP (GA/PAES, CalFresh)': 'CAAP__c',
+  'CAAP': 'CAAP__c',
+  'CalFresh': 'CalFresh__c',
   'Disability Services': 'Disability_Services__c',
   'DMV ID (Must have previous CA ID or copy of Birth Cert., Passport or Military ID)': 'DMV_ID__c',
   'Employment': 'Employment__c',
@@ -41,14 +42,17 @@ const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Lifeline Cell Phones (Tag Mobile)': 'Phone_Calls__c',
   'Pet Care (outside in Plaza)': 'Pet_Care__c',
   'Phone Calls and Voicemail (Sprint and Google)': 'Voicemail__c',
-  // 'Photo Portraits': '',  // TODO: This isn't in the database?
+  'Photo Booth': 'Portraits__c',
   'Senior Services': 'Senior_Services__c',
   'Showers (Lava Mae)': 'Showers__c',
-  'SSI/SSDI/Medi-Cal': 'SSI_SSDI_Medi_Cal__c',
+  'Medi-Cal': 'SSI_SSDI_Medi_Cal__c',
+  // 'SSI/SSDI/Medi-Cal': 'SSI_SSDI_Medi_Cal__c',
   'Veteran Services': 'Veteran_Services__c',
   'Wheelchair Repair': 'Wheelchair_Repair__c',
   'Women\'s and Domestic Violence Services': 'Women_Services__c',
   'Youth Services (up to age 24)': 'Youth_Services__c',
+  'Lunch': 'Lunch__c',
+  'Groceries': 'Groceries__c'
 }
 
 const PICKLIST_VALUES = {
@@ -58,7 +62,7 @@ const PICKLIST_VALUES = {
 }
 
 // TODO: Fetch the latest PHC Event and cache the lastest id beforehand.
-const PHC_EVENT_ID = 'a0Re0000001hNY9EAM'
+const PHC_EVENT_ID = 'a0R40000008oL8d'
 
 export function createEventRegistration (connection, accountId, fields) {
   const deferred = Q.defer()
