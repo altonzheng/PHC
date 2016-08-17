@@ -90,7 +90,12 @@ export function fetchAccounts(connection) {
       deferred.resolve({
         message: 'Successfully fetched ' + accounts.length + ' accounts!',
         payload: {
-          accounts,
+          accounts: records.map((account) => {
+            return {
+              name: `${account.FirstName} ${account.LastName}`,
+              id: account.Id
+            }
+          })
         },
       })
     })

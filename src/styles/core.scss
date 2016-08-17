@@ -24,4 +24,21 @@
   *:after {
     box-sizing: inherit;
   }
+
+
+  ul.suggestionList {
+    width: 300px
+  }
+
+  // Not sure how to put scss in component yet so I'm just leaving this here!
+  li.suggestionItem {
+    font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+  }
+
+  li.suggestionItem:last-child {
+    border: none;
+  }
+
 }

@@ -1,5 +1,6 @@
 /* @flow */
 import { push } from 'react-router-redux'
+import Fuse from 'fuse.js'
 
 // ------------------------------------
 // Constants
@@ -74,7 +75,6 @@ export function clearCurrentAccount() {
 export function fetchAccounts(id) {
   return (dispatch) => {
     dispatch(fetchAccountsRequest(id))
-
     return fetch('/api/accounts')
       .then(response => {
         if (response.ok) {
@@ -83,8 +83,21 @@ export function fetchAccounts(id) {
           dispatch(fetchAccountsFailure())
         }
       })
-      .then(data => dispatch(fetchAccountsSuccess(data.payload.accounts)))
-      .catch(err => dispatch(fetchAccountsFailure(err)))
+      .then(data => {
+        // Use Fuse.js to create a fuzzy searchable index of accounts
+        const fuse = new Fuse(data.payload.accounts, {
+          keys: ["name"],
+          threshold: 0.5
+        })
+
+        // Attach Fuse to window, because it slows down redux.
+        // There is definitely a better way to do this.
+        window.accountSearcher = fuse
+        window.accounts = data.payload.accounts
+
+        dispatch(fetchAccountsSuccess(data.payload.accounts))
+      })
+      // .catch(err => dispatch(fetchAccountsFailure(err)))
   }
 }
 
@@ -122,7 +135,7 @@ const ACTION_HANDLERS = {
   [FETCH_ACCOUNTS_SUCCESS]: (state, action) => {
     return ({
       ...state,
-      accounts: action.payload.accounts,
+      // accounts: action.payload.accounts,
       fetching: false,
       error: null,
     })

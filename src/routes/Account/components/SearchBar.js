@@ -1,26 +1,22 @@
 import React from 'react'
-import Fuse from 'fuse.js'
 import Autosuggest from 'react-autosuggest'
 import theme from './SearchBar.scss'
 
 class AccountSuggestion extends React.Component {
   constructor() {
     super()
-
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick() {
-    this.props.loadAccountData(this.props.salesforceId)
+    this.props.loadAccountData(this.props.id)
   }
 
   render() {
     return (
-      <div className='suggestionItem' onClick={ this.handleClick }>
-        <span className='firstName'>{ this.props.firstName }</span>
-        <span className='lastName'>{ this.props.lastName }</span>
-        <span className='salesforceId'>{ this.props.salesforceId }</span>
-      </div>
+      <li className='suggestionItem' onClick={ this.handleClick }>
+        <span className='name'>{ this.props.name }</span>
+      </li>
     )
   }
 }
@@ -28,70 +24,52 @@ class AccountSuggestion extends React.Component {
 class SearchBar extends React.Component {
   constructor() {
     super()
+    this.state = {value: '', suggestions: [], searching: false};
+    this.suggest = this.suggest.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
 
-    this.state = {
-      value: '',
-      suggestions: []
+  handleChange(event) {
+    this.setState({value: event.target.value, suggestions: []});
+  }
+
+  suggest() {
+    if (!this.props.accountSearcher) {
+      return
     }
 
-    this.onChange = this.onChange.bind(this)
-    this.onSuggestionsUpdateRequested = this.onSuggestionsUpdateRequested.bind(this)
-    this.renderSuggestion = this.renderSuggestion.bind(this)
-  }
-
-  getSuggestions(value) {
-    if (value.trim().length < 4) {
-      return []
-    }
-
-    const f = new Fuse(this.props.accounts, {
-      keys: ["Id", "FirstName", "LastName"],
-      threshold: 0.3
-    })
-    return f.search(value)
-  }
-
-  getSuggestionValue(suggestion) {
-    return suggestion.FirstName + " " + suggestion.LastName
-  }
-
-  renderSuggestion(suggestion) {
-    return (
-      <AccountSuggestion
-        firstName={suggestion.FirstName}
-        lastName={suggestion.LastName}
-        salesforceId={suggestion.Id}
-        loadAccountData={this.props.loadAccountData}
-      />
-    )
-  }
-
-  onChange(event, { newValue }) {
     this.setState({
-      value: newValue
-    })
-  }
-
-  onSuggestionsUpdateRequested({ value }) {
-    this.setState({
-      suggestions: this.getSuggestions(value)
+      suggestions: this.props.accountSearcher.search(this.state.value).slice(0,5)
     })
   }
 
   render() {
-    const { value, suggestions } = this.state
-    const inputProps = {
-      value,
-      onChange: this.onChange
-    }
-
     return (
-      <Autosuggest suggestions={suggestions}
-                   onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
-                   getSuggestionValue={this.getSuggestionValue}
-                   renderSuggestion={this.renderSuggestion}
-                   inputProps={inputProps}
-                   theme={theme} />
+      <div>
+        <input
+          type="text"
+          value={this.state.value}
+          onChange={this.handleChange}
+        />
+
+        <button className='button button--default' onClick={this.suggest} disabled={this.state.searching} >
+          { this.state.searching ? "Searching..." : "Search!" }
+        </button>
+
+        <ul className='suggestionsList' style={{listStyleType: 'none'}}>
+          {
+            this.state.suggestions.map(suggestion => {
+              return (
+                <AccountSuggestion
+                  loadAccountData={this.props.loadAccountData}
+                  name={suggestion.name}
+                  id={suggestion.id}
+                />
+              )
+            })
+          }
+        </ul>
+      </div>
     )
   }
 }
