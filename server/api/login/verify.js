@@ -1,9 +1,5 @@
-const {
-  LOGIN_PASSWORD
-} = process.env
+import config from '../../../config';
 
 export default function verify (password) {
-  console.log(password);
-  console.log(LOGIN_PASSWORD);
-  return (password === LOGIN_PASSWORD)
+  return (password === config.login_password)
 }

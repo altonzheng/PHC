@@ -1,15 +1,11 @@
-import Q from 'q'
-import logger from '../../lib/logger'
-
-const EventRegistration = 'Event_Registration__c'
+export const EventRegistration = 'Event_Registration__c'
 
 // TODO: Redo the way this works
 // - The frontend should be an object that looks like this: { displayName, value }
 // - The backend should be able to easily translate this value to the column label in the database
 // - The backend then queries Salesforce for the list of active events
 
-const FORM_FIELD_TO_SALESFORCE_FIELD = {
-
+export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   // Medical Services
   'Acupuncture': 'Acupuncture__c',
   'Addiction and Harm Reduction Services': 'Addiction_Support__c',
@@ -55,50 +51,11 @@ const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Groceries': 'Groceries__c'
 }
 
-const PICKLIST_VALUES = {
+export const EventPicklistValues = {
   APPLIED: 'Applied',
   RECEIVED: 'Received',
   DROP_IN: 'Drop In',
 }
 
 // TODO: Fetch the latest PHC Event and cache the lastest id beforehand.
-const PHC_EVENT_ID = 'a0R40000008oL8d'
-
-export function createEventRegistration (connection, accountId, fields) {
-  const deferred = Q.defer()
-
-  const payload = {}
-
-  for (let field of fields) {
-    if (field in FORM_FIELD_TO_SALESFORCE_FIELD) {
-      payload[FORM_FIELD_TO_SALESFORCE_FIELD[field]] = PICKLIST_VALUES.APPLIED
-    }
-  }
-
-  payload['Account__c'] = accountId
-  payload['PHC_Event__c'] = PHC_EVENT_ID
-
-  logger.debug(payload)
-
-  connection.sobject(EventRegistration).create(payload, (err, registration) => {
-    logger.debug(registration)
-
-    if (err || !registration.success) {
-      logger.error(`Error creating registration: ${err}.`)
-      deferred.reject({
-        message: `Error creating registration.`,
-        error: err,
-      })
-    } else {
-      deferred.resolve({
-        message: `Successfully created registration ${registration.id}.`,
-        payload: {
-          registration: {
-            id: registration.id,
-          },
-        },
-        connection,
-      })
-    }
-  })
-}
+export const PHC_EVENT_ID = 'a0R40000008oL8d'

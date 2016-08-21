@@ -11,8 +11,30 @@ debug('Creating default configuration.')
 // ========================================================
 // Default Configuration
 // ========================================================
+
 const config = {
   env : process.env.NODE_ENV || 'development',
+
+  // ----------------------------------
+  // Salesforce Configuration
+  // ----------------------------------
+  salesforce_host: (
+    process.env.NODE_ENV === 'production'
+      ? process.env.SALESFORCE_PRODUCTION_HOST
+      : process.env.SALESFORCE_SANDBOX_HOST
+  ),
+  salesforce_username: (
+    process.env.NODE_ENV === 'production'
+      ? process.env.SALESFORCE_PRODUCTION_USER
+      : process.env.SALESFORCE_SANDBOX_USER
+  ),
+  salesforce_password: (
+    process.env.NODE_ENV === 'production'
+      ? process.env.SALESFORCE_PRODUCTION_PASSWORD
+      : process.env.SALESFORCE_SANDBOX_PASSWORD
+  ),
+
+  login_password: process.env.LOGIN_PASSWORD,
 
   // ----------------------------------
   // Project Structure

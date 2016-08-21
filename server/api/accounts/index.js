@@ -1,14 +1,14 @@
 import Router from 'koa-router'
 import logger from '../../lib/logger'
-import login from './login'
-import { logApiUsage, getAccount, fetchAccounts, createOrUpdateAccount } from './accounts'
-import { createEventRegistration } from './eventRegistrations'
-import Q from 'q'
+import { connect } from '../../lib/salesforce'
+import { getAccount, getAllAccounts, createOrUpdateAccount } from '../../lib/salesforce/account'
+import { createEventRegistration } from '../../lib/salesforce/event-registration'
 
-const router = Router()
-
-// TODO: Reduce redundancy here by logging in on every request and logging the api usage, or alternatively,
-//       log the api usage inside of the login function.
+function handleError (ctx, error) {
+  // TODO: Differentiate different types of errors, and return different codes accordingly.
+  logger.error(`${error.message}`)
+  ctx.throw(error.message, 503)
+}
 
 function handlePUTorPOST (ctx, next) {
   const fields = ctx.request.body.fields
@@ -16,11 +16,9 @@ function handlePUTorPOST (ctx, next) {
 
   const events = fields.medicalServices.concat(fields.supportServices)
 
-  return login()
+  return connect()
     .then(res => {
       const connection = res.connection
-
-      logApiUsage(connection)
 
       return createOrUpdateAccount(connection, id, fields)
         .then(res => createEventRegistration(connection, res.payload.account.id, events))
@@ -28,27 +26,23 @@ function handlePUTorPOST (ctx, next) {
 
     // TODO: Should we return something else more useful to the caller?
     .then(res => ctx.body = res)
-    .catch(err => {
-      logger.error(`${err.message}`)
-      // TODO: Differentiate Salesforce errors from invalid user input errors.
-      ctx.throw(err.message, 503)
-    })
+    .catch(error => handleError(ctx, error))
 }
+
+const router = Router()
 
 router
   .get('/', (ctx, next) => {
-    return login()
-      .then(res => logApiUsage(res.connection))
-      .then(res => fetchAccounts(res.connection))
+    return connect()
+      .then(res => getAllAccounts(res.connection))
       .then(res => ctx.body = res)
-      .catch(err => ctx.throw(err.message, 503))
+      .catch(error => handleError(ctx, error))
   })
   .get('/:id', (ctx, next) => {
-    return login()
-      .then(res => logApiUsage(res.connection))
+    return connect()
       .then(res => getAccount(res.connection, ctx.params.id))
       .then(res => ctx.body = res)
-      .catch(err => ctx.throw(err.message, 503))
+      .catch(error => handleError(ctx, error))
   })
   .post('/', handlePUTorPOST)
   .put('/:id', handlePUTorPOST)
