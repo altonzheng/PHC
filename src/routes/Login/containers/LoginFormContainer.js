@@ -3,8 +3,7 @@ import LoginForm from '../components/LoginForm'
 import { login } from '../modules/login'
 
 const fields = [
-  'username',
-  'password',
+  'password'
 ]
 
 const mapStateToProps = (state) => ({
@@ -12,7 +11,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (username, password) => dispatch(login(username, password))
+  login: (password) => dispatch(login(password))
 })
 
 export default reduxForm({

@@ -28,7 +28,7 @@ function loginFailure () {
   }
 }
 
-export function login (username, password) {
+export function login (password) {
   return (dispatch) => {
     dispatch(loginRequest())
 
@@ -39,7 +39,7 @@ export function login (username, password) {
           'Content-Type': 'application/json',
         },
         method: 'POST',
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ password })
       }
     )
     .then(response => {
@@ -60,7 +60,7 @@ export function login (username, password) {
 }
 
 export const actions = {
-  login,
+  login
 }
 
 // ------------------------------------

@@ -4,7 +4,6 @@ import classes from './LoginForm.scss'
 export const LoginForm = (props) => {
   let {
     fields: {
-      username,
       password,
     },
     handleSubmit,
@@ -13,14 +12,7 @@ export const LoginForm = (props) => {
   } = props
 
   const _onSubmit = () => {
-    if (
-      username.touched
-        && username.value
-        && password.touched
-        && password.value
-    ) {
-      login(username.value, password.value)
-    }
+    login(password.value)
   }
 
   return (
@@ -28,11 +20,6 @@ export const LoginForm = (props) => {
       className={classes.form}
       onSubmit={handleSubmit(_onSubmit)}
     >
-      <div className={classes.inputGroup}>
-        <label className={classes.inputLabel}>Username</label>
-        <input className={classes.loginTextInput} type="text" {...username} />
-      </div>
-
       <div className={classes.inputGroup}>
         <label className={classes.inputLabel}>Password</label>
           <input className={classes.loginTextInput} type="password" {...password} />

@@ -6,17 +6,16 @@ const router = Router()
 
 router
   .post('/', (ctx, next) => {
-    let username, password
+    let password
 
     try {
-      username = ctx.request.body.username
       password = ctx.request.body.password
     } catch (error) {
-      ctx.throw('bad user input', 400)
+      ctx.throw('Bad input.', 400)
     }
 
-    if (!verify(username, password)) {
-      ctx.throw('unauthenticated', 401)
+    if (!verify(password)) {
+      ctx.throw('Bad password.', 401)
     }
 
     ctx.status = 200
