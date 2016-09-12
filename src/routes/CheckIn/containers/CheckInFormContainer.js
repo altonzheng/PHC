@@ -1,4 +1,4 @@
-import { reduxForm } from 'redux-form'
+import { reduxForm, destroy, initialize, reset } from 'redux-form'
 
 import CheckInForm from '../components/CheckInForm'
 import { updateInfo, clearInfo } from '../modules/check-in'
@@ -76,7 +76,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateInfo: (fields, id) => dispatch(updateInfo(fields, id)),
-  clearInfo: () => dispatch(clearCurrentAccount()),
+  clearInfo: () => {
+    dispatch(clearCurrentAccount())
+    dispatch(initialize('checkIn', {}, fields))
+    dispatch(reset('checkIn'))
+  },
 })
 
 export default reduxForm({

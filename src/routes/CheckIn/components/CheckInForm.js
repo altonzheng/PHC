@@ -59,7 +59,6 @@ export const CheckInForm = (props) => {
 
   const _onClear = () => {
     props.clearInfo()
-    resetForm()
   }
 
   return (
