@@ -1,3 +1,4 @@
+import { LOCATION_CHANGE } from 'react-router-redux'
 import { clearCurrentAccount } from '../../Account/modules/account'
 
 // ------------------------------------
@@ -101,6 +102,13 @@ const ACTION_HANDLERS = {
       requesting: false,
       success: false,
       failure: false,
+    }
+  },
+
+  [LOCATION_CHANGE]: (state, action) => {
+    return {
+      ...state,
+      success: false,
     }
   }
 }
