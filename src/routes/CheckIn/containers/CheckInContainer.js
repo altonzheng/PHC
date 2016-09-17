@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import CheckIn from '../components/CheckIn'
 import { resetForm } from '../modules/check-in'
 
@@ -9,7 +10,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  resetForm: () => dispatch(resetForm()),
+  goToHomePage: () => dispatch(push('/'))
 })
 
 export default connect(

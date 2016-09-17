@@ -8,7 +8,7 @@ export const CheckIn = (props) => {
   const success = (
     <div>
       <h1>Success! Participant was registered.</h1>
-      <button onClick={props.resetForm}>Check in a new person</button>
+      <button onClick={props.goToHomePage}>Check in a new person</button>
     </div>
   )
 
@@ -29,7 +29,7 @@ export const CheckIn = (props) => {
 
 CheckIn.propTypes = {
   success: PropTypes.bool.isRequired,
-  resetForm: PropTypes.func.isRequired,
+  goToHomePage: PropTypes.func.isRequired,
 }
 
 export default CheckIn
