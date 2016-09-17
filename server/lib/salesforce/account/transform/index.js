@@ -21,7 +21,7 @@ const FORM_FIELD_TO_SALESFORCE_FIELD = {
   ethnicity: 'Race__c',
   ethnicityOther: 'Other_Race__c',
   language: 'Primary_Language__c',
-  language: 'Other_Language__c',
+  languageOther: 'Other_Language__c',
   hasBeenInFosterCare: 'Foster_Care__c',
   hasServedInTheMilitary: 'Veteran__c',
   primaryHealthcareLocation: 'Where_do_you_usually_go_for_healthcare__c',
