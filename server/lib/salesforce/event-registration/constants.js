@@ -13,7 +13,9 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Addiction and Harm Reduction Services': 'Addiction_Support__c',
   'Dental': 'Dental__c',
   'HIV, STI, and Hepatitis C Testing': 'HIV_STI_Testing__c',
+
   // 'Mammograms': '',  // TODO: This isn't in the form?
+
   'Massage': 'Massage__c',
   'Medical': 'Medical__c',
   'Mental Health': 'Mental_Health__c',
@@ -44,7 +46,6 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Senior Services': 'Senior_Services__c',
   'Showers (Lava Mae)': 'Showers__c',
   'Medi-Cal': 'SSI_SSDI_Medi_Cal__c',
-  // 'SSI/SSDI/Medi-Cal': 'SSI_SSDI_Medi_Cal__c',
   'Veteran Services': 'Veteran_Services__c',
   'Wheelchair Repair': 'Wheelchair_Repair__c',
   'Women\'s and Domestic Violence Services': 'Women_Services__c',

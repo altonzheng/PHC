@@ -76,7 +76,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  updateInfo: (fields, id) => dispatch(updateInfo(fields, id)),
+  updateInfo: (fields, id) => dispatch(updateInfo({ fields, id })),
   clearInfo: () => {
     dispatch(clearCurrentAccount())
     dispatch(initialize('checkIn', {}, fields))
