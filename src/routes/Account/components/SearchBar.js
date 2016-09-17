@@ -1,5 +1,4 @@
 import React from 'react'
-import Autosuggest from 'react-autosuggest'
 import classes from './SearchBar.scss'
 
 const AccountSuggestion = (props) => {
@@ -18,33 +17,17 @@ const AccountSuggestion = (props) => {
 class SearchBar extends React.Component {
   constructor() {
     super()
-    this.state = {value: '', suggestions: [], searching: false};
+    this.state = { value: '' };
     this.suggest = this.suggest.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(e) {
-    this.setState({value: e.target.value, suggestions: []});
+    this.setState({value: e.target.value});
   }
 
   suggest() {
-    if (!this.props.accountSearcher) {
-      return
-    }
-
-    this.setState({
-      searching: true
-    })
-
-    setTimeout(this.getSuggestions.bind(this), 1)
-  }
-
-  getSuggestions() {
-    let suggestions = this.props.accountSearcher.search(this.state.value).slice(0,5)
-    this.setState({
-      suggestions: suggestions,
-      searching: false
-    })
+    this.props.searchForAccount(this.state.value);
   }
 
   _handleKeyPress (e) {
@@ -56,26 +39,6 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const searchButton = (
-      <button
-        className="button button--large button--success"
-        onClick={this.suggest}
-        disabled={this.state.searching}
-      >
-        {this.state.searching ? "Searching..." : "Search!"}
-      </button>
-    )
-
-    const loadAccountsButton = (
-      <button
-        className="button button--large button--success"
-        onClick={this.props.fetchAccounts}
-        disabled={this.props.fetching}
-      >
-        {this.props.fetching ? "Loading..." : "Load Accounts"}
-      </button>
-    )
-
     return (
       <div>
         <div className={classes.inputGroup}>
@@ -87,19 +50,26 @@ class SearchBar extends React.Component {
             onKeyPress={this._handleKeyPress.bind(this)}
           />
 
-        {this.props.accounts ? searchButton : loadAccountsButton}
+        <button
+          className="button button--large button--success"
+          onClick={this.suggest}
+          disabled={this.props.searching}
+        >
+          {this.props.searching ? "Searching..." : "Search!"}
+        </button>
 
         </div>
 
         <ul className={classes.suggestionList}>
           {
-            this.state.suggestions.map(suggestion => {
+            this.props.searchResults.map(result => {
               return (
                 <AccountSuggestion
                   loadAccountData={this.props.loadAccountData}
-                  name={suggestion.name}
-                  id={suggestion.id}
-                  birthdate={suggestion.birthdate}
+                  name={result.name}
+                  id={result.id}
+                  birthdate={result.birthdate}
+                  key={result.id}
                 />
               )
             })

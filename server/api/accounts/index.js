@@ -1,7 +1,7 @@
 import Router from 'koa-router'
 import logger from '../../lib/logger'
 import { connect } from '../../lib/salesforce'
-import { getAccount, getAllAccounts, createOrUpdateAccount } from '../../lib/salesforce/account'
+import { getAccount, getAllAccounts, createOrUpdateAccount, searchForAccountByName } from '../../lib/salesforce/account'
 import { createEventRegistration } from '../../lib/salesforce/event-registration'
 
 function handleError (ctx, error) {
@@ -32,6 +32,12 @@ function handlePUTorPOST (ctx, next) {
 const router = Router()
 
 router
+  .get('/search', (ctx, next) => {
+    return connect()
+      .then(res => searchForAccountByName(res.connection, ctx.query.name))
+      .then(res => ctx.body = res)
+      .catch(error => handleError(ctx, error))
+  })
   .get('/', (ctx, next) => {
     return connect()
       .then(res => getAllAccounts(res.connection))

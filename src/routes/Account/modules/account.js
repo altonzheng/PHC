@@ -1,13 +1,12 @@
 /* @flow */
 import { push } from 'react-router-redux'
-import Fuse from 'fuse.js'
 
 // ------------------------------------
 // Constants
 // ------------------------------------
-const FETCH_ACCOUNTS_REQUEST = 'FETCH_ACCOUNTS_REQUEST'
-const FETCH_ACCOUNTS_SUCCESS = 'FETCH_ACCOUNTS_SUCCESS'
-const FETCH_ACCOUNTS_FAILURE = 'FETCH_ACCOUNTS_FAILURE'
+const SEARCH_FOR_ACCOUNT_REQUEST = 'SEARCH_FOR_ACCOUNT_REQUEST'
+const SEARCH_FOR_ACCOUNT_SUCCESS = 'SEARCH_FOR_ACCOUNT_SUCCESS'
+const SEARCH_FOR_ACCOUNT_FAILURE = 'SEARCH_FOR_ACCOUNT_FAILURE'
 
 const LOAD_ACCOUNT_DATA_REQUEST = 'LOAD_ACCOUNT_DATA_REQUEST'
 const LOAD_ACCOUNT_DATA_SUCCESS = 'LOAD_ACCOUNT_DATA_SUCCESS'
@@ -18,25 +17,26 @@ const CLEAR_CURRENT_ACCOUNT = 'CLEAR_CURRENT_ACCOUNT'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function fetchAccountsRequest() {
+export function searchForAccountRequest(name) {
   return {
-    type: FETCH_ACCOUNTS_REQUEST
+    type: SEARCH_FOR_ACCOUNT_REQUEST,
+    name: name
   }
 }
 
-export function fetchAccountsSuccess(accounts) {
+export function searchForAccountSuccess(accounts) {
   return {
-    type: FETCH_ACCOUNTS_SUCCESS,
+    type: SEARCH_FOR_ACCOUNT_SUCCESS,
     payload: {
-      accounts,
-    },
+      accounts
+    }
   }
 }
 
-export function fetchAccountsFailure(error) {
+export function searchForAccountFailure(error) {
   return {
-    type: FETCH_ACCOUNTS_FAILURE,
-    error,
+    type: SEARCH_FOR_ACCOUNT_FAILURE,
+    error
   }
 }
 
@@ -72,32 +72,19 @@ export function clearCurrentAccount() {
   }
 }
 
-export function fetchAccounts(id) {
+export function searchForAccount(name) {
   return (dispatch) => {
-    dispatch(fetchAccountsRequest(id))
-    return fetch('/api/accounts')
+    dispatch(searchForAccountRequest(name))
+    return fetch(`/api/accounts/search?name=${name}`)
       .then(response => {
         if (response.ok) {
           return response.json()
         } else {
-          dispatch(fetchAccountsFailure())
+          throw "Account search error!"
         }
       })
-      .then(data => {
-        // Use Fuse.js to create a fuzzy searchable index of accounts
-        const fuse = new Fuse(data.payload.accounts, {
-          keys: ["name"],
-          threshold: 0.5
-        })
-
-        // Attach Fuse to window, because it slows down redux.
-        // There is definitely a better way to do this.
-        window.accountSearcher = fuse
-        window.accounts = data.payload.accounts
-
-        dispatch(fetchAccountsSuccess(data.payload.accounts))
-      })
-      // .catch(err => dispatch(fetchAccountsFailure(err)))
+      .then(data => dispatch(searchForAccountSuccess(data.payload.accounts)))
+      .catch(err => dispatch(searchForAccountFailure(err)));
   }
 }
 
@@ -109,7 +96,7 @@ export function loadAccountData(id) {
         if (response.ok) {
           return response.json()
         } else {
-          dispatch(loadAccountDataFailure())
+          throw "Load account data error!"
         }
       })
       .then(data => dispatch(loadAccountDataSuccess(data.payload.account)))
@@ -119,32 +106,32 @@ export function loadAccountData(id) {
 }
 
 export const actions = {
-  fetchAccounts,
-  loadAccountData
+  loadAccountData,
+  searchForAccount
 }
 
 const ACTION_HANDLERS = {
-  [FETCH_ACCOUNTS_REQUEST]: (state) => {
+  [SEARCH_FOR_ACCOUNT_REQUEST]: (state) => {
     return ({
       ...state,
-      accounts: [],
-      fetching: true,
+      searchResults: [],
+      searching: true,
       error: null,
     })
   },
-  [FETCH_ACCOUNTS_SUCCESS]: (state, action) => {
+  [SEARCH_FOR_ACCOUNT_SUCCESS]: (state, action) => {
     return ({
       ...state,
-      // accounts: action.payload.accounts,
-      fetching: false,
+      searchResults: action.payload.accounts,
+      searching: false,
       error: null,
     })
   },
-  [FETCH_ACCOUNTS_FAILURE]: (state, action) => {
+  [SEARCH_FOR_ACCOUNT_FAILURE]: (state, action) => {
     return ({
       ...state,
-      accounts: [],
-      fetching: false,
+      searchResults: [],
+      searching: false,
       error: action.error.message,
     })
   },
@@ -184,10 +171,11 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = {
-  accounts: [],
   currentAccount: null,
   fetching: false,
   error: null,
+  searching: false,
+  searchResults: []
 }
 export default function accountReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

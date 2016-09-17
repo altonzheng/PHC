@@ -1,4 +1,5 @@
 import Q from 'q'
+import Fuse from 'fuse.js'
 
 import logger from '../../logger'
 
@@ -12,9 +13,12 @@ import {
   transformFieldFromSalesforce,
   transformFieldForSalesforce,
   mapFormFieldToSalesforceField,
-  mapSalesforceFieldToFormField,
+  mapSalesforceFieldToFormField
 } from './transform'
 import { getFormattedBirthdate } from './transform/date'
+
+// Store accounts in memory lol
+let fuse = null
 
 function getAllAccounts(connection) {
   const deferred = Q.defer()
@@ -26,27 +30,34 @@ function getAllAccounts(connection) {
       accounts.push(account)
     })
     .on('end', () => {
-      logger.debug('Fetching accounts: complete', )
+      logger.debug('Fetching accounts: complete')
+
+      let mappedAccounts = accounts.map((account) => {
+        return {
+          // TODO: Select their entire name from Salesforce instead of these two separate columns.
+          //   Or, return first and last name separately.
+          name: `${account.FirstName} ${account.LastName}`,
+          id: account.Id,
+          birthdate: getFormattedBirthdate(account.Birthdate__c)
+        }
+      })
+
+      // Use Fuse.js to create a fuzzy searchable index of accounts
+      fuse = new Fuse(mappedAccounts, {
+        keys: ['name'],
+        threshold: 0.2
+      })
+      logger.debug('Index of ' + accounts.length + ' accounts built.')
+
       deferred.resolve({
-        message: 'Successfully fetched ' + accounts.length + ' accounts!',
-        payload: {
-          accounts: accounts.map((account) => {
-            return {
-              // TODO: Select their entire name from Salesforce instead of these two separate columns.
-              //   Or, return first and last name separately.
-              name: `${account.FirstName} ${account.LastName}`,
-              id: account.Id,
-              birthdate: getFormattedBirthdate(account.Birthdate__c)
-            }
-          })
-        },
+        message: 'Successfully fetched ' + accounts.length + ' accounts!'
       })
     })
     .on('error', (error) => {
-      logger.warn('Fetching accounts: error', { error})
+      logger.warn('Fetching accounts: error', { error })
       deferred.reject({
         message: 'Error fetching accounts.',
-        error,
+        error
       })
     })
 
@@ -132,8 +143,8 @@ function updateAccount(connection, payload) {
     if (error || !account.success) {
       logger.error('Updating account: error', { error })
       deferred.reject({
-        message: `Error updating account.`,
-        error,
+        message: 'Error updating account.',
+        error
       })
     } else {
       deferred.resolve({
@@ -171,8 +182,25 @@ function createOrUpdateAccount(connection, id, fields) {
   }
 }
 
+function searchForAccountByName(connection, name) {
+  return Q.fcall(() => {
+      // Initialize fuse if first time calling
+      if (fuse === null) {
+        return getAllAccounts(connection)
+      }
+    })
+    .then(() => {
+      return {
+        payload: {
+          accounts: fuse.search(name).slice(0,2)
+        }
+      }
+    })
+}
+
 export {
   getAllAccounts,
   getAccount,
   createOrUpdateAccount,
+  searchForAccountByName
 }
