@@ -35,5 +35,6 @@ node_modules
 # Env variables
 .env
 
+dist/
 .DS_Store
 TODO
