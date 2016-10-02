@@ -67,34 +67,37 @@ class SearchBar extends React.Component {
             bsStyle="primary"
             onClick={this.suggest}
             disabled={this.props.searching}
-            hidden="true"
+            className={classes.searchButton}
           >
             {this.props.searching ? "Searching... " : "Search "}
           </Button>
 
         </div>
 
-        <div className={classes.searchHeader + (this.props.searchResults > 0 ? "" : " hidden")} >
-          Search Results (Name, Date of Birth)
+        <div class="searchResults">
+          <div className={classes.searchHeader} >
+            Search Results (Name, Date of Birth)
+          </div>
+          { this.props.searchResults.length === 0 ? "No results." : "" }
+
+          <ul className={classes.suggestionList}  >
+
+            {
+              this.props.searchResults.map(result => {
+                return (
+                  <AccountSuggestion
+                    loadAccountData={this.props.loadAccountData}
+                    name={result.name}
+                    id={result.id}
+                    birthdate={result.birthdate}
+                    key={result.id}
+                    fetching={this.props.fetching}
+                  />
+                )
+              })
+            }
+          </ul>
         </div>
-
-        <ul className={classes.suggestionList}  >
-
-          {
-            this.props.searchResults.map(result => {
-              return (
-                <AccountSuggestion
-                  loadAccountData={this.props.loadAccountData}
-                  name={result.name}
-                  id={result.id}
-                  birthdate={result.birthdate}
-                  key={result.id}
-                  fetching={this.props.fetching}
-                />
-              )
-            })
-          }
-        </ul>
       </div>
     )
   }
