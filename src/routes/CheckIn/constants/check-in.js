@@ -85,7 +85,6 @@ export const SUPPORT_CHOICES = [
   'Photo Booth',
   'Senior Services',
   // 'Showers (Lava Mae)',
-  'Medi-Cal',
   // 'Veteran Services',
   // 'Wheelchair Repair',
   // 'Women\'s and Domestic Violence Services',
