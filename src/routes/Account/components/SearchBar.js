@@ -1,6 +1,7 @@
 import React from 'react'
 import classes from './SearchBar.scss'
 import { Button, Glyphicon, InputGroup, FormControl } from 'react-bootstrap';
+import { Addon } from 'react-bootstrap/lib/InputGroup'
 
 const AccountSuggestion = (props) => {
   const handleClick = () => {
@@ -50,9 +51,9 @@ class SearchBar extends React.Component {
       <div>
         <div className={classes.inputGroup}>
           <InputGroup>
-            <InputGroup.Addon>
+            <Addon>
               <Glyphicon glyph="search"/ >
-            </InputGroup.Addon>
+            </Addon>
             <FormControl
               className={classes.searchInput + " textInput"}
               type="text"
