@@ -1,3 +1,5 @@
+import config from '../../../../config'
+
 export const EventRegistration = 'Event_Registration__c'
 
 // TODO: Redo the way this works
@@ -58,4 +60,4 @@ export const EventPicklistValues = {
 }
 
 // TODO: Fetch the latest PHC Event and cache the lastest id beforehand.
-export const PHC_EVENT_ID = 'a0R40000008oL8d'
+export const PHC_EVENT_ID = config.phc_event_id

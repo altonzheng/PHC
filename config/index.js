@@ -34,6 +34,12 @@ const config = {
       : process.env.SALESFORCE_SANDBOX_PASSWORD
   ),
 
+  phc_event_id: (
+    process.env.NODE_ENV === 'production'
+      ? process.env.PRODUCTION_PHC_EVENT_ID
+      : process.env.SANDBOX_PHC_EVENT_ID
+  ),
+
   login_password: process.env.LOGIN_PASSWORD,
 
   // ----------------------------------
