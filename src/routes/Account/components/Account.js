@@ -8,17 +8,20 @@ import classes from './Account.scss'
 export const Account = (props) => (
   <div className={classes.container}>
     <h3 className={classes.header}> Welcome</h3>
+    <div className={classes.register}>
+      Register a new client
+    </div>
     <LinkContainer to={{ pathname: "/check-in"}}>
       <Button
         bsStyle="primary"
         to="/check-in"
       >
-      Register a new client
+      Register
       </Button>
     </LinkContainer>
 
     <div className={classes.search}>
-      or search for an existing client...
+      Search for an existing client
     </div>
 
     <SearchBar />

@@ -32,7 +32,10 @@ li.suggestionItem:last-child {
 }
 
 span.name {
-  font-size: 30px;
+  float: left;
+  padding: 10px;
+  max-width: 300px;
+  font-size: 20px;
 }
 span.birthdate {
   padding: 10px;
@@ -42,9 +45,7 @@ span.birthdate {
 
 .searchInput {
   margin-bottom: 10px;
-  width: 300px;
-  font-size: 30px;
-  font-size:30px !important;
+  font-size: 30px !important;
 
 }
 

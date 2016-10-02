@@ -28,7 +28,7 @@ export const CheckInForm = (props) => {
     },
     resetForm,
     handleSubmit,
-    submitting,
+    requesting,
     currentAccount,
   } = props
 
@@ -412,15 +412,14 @@ export const CheckInForm = (props) => {
       <div className={classes.footer}>
         <Button
           bsStyle="primary"
-          bsSize="large"
           type="submit"
-          disabled={submitting}
+          disabled={requesting}
         >
           Submit
         </Button>
         <Button
           type="button"
-          disabled={submitting}
+          disabled={requesting}
           onClick={_onClear}
         >
           Clear Values
@@ -434,7 +433,7 @@ CheckInForm.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  requesting: PropTypes.bool.isRequired,
   updateInfo: PropTypes.func.isRequired,
   clearInfo: PropTypes.func.isRequired,
 }

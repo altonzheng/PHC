@@ -41,6 +41,7 @@ export function resetForm () {
 
 export function updateInfo (fields, id) {
   return (dispatch) => {
+    dispatch(updateInfoRequest(name))
     let method = id ? 'PUT' : 'POST'
     let endpoint = id ? `/api/accounts/${id}` : `/api/accounts`
 

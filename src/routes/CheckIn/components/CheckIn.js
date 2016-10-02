@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react'
 import classes from './CheckIn.scss'
-
+import { Button } from 'react-bootstrap';
 import CheckInForm from '../containers/CheckInFormContainer'
 
 export const CheckIn = (props) => {
 
   const success = (
     <div>
-      <h1>Success! Participant was registered.</h1>
-      <button onClick={props.goToHomePage}>Check in a new person</button>
+      <h1>Success! Client was registered.</h1>
+      <Button bsStyle="primary" onClick={props.goToHomePage}>Check in a new client</Button>
     </div>
   )
 
