@@ -87,7 +87,8 @@ function getAccount(connection, id) {
         if (isFieldMappableFromSalesforce(field)) {
           payload.account[mapSalesforceFieldToFormField(field)] = transformFieldFromSalesforce(field, account[field])
         } else {
-          logger.debug(`Fetching account: found unparseable field`, { field })
+          // Commenting this out for less log spam
+          // logger.debug(`Fetching account: found unparseable field`, { field })
         }
       }
 
@@ -192,7 +193,8 @@ function searchForAccountByName(connection, name) {
     .then(() => {
       return {
         payload: {
-          accounts: fuse.search(name).slice(0,2)
+          // Return top 3 results
+          accounts: fuse.search(name).slice(0,3)
         }
       }
     })

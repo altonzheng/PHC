@@ -21,7 +21,7 @@
     "deploy:prod": "better-npm-run deploy:prod",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "serve": "better-npm-run start",
-    "postinstall":"npm run deploy:prod"
+    "postinstall": "npm run deploy:prod"
   },
   "betterScripts": {
     "compile": {
@@ -118,10 +118,12 @@
     "q": "^1.4.1",
     "react": "^15.0.0",
     "react-autosuggest": "^3.8.0",
+    "react-bootstrap": "^0.30.3",
     "react-dom": "^15.0.0",
     "react-helmet": "^3.1.0",
     "react-redux": "^4.0.0",
     "react-router": "^2.2.0",
+    "react-router-bootstrap": "^0.23.1",
     "react-router-redux": "^4.0.0",
     "react-select": "^1.0.0-beta14",
     "redux": "^3.0.0",

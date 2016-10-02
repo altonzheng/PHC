@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import Select from 'react-select'
+import { Button } from 'react-bootstrap';
 import 'react-select/dist/react-select.css'
 import ArrayCheckbox from '../../../components/ArrayCheckbox'
 import {
@@ -409,21 +410,21 @@ export const CheckInForm = (props) => {
       </div>
 
       <div className={classes.footer}>
-        <button
-          className="button button--large button--success"
+        <Button
+          bsStyle="primary"
+          bsSize="large"
           type="submit"
           disabled={submitting}
         >
           Submit
-        </button>
-        <button
-          className="button button--large button--default-inverted"
+        </Button>
+        <Button
           type="button"
           disabled={submitting}
           onClick={_onClear}
         >
           Clear Values
-        </button>
+        </Button>
       </div>
     </form>
   )

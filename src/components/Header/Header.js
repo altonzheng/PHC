@@ -7,25 +7,17 @@ export const Header = () => (
     <div className={classes.container}>
       <IndexLink to="/">
         <h1 className={classes.heading}>
-          Project Homeless Connect
+          Project Homeless Connect 63
         </h1>
       </IndexLink>
     </div>
     <div>
-      <Link to='/check-in'>
+      <Link to='/' onlyActiveOnIndex={true} activeClassName={classes.current}>
+        Home
+      </Link>
+      {' · '}
+      <Link to='/check-in' activeClassName={classes.current}>
         Check In
-      </Link>
-      {' · '}
-      <Link to='/services'>
-        Services
-      </Link>
-      {' · '}
-      <Link to='/'>
-        Accounts
-      </Link>
-      {' · '}
-      <Link to='/login'>
-        Login
       </Link>
     </div>
   </div>

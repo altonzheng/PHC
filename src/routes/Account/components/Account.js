@@ -1,18 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { LinkContainer} from 'react-router-bootstrap'
+import { Button } from 'react-bootstrap';
 import SearchBar from '../containers/SearchBarContainer'
 import classes from './Account.scss'
 
 export const Account = (props) => (
   <div className={classes.container}>
-    <h2>Welcome to Check-In!</h2>
-
-    <Link
-      to="/check-in"
-      className="button button--xl button--default"
-    >
+    <h3 className={classes.header}> Welcome</h3>
+    <LinkContainer to={{ pathname: "/check-in"}}>
+      <Button
+        bsStyle="primary"
+        to="/check-in"
+      >
       Register a new client
-    </Link>
+      </Button>
+    </LinkContainer>
 
     <div className={classes.search}>
       or search for an existing client...

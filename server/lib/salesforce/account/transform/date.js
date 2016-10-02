@@ -15,9 +15,8 @@ export function transformDateFromSalesforce (dateString) {
 // TODO: Use a proper library for this
 export function getFormattedBirthdate (dateString) {
   const date = new Date(dateString)
-  if (!isDate(date)) {
+  if (!dateString || !isDate(date)) {
     return ''
   }
-
   return format(date, 'MMM D')
 }

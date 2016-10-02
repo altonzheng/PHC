@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import classes from './LoginForm.scss'
+import { Button } from 'react-bootstrap';
 
 export const LoginForm = (props) => {
   let {
@@ -26,13 +27,13 @@ export const LoginForm = (props) => {
       </div>
 
       <div className={classes.footer}>
-        <button
-          className="button button--large button--success"
+        <Button
+          bsStyle="primary"
           type="submit"
           disabled={submitting}
         >
           Login
-        </button>
+        </Button>
       </div>
 
     </form>

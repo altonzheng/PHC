@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './SearchBar.scss'
+import { Button } from 'react-bootstrap';
 
 const AccountSuggestion = (props) => {
   const handleClick = () => {
@@ -7,10 +8,15 @@ const AccountSuggestion = (props) => {
   }
 
   return (
-    <li className={classes.suggestionItem} onClick={handleClick}>
+    <Button
+      className={classes.suggestionItem}
+      onClick={handleClick}
+      disabled={props.fetching}
+      block
+    >
       <span className={classes.name}>{ props.name }</span>
       <span className={classes.birthdate}>{ props.birthdate }</span>
-    </li>
+    </Button>
   )
 }
 
@@ -50,17 +56,22 @@ class SearchBar extends React.Component {
             onKeyPress={this._handleKeyPress.bind(this)}
           />
 
-        <button
-          className="button button--large button--success"
+        <Button
+          bsStyle="primary"
           onClick={this.suggest}
           disabled={this.props.searching}
         >
-          {this.props.searching ? "Searching..." : "Search!"}
-        </button>
+          {this.props.searching ? "Searching..." : "Search"}
+        </Button>
 
         </div>
 
-        <ul className={classes.suggestionList}>
+        <div className={classes.searchHeader + (this.props.searchResults.length > 0 ? "" : " hidden")} >
+          Search Results (Name, Date of Birth)
+        </div>
+
+        <ul className={classes.suggestionList}  >
+
           {
             this.props.searchResults.map(result => {
               return (
@@ -70,6 +81,7 @@ class SearchBar extends React.Component {
                   id={result.id}
                   birthdate={result.birthdate}
                   key={result.id}
+                  fetching={this.props.fetching}
                 />
               )
             })

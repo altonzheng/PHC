@@ -149,6 +149,7 @@ const ACTION_HANDLERS = {
       currentAccount: action.payload.account,
       fetching: false,
       error: null,
+      searchResults: []
     })
   },
   [LOAD_ACCOUNT_DATA_FAILURE]: (state, action) => {
