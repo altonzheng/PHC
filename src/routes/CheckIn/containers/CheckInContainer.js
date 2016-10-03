@@ -6,7 +6,7 @@ import { resetForm } from '../modules/check-in'
 const mapStateToProps = (state) => ({
   success: state.checkIn.success,
   failure: state.checkIn.failure,
-  requesting: state.checkIn.requesting,
+  requesting: state.checkIn.requesting
 })
 
 const mapDispatchToProps = (dispatch) => ({

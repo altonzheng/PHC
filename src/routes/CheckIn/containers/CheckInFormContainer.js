@@ -72,6 +72,7 @@ const validate = (values) => {
 const mapStateToProps = (state) => ({
   initialValues: state.account && state.account.currentAccount,
   currentAccount: state.account && state.account.currentAccount,
+  requesting: state.checkIn.requesting
 })
 
 const mapDispatchToProps = (dispatch) => ({

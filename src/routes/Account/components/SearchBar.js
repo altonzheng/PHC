@@ -75,7 +75,7 @@ class SearchBar extends React.Component {
         </div>
 
         <div class="searchResults">
-          <div className={classes.searchHeader} >
+          <div className={classes.searchHeader + " center-block"} >
             Search Results (Name, Date of Birth)
           </div>
           { this.props.searchResults.length === 0 ? "No results." : "" }
