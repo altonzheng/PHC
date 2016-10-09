@@ -11,6 +11,7 @@ export const Account = (props) => (
     <div className={classes.register}>
       Register a new client
     </div>
+
     <LinkContainer to={{ pathname: "/check-in"}}>
       <Button
         bsStyle="primary"
