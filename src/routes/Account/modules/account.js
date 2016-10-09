@@ -1,6 +1,8 @@
 /* @flow */
 import { push } from 'react-router-redux'
 
+import { UPDATE_INFO_REQUEST } from '../../CheckIn/modules/check-in'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -149,7 +151,6 @@ const ACTION_HANDLERS = {
       currentAccount: action.payload.account,
       fetching: false,
       error: null,
-      searchResults: []
     })
   },
   [LOAD_ACCOUNT_DATA_FAILURE]: (state, action) => {
@@ -165,7 +166,13 @@ const ACTION_HANDLERS = {
       ...state,
       currentAccount: null,
     })
-  }
+  },
+  [UPDATE_INFO_REQUEST]: (state, action) => {
+    return ({
+      ...state,
+      searchResults: [],
+    })
+  },
 }
 
 // ------------------------------------
