@@ -6,6 +6,7 @@ import { push } from 'react-router-redux'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const LOGIN_RESET = 'LOGIN_RESET'
 
 // ------------------------------------
 // Actions
@@ -28,6 +29,12 @@ function loginFailure () {
   }
 }
 
+function loginReset () {
+  return {
+    type: LOGIN_RESET,
+  }
+}
+
 export function login (password) {
   return (dispatch) => {
     dispatch(loginRequest())
@@ -39,7 +46,7 @@ export function login (password) {
           'Content-Type': 'application/json',
         },
         method: 'POST',
-        body: JSON.stringify({ password })
+        body: JSON.stringify({ password }),
       }
     )
     .then(response => {
@@ -51,6 +58,8 @@ export function login (password) {
         dispatch(push('/'))
       } else {
         dispatch(loginFailure())
+
+        setTimeout(() => dispatch(loginReset()), 3000);
       }
     })
     .catch(() => {
@@ -60,7 +69,7 @@ export function login (password) {
 }
 
 export const actions = {
-  login
+  login,
 }
 
 // ------------------------------------
@@ -69,26 +78,36 @@ export const actions = {
 const ACTION_HANDLERS = {
   [LOGIN_REQUEST]: (state) => ({
     ...state,
-    isAuthenticating: true,
+    attempted: false,
+    authenticating: true,
     authenticated: false,
   }),
   [LOGIN_SUCCESS]: (state) => ({
     ...state,
-    isAuthenticating: false,
+    attempted: false,
+    authenticating: false,
     authenticated: true,
   }),
   [LOGIN_FAILURE]: (state) => ({
     ...state,
-    isAuthenticating: false,
+    attempted: true,
+    authenticating: false,
     authenticated: false,
-  })
+  }),
+  [LOGIN_RESET]: (state) => ({
+    ...state,
+    attempted: false,
+    authenticating: false,
+    authenticated: false,
+  }),
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 const initialState = {
-  isAuthenticating: false,
+  attempted: false,
+  authenticating: false,
   authenticated: false,
 }
 

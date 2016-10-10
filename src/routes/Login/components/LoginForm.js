@@ -10,6 +10,8 @@ export const LoginForm = (props) => {
     handleSubmit,
     submitting,
     login,
+    attempted,
+    authenticating,
   } = props
 
   const _onSubmit = () => {
@@ -30,11 +32,13 @@ export const LoginForm = (props) => {
         <Button
           bsStyle="primary"
           type="submit"
-          disabled={submitting}
+          disabled={submitting || authenticating}
         >
           Login
         </Button>
       </div>
+
+      {attempted ? <div>Wrong password!</div> : null}
 
     </form>
   )

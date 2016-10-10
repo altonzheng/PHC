@@ -7,11 +7,12 @@ const fields = [
 ]
 
 const mapStateToProps = (state) => ({
-
+  authenticating: state.login.authenticating,
+  attempted: state.login.attempted,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (password) => dispatch(login(password))
+  login: (password) => dispatch(login(password)),
 })
 
 export default reduxForm({
