@@ -9,6 +9,8 @@ import {
   getFormattedBirthdate,
 } from './date'
 
+import { HousingPicklistValues } from '../constants'
+
 const FORM_FIELD_TO_SALESFORCE_FIELD = {
   firstName: 'FirstName',
   lastName: 'LastName',
@@ -41,6 +43,8 @@ export function transformFieldForSalesforce (field, value) {
     return transformDateForSalesforce(value)
   } else if (field === 'socialSecurityNumber') {
     return value && value.replace(/-/g, '')
+  } else if (field === 'isHomeless') {
+    return value ? HousingPicklistValues.HOMELESS : HousingPicklistValues.HOUSED
   } else if (value instanceof Array) {
     return value.join(';')
   } else {
