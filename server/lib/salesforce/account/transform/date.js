@@ -18,5 +18,5 @@ export function getFormattedBirthdate (dateString) {
   if (!dateString || !isDate(date)) {
     return ''
   }
-  return format(date, 'MMM D')
+  return format(date, 'MMM DD, YYYY')
 }

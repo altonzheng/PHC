@@ -194,7 +194,7 @@ function searchForAccountByName(connection, name) {
       return {
         payload: {
           // Return top 3 results
-          accounts: fuse.search(name).slice(0,3)
+          accounts: fuse.search(name).slice(0,50)
         }
       }
     })
