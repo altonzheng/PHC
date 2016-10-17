@@ -63,6 +63,18 @@ export const CheckInForm = (props) => {
   }
 
   if (currentAccount) {
+    if (currentAccount.firstName) {
+      firstName.disabled = true;
+    } else {
+      delete firstName.disabled;
+    }
+
+    if (currentAccount.lastName) {
+      lastName.disabled = true;
+    } else {
+      delete lastName.disabled;
+    }
+
     if (currentAccount.socialSecurityNumber) {
       socialSecurityNumber.disabled = true;
     } else {
