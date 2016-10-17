@@ -12,7 +12,10 @@ export const Account = (props) => (
       Register a new client
     </div>
 
-    <LinkContainer to={{ pathname: "/check-in"}}>
+    <LinkContainer to={{
+        pathname: "/check-in",
+        hash: "#new"
+      }}>
       <Button
         bsStyle="primary"
         to="/check-in"

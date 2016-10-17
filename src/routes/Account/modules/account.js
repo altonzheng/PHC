@@ -2,6 +2,7 @@
 import { push } from 'react-router-redux'
 
 import { UPDATE_INFO_REQUEST } from '../../CheckIn/modules/check-in'
+import { LOCATION_CHANGE } from 'react-router-redux'
 
 // ------------------------------------
 // Constants
@@ -173,6 +174,15 @@ const ACTION_HANDLERS = {
       searchResults: [],
     })
   },
+  [LOCATION_CHANGE]: (state, action) => {
+    if (action.payload.hash == "#new") {
+      return ({
+        ...state,
+        currentAccount: null,
+      })
+    }
+    return state;
+  }
 }
 
 // ------------------------------------
