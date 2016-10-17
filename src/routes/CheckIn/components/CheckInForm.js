@@ -62,6 +62,20 @@ export const CheckInForm = (props) => {
     props.clearInfo()
   }
 
+  if (currentAccount) {
+    if (currentAccount.socialSecurityNumber) {
+      socialSecurityNumber.disabled = true;
+    } else {
+      delete socialSecurityNumber.disabled;
+    }
+
+    if (currentAccount.dateOfBirth) {
+      dateOfBirth.disabled = true;
+    } else {
+      delete dateOfBirth.disabled;
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit(_onSubmit)}>
 
@@ -78,12 +92,20 @@ export const CheckInForm = (props) => {
 
         <div className={classes.inputGroup}>
           <label className={classes.fieldName}>Social Security Number {socialSecurityNumber.touched && socialSecurityNumber.error && <span className={classes.errorMessage}>{socialSecurityNumber.error}</span>}</label>
-          <input className={classes.textInput} type="phone" {...socialSecurityNumber} />
+          <input
+            className={classes.textInput}
+            type="phone"
+            {...socialSecurityNumber}
+          />
         </div>
 
         <div className={classes.inputGroup}>
           <label className={classes.fieldName}>Date of Birth (mm-dd-yyyy) {dateOfBirth.touched && dateOfBirth.error && <span className={classes.errorMessage}>{dateOfBirth.error}</span>}</label>
-          <input className={classes.textInput} type="phone" {...dateOfBirth} />
+          <input
+            className={classes.textInput}
+            type="phone"
+            {...dateOfBirth}
+          />
         </div>
 
         <div className={classes.inputGroup}>
