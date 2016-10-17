@@ -50,7 +50,7 @@ function updateInfoRetryRequest () {
 
 function updateInfoRetrySuccess (id) {
   return {
-    type: UPDATE_INFO_RETRY_REQUEST,
+    type: UPDATE_INFO_RETRY_SUCCESS,
     payload: {
       id,
     },
@@ -59,7 +59,7 @@ function updateInfoRetrySuccess (id) {
 
 function updateInfoRetryFailure () {
   return {
-    type: UPDATE_INFO_RETRY_REQUEST,
+    type: UPDATE_INFO_RETRY_FAILURE,
   }
 }
 
@@ -83,7 +83,7 @@ export function updateInfoRetry (id) {
     .then(() => dispatch(updateInfoRetrySuccess(id)))
     .catch(() => {
       dispatch(updateInfoRetryFailure())
-      setTimeout(() => dispatch(updateInfoRetry(id), 3000))
+      setTimeout(() => dispatch(updateInfoRetry(id)), 3000)
     })
   }
 }
@@ -119,6 +119,7 @@ export function updateInfo (info) {
     .then(() => dispatch(clearCurrentAccount()))
     .catch(err => {
       const id = generateRandomId()
+      console.warn(`Unable to update info, sending to retry queue with id ${id}.`)
       dispatch(updateInfoFailure(err, id, info))
       setTimeout(() => dispatch(updateInfoRetry(id), 3000))
     })
