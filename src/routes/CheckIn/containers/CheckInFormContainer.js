@@ -53,8 +53,16 @@ const validate = (values) => {
     errors.dateOfBirth = 'Invalid'
   }
 
-  if (values.socialSecurityNumber && values.socialSecurityNumber.length < 11 && values.socialSecurityNumber.length != 4) {
-    errors.socialSecurityNumber = 'Incomplete'
+  if (values.socialSecurityNumber) {
+    if (
+      values.socialSecurityNumber.length < 11
+        && !(
+          values.socialSecurityNumber.length === 4
+            && values.socialSecurityNumber.replace(/^\D+/g, '').length === 4
+        )
+    ) {
+      errors.socialSecurityNumber = 'Incomplete'
+    }
   }
 
   if (values.phoneNumber && values.phoneNumber.length < 14) {

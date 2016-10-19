@@ -42,6 +42,9 @@ export function transformFieldForSalesforce (field, value) {
   if (field === 'dateOfBirth') {
     return transformDateForSalesforce(value)
   } else if (field === 'socialSecurityNumber') {
+    if (value.length === 4) {
+      return `00000${value}`
+    }
     return value && value.replace(/-/g, '')
   } else if (field === 'isHomeless') {
     return value ? HousingPicklistValues.HOMELESS : HousingPicklistValues.HOUSED
