@@ -42,7 +42,7 @@ export function transformFieldForSalesforce (field, value) {
   if (field === 'dateOfBirth') {
     return transformDateForSalesforce(value)
   } else if (field === 'socialSecurityNumber') {
-    if (value.length === 4) {
+    if (value && value.length === 4) {
       return `00000${value}`
     }
     return value && value.replace(/-/g, '')
@@ -62,7 +62,7 @@ export function transformFieldFromSalesforce (field, value) {
   } else if (field === 'Race__c') {
     return value && value.split(';')
   } else if (field === 'SS_Num__c') {
-    if (value.length === 4) {
+    if (value && value.length === 4) {
       return `00000${value}`
     }
     return value
