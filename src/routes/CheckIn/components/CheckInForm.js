@@ -141,7 +141,7 @@ export const CheckInForm = (props) => {
                 <input
                   {...gender}
                   type="radio"
-                  value="male"
+                  value="Male"
                   checked={gender.value === "Male"}
                 />
                 Male
@@ -153,7 +153,7 @@ export const CheckInForm = (props) => {
                 <input
                   {...gender}
                   type="radio"
-                  value="female"
+                  value="Female"
                   checked={gender.value === "Female"}
                 />
                 Female
