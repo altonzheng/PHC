@@ -53,7 +53,7 @@ const validate = (values) => {
     errors.dateOfBirth = 'Invalid'
   }
 
-  if (values.socialSecurityNumber && values.socialSecurityNumber.length < 11) {
+  if (values.socialSecurityNumber && values.socialSecurityNumber.length < 11 && values.socialSecurityNumber.length != 4) {
     errors.socialSecurityNumber = 'Incomplete'
   }
 

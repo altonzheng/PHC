@@ -75,7 +75,7 @@ export const CheckInForm = (props) => {
       delete lastName.disabled;
     }
 
-    if (currentAccount.socialSecurityNumber) {
+    if (currentAccount.socialSecurityNumber && currentAccount.socialSecurityNumber.length === 8) {
       socialSecurityNumber.disabled = true;
     } else {
       delete socialSecurityNumber.disabled;

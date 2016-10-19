@@ -8,6 +8,9 @@ const normalizeSocialSecurityNumber = (value, previousValue) => {
     if (onlyNums.length === 3) {
       return onlyNums + '-'
     }
+    if (onlyNums.length === 4) {
+      return onlyNums
+    }
     if (onlyNums.length === 5) {
       return onlyNums.slice(0, 3) + '-' + onlyNums.slice(3) + '-'
     }

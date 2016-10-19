@@ -8,7 +8,11 @@ export function transformDateForSalesforce (dateString) {
 
 // Transforms a date string from `YYYY-MM-DD` to `MM-DD-YYYY`
 export function transformDateFromSalesforce (dateString) {
-  return format(new Date(dateString), 'MM-DD-YYYY')
+  const date = new Date(dateString)
+  if (!dateString || !isDate(date)) {
+    return ''
+  }
+  return format(date, 'MM-DD-YYYY')
 }
 
 // Formats date string to something like 'Jan 1' for display on search results
