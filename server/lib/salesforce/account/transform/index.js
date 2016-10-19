@@ -61,6 +61,11 @@ export function transformFieldFromSalesforce (field, value) {
     return transformDateFromSalesforce(value)
   } else if (field === 'Race__c') {
     return value && value.split(';')
+  } else if (field === 'SS_Num__c') {
+    if (value.length === 4) {
+      return `00000${value}`
+    }
+    return value
   } else {
     return value
   }
