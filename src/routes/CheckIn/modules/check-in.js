@@ -114,15 +114,17 @@ function _updateInfo ({ fields, id }) {
 
 export function updateInfo (info) {
   return dispatch => {
+    dispatch(updateInfoRequest())
+    
     _updateInfo(info)
-    .then(() => dispatch(updateInfoSuccess()))
-    .then(() => dispatch(clearCurrentAccount()))
-    .catch(err => {
-      const id = generateRandomId()
-      console.warn(`Unable to update info, sending to retry queue with id ${id}.`)
-      dispatch(updateInfoFailure(err, id, info))
-      setTimeout(() => dispatch(updateInfoRetry(id), 3000))
-    })
+      .then(() => dispatch(updateInfoSuccess()))
+      .then(() => dispatch(clearCurrentAccount()))
+      .catch(err => {
+        const id = generateRandomId()
+        console.warn(`Unable to update info, sending to retry queue with id ${id}.`)
+        dispatch(updateInfoFailure(err, id, info))
+        setTimeout(() => dispatch(updateInfoRetry(id), 3000))
+      })
   }
 }
 

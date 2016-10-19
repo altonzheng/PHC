@@ -92,6 +92,10 @@ function getAccount(connection, id) {
         }
       }
 
+      if (account['Gender__c'] === 'Transgender') {
+        payload.account['isTransexual'] = true;
+      }
+
       payload.account.id = account.Id
 
       deferred.resolve({
@@ -173,6 +177,11 @@ function createOrUpdateAccount(connection, id, fields) {
     } else {
       logger.debug(`Creating or updating account: found unparseable field`, { field })
     }
+  }
+
+  // TODO: This is a hacky solution, but the real one requires a database change.
+  if (fields['isTransexual']) {
+    payload[mapFormFieldToSalesforceField('gender')] = 'Transgender';
   }
 
   if (id) {
