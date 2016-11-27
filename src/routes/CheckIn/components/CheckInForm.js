@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Select from 'react-select'
-import { Button } from 'react-bootstrap';
+import { Button, Tooltip, OverlayTrigger, Glyphicon } from 'react-bootstrap';
 import 'react-select/dist/react-select.css'
 import ArrayCheckbox from '../../../components/ArrayCheckbox'
 import {
@@ -90,6 +90,14 @@ export const CheckInForm = (props) => {
     }
   }
 
+  const identificationTooltip = (
+    <Tooltip id="tooltip">This is optional and only used for helping us identify you in the future. </Tooltip>
+  )
+
+  const demographicTooltip = (
+    <Tooltip id="tooltip">This is optional and used to help us when we apply for grants.</Tooltip>
+  )
+
   return (
     <form onSubmit={handleSubmit(_onSubmit)}>
 
@@ -105,7 +113,13 @@ export const CheckInForm = (props) => {
         </div>
 
         <div className={classes.inputGroup}>
-          <label className={classes.fieldName}>Social Security Number {socialSecurityNumber.touched && socialSecurityNumber.error && <span className={classes.errorMessage}>{socialSecurityNumber.error}</span>}</label>
+          <label className={classes.fieldName}>
+            { "Social Security Number " }
+            <OverlayTrigger placement="right" overlay={identificationTooltip}>
+              <Glyphicon glyph="info-sign"/ >
+            </OverlayTrigger>
+            {socialSecurityNumber.touched && socialSecurityNumber.error && <span className={classes.errorMessage}>{socialSecurityNumber.error}</span>}
+          </label>
           <input
             className={classes.textInput}
             type="phone"
@@ -179,7 +193,13 @@ export const CheckInForm = (props) => {
         </div>
 
         <div className={classes.inputGroup}>
-          <label className={classes.fieldName}>Do you identify as LGBTQ?</label>
+          <label className={classes.fieldName}>
+          { "Do you identify as LGBTQ? " }
+          <OverlayTrigger placement="right" overlay={demographicTooltip}>
+            <Glyphicon glyph="info-sign"/ >
+          </OverlayTrigger>
+
+          </label>
 
           <div className={classes.toggleInputGroup}>
             <div className={classes.horizontalInputs}>
@@ -213,7 +233,12 @@ export const CheckInForm = (props) => {
 
       <div className={classes.ethnicity + " " + classes.section}>
         <div className={classes.inputGroup}>
-          <label className={classes.fieldName}>Ethnicity</label>
+          <label className={classes.fieldName}>
+            { "Ethnicity " }
+            <OverlayTrigger placement="right" overlay={demographicTooltip}>
+              <Glyphicon glyph="info-sign"/ >
+            </OverlayTrigger>
+          </label>
 
           <div className={classes.inputs}>
             {ETHNICITY_CHOICES.map(_ethnicity => (
