@@ -74,7 +74,7 @@ class SearchBar extends React.Component {
 
         </div>
 
-        <div class="searchResults " hidden={this.props.searching}>
+        <div>
           <div className={classes.searchHeader + " center-block"} >
             Search Results (Name, Date of Birth)
           </div>

@@ -14,7 +14,6 @@ const fields = [
   'emailAddress',
 
   'gender',
-  'isTransexual',
   'isLGBTQ',
 
   'ethnicity',

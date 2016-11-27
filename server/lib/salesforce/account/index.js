@@ -179,11 +179,6 @@ function createOrUpdateAccount(connection, id, fields) {
     }
   }
 
-  // TODO: This is a hacky solution, but the real one requires a database change.
-  if (fields['isTransexual']) {
-    payload[mapFormFieldToSalesforceField('gender')] = 'Transgender';
-  }
-
   if (id) {
     payload['Id'] = id
     return updateAccount(connection, payload)

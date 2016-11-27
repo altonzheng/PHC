@@ -17,7 +17,7 @@ export const CheckInForm = (props) => {
   let {
     fields: {
       firstName, lastName, socialSecurityNumber, dateOfBirth, phoneNumber, emailAddress,
-      gender, isTransexual, isLGBTQ,
+      gender, isLGBTQ,
       ethnicity, ethnicityOther,
       language, languageOther,
       hasBeenInFosterCare,
@@ -30,6 +30,8 @@ export const CheckInForm = (props) => {
     handleSubmit,
     requesting,
     currentAccount,
+    errors,
+    submitFailed
   } = props
 
   // initialize array fields to empty arrays
@@ -159,13 +161,16 @@ export const CheckInForm = (props) => {
                 Female
               </label>
             </div>
-          </div>
 
-          <div className={classes.horizontalInputs}>
             <div className={classes.toggleInputGroup}>
               <label>
-                <input type="checkbox" {...isTransexual} />
-                Different from birth gender?
+                <input
+                  {...gender}
+                  type="radio"
+                  value="Non-binary"
+                  checked={gender.value === "Non-binary"}
+                />
+                Non-binary gender
               </label>
             </div>
           </div>
@@ -174,11 +179,34 @@ export const CheckInForm = (props) => {
         </div>
 
         <div className={classes.inputGroup}>
-          <label className={classes.fieldName}>Sexuality</label>
+          <label className={classes.fieldName}>Do you identify as LGBTQ?</label>
 
           <div className={classes.toggleInputGroup}>
-            <input type="checkbox" {...isLGBTQ} />
-            <label>LGBTQ?</label>
+            <div className={classes.horizontalInputs}>
+              <div className={classes.toggleInputGroup}>
+                <label>
+                  <input
+                    type="radio"
+                    {...isLGBTQ}
+                    value="true"
+                    checked={isLGBTQ.value === "true"}
+                  />
+                  Yes
+                </label>
+              </div>
+
+              <div className={classes.toggleInputGroup}>
+                <label>
+                  <input
+                    type="radio"
+                    {...isLGBTQ}
+                    value="false"
+                    checked={isLGBTQ.value === "false"}
+                  />
+                  No
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -449,7 +477,7 @@ export const CheckInForm = (props) => {
           type="submit"
           disabled={requesting}
         >
-          Submit
+          { requesting ? "Submitting..." : "Submit" }
         </Button>
         <Button
           type="button"
@@ -459,6 +487,21 @@ export const CheckInForm = (props) => {
           Clear Values
         </Button>
       </div>
+
+      {
+        (() => {
+          let hasErrors = false;
+          for (let key in errors) {
+            hasErrors = true;
+          }
+
+          return (
+            <div className={classes.errorNotice + (hasErrors && submitFailed ? "" : " hidden") }>
+              Required fields are missing! Please review the form.
+            </div>
+          )
+        })()
+      }
     </form>
   )
 }
