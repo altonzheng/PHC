@@ -1,5 +1,6 @@
 import login from './login'
 import accounts from './accounts'
+import services from './services'
 import logger from '../lib/logger'
 
 export default (router) => {
@@ -13,6 +14,7 @@ export default (router) => {
 
   router.use('/login', login.routes(), login.allowedMethods())
   router.use('/accounts', accounts.routes(), accounts.allowedMethods())
+  router.use('/services', services.routes(), services.allowedMethods())
 
   return router
 }
