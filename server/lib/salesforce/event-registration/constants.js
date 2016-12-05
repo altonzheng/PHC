@@ -33,7 +33,7 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Books and Library Cards': 'Books__c',
   'CAAP': 'CAAP__c',
   'CalFresh': 'CalFresh__c',
-  'Child Care': 'Childcare__c'
+  'Child Care': 'Childcare__c',
   'Criminal Record Help': 'Criminal_Record__c',
   'Disability Services': 'Disability_Services__c',
   'DMV ID': 'DMV_ID__c',
