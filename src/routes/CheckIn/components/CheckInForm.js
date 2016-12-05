@@ -95,7 +95,10 @@ export const CheckInForm = (props) => {
   )
 
   const demographicTooltip = (
-    <Tooltip id="tooltip">This is optional and used to help us when we apply for grants.</Tooltip>
+    <Tooltip id="tooltip">
+      We ask this question for the purpose of collecting information about whom we serve,
+      and how to better reach at-risk demographics.
+    </Tooltip>
   )
 
   return (
