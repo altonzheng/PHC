@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import CheckIn from '../components/CheckIn'
+import CheckOut from '../components/CheckOut'
 
 const mapStateToProps = (state) => ({
-  success: state.checkIn.success,
-  failure: state.checkIn.failure,
-  requesting: state.checkIn.requesting,
+  success: state.checkOut.success,
+  failure: state.checkOut.failure,
+  requesting: state.checkOut.requesting,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -15,4 +15,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CheckIn)
+)(CheckOut)

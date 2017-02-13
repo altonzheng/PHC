@@ -2,7 +2,7 @@ import { reduxForm, destroy, initialize, reset } from 'redux-form'
 
 import CheckInForm from '../components/CheckInForm'
 import { updateInfo, clearInfo } from '../modules/check-in'
-import { clearCurrentAccount } from '../../Account/modules/account';
+import { clearCurrentAccount } from '../../Account/modules/account'
 import { validEmailRegex } from '../../../utils/regex'
 
 const fields = [

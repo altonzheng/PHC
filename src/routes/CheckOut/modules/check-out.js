@@ -1,5 +1,4 @@
 import { LOCATION_CHANGE } from 'react-router-redux'
-import { clearCurrentAccount } from '../../Account/modules/account'
 
 // ------------------------------------
 // Constants
@@ -18,7 +17,6 @@ export const RESET_FORM = 'RESET_FORM'
 // Actions
 // ------------------------------------
 
-// TODO: Change this from Primary Info to just Info or something
 export function updateInfoRequest () {
   return {
     type: UPDATE_INFO_REQUEST,
@@ -39,52 +37,6 @@ export function updateInfoFailure (err, id, info) {
       id,
       info,
     },
-  }
-}
-
-function updateInfoRetryRequest () {
-  return {
-    type: UPDATE_INFO_RETRY_REQUEST,
-  }
-}
-
-function updateInfoRetrySuccess (id) {
-  return {
-    type: UPDATE_INFO_RETRY_SUCCESS,
-    payload: {
-      id,
-    },
-  }
-}
-
-function updateInfoRetryFailure () {
-  return {
-    type: UPDATE_INFO_RETRY_FAILURE,
-  }
-}
-
-export function updateInfoRetry (id) {
-  return (dispatch, getState) => {
-    const state = getState()
-
-    const {
-      info,
-      attempts,
-    } = state.checkIn.retries[id]
-
-    dispatch(updateInfoRetryRequest())
-
-    if (attempts >= 3) {
-      dispatch(updateInfoRetryFailure())
-      throw Error('Max number of attempts reached for retry')
-    }
-
-    _updateInfo(info)
-    .then(() => dispatch(updateInfoRetrySuccess(id)))
-    .catch(() => {
-      dispatch(updateInfoRetryFailure())
-      setTimeout(() => dispatch(updateInfoRetry(id)), 3000)
-    })
   }
 }
 
@@ -118,13 +70,6 @@ export function updateInfo (info) {
 
     _updateInfo(info)
       .then(() => dispatch(updateInfoSuccess()))
-      .then(() => dispatch(clearCurrentAccount()))
-      .catch(err => {
-        const id = generateRandomId()
-        console.warn(`Unable to update info, sending to retry queue with id ${id}.`)
-        dispatch(updateInfoFailure(err, id, info))
-        setTimeout(() => dispatch(updateInfoRetry(id), 3000))
-      })
   }
 }
 
@@ -132,12 +77,6 @@ export function updateInfo (info) {
 // Action Handlers
 // ------------------------------------
 
-function generateRandomId () {
-  return Math.floor(Math.random() * 10000000000)
-}
-
-// TODO: Make sure that on network fail, we don't lose all our form data.
-// TODO: On network fail, store form state and batch for later submission.
 const ACTION_HANDLERS = {
   [UPDATE_INFO_REQUEST]: (state, action) => {
     return {
@@ -149,28 +88,11 @@ const ACTION_HANDLERS = {
   },
 
   [UPDATE_INFO_FAILURE]: (state, action) => {
-    const retries = {
-      ...state.retries,
-    }
-
-    let attempts = 0
-    if (retries[action.payload.id]) {
-      attempts = retries[action.payload.id]
-    }
-
-    attempts += 1
-
-    retries[action.payload.id] = {
-      info: action.payload,
-      attempts: 1,
-    }
-
     return {
       ...state,
       requesting: false,
       success: false,
       failure: true,
-      retries,
     }
   },
 
@@ -198,35 +120,6 @@ const ACTION_HANDLERS = {
       success: false,
     }
   },
-
-  [UPDATE_INFO_RETRY_SUCCESS]: (state, action) => {
-    const retries = {
-      ...state.retries,
-    }
-
-    delete retries[action.payload.id]
-
-    return {
-      ...state,
-      retries,
-    }
-  },
-
-  [UPDATE_INFO_RETRY_FAILURE]: (state, action) => {
-    const retries = {
-      ...state.retries,
-    }
-
-    retries[action.payload.id] = {
-      ...retries[action.payload.id],
-      attempts: retries[action.payload.id] + 1,
-    }
-
-    return {
-      ...state,
-      retries,
-    }
-  },
 }
 
 // ------------------------------------
@@ -236,11 +129,9 @@ const initialState = {
   requesting: false,
   success: false,
   failure: false,
-  retries: {},
 }
 
 export default function checkInReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
-
   return handler ? handler(state, action) : state
 }

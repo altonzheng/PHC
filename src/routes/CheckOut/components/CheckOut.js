@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
-import classes from './CheckIn.scss'
+import classes from './CheckOut.scss'
 import { Button } from 'react-bootstrap'
-import CheckInForm from '../containers/CheckInFormContainer'
+import CheckOutForm from '../containers/CheckOutFormContainer'
 
-export const CheckIn = (props) => {
+export const CheckOut = (props) => {
   const success = (
     <div>
       <h1>Success! Client was registered.</h1>
@@ -11,24 +11,21 @@ export const CheckIn = (props) => {
     </div>
   )
 
-  let element = <CheckInForm />
-  if (props.success) {
-    element = success
-  }
+  let element = <CheckOutForm />
 
   return (
     <div className={classes.container}>
       <h2 className={classes.header}>
-        Check In
+        Check Out
       </h2>
       {element}
     </div>
   )
 }
 
-CheckIn.propTypes = {
+CheckOut.propTypes = {
   success: PropTypes.bool.isRequired,
   goToHomePage: PropTypes.func.isRequired,
 }
 
-export default CheckIn
+export default CheckOut

@@ -459,12 +459,11 @@ export const CheckInForm = (props) => {
       isHomeless, lengthOfHomelessness,
       medicalServices, supportServices,
     },
-    resetForm,
     handleSubmit,
     requesting,
     currentAccount,
     errors,
-    submitFailed
+    submitFailed,
   } = props
 
   const basicInfoFields = {

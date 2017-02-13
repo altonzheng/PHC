@@ -2,23 +2,24 @@ import { injectReducer } from '../../store/reducers'
 import requireAuth from '../Login/utils'
 
 export default (store) => ({
-  path: 'check-in',
+  path: 'check-out',
   getComponent (nextState, cb) {
     require.ensure(
       [
-        './containers/CheckInContainer',
-        './modules/check-in',
+        './containers/CheckOutContainer',
+        './modules/check-out',
       ], (require) => {
-      const CheckIn = require('./containers/CheckInContainer').default
-      const reducer = require('./modules/check-in').default
+      const CheckOut = require('./containers/CheckOutContainer').default
+      const reducer = require('./modules/check-out').default
 
       injectReducer(store, {
-        key: 'checkIn',
+        key: 'checkOut',
         reducer,
       })
 
-      cb(null, CheckIn)
-    }, 'check-in')
+      cb(null, CheckOut)
+    }, 'check-out')
   },
   onEnter: requireAuth(store),
 })
+

@@ -2,6 +2,7 @@
 import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import LoginRoute from './Login'
 import CheckInRoute from './CheckIn'
+import CheckOutRoute from './CheckOut'
 import ServicesRoute from './Services'
 import AccountRoute from './Account'
 
@@ -16,8 +17,9 @@ export const createRoutes = (store) => ({
     AccountRoute(store),
     LoginRoute(store),
     CheckInRoute(store),
-    ServicesRoute(store)
-  ]
+    CheckOutRoute(store),
+    ServicesRoute(store),
+  ],
 })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
