@@ -1,6 +1,14 @@
 import React, { PropTypes } from 'react'
 import Select from 'react-select'
-import { Button, Tooltip, OverlayTrigger, Glyphicon } from 'react-bootstrap';
+import {
+  Button,
+  Col,
+  Grid,
+  Row,
+  Tooltip,
+  OverlayTrigger,
+  Glyphicon,
+} from 'react-bootstrap'
 import 'react-select/dist/react-select.css'
 import ArrayCheckbox from '../../../components/ArrayCheckbox'
 import {
@@ -426,76 +434,36 @@ export const CheckInForm = (props) => {
       <div className={classes.medical + " " + classes.section}>
         <div className={classes.inputGroup}>
           <label className={classes.fieldName}>What medical services would you like today?</label>
-          <div className={classes.inputColumns + " " + classes["hide-on-phone"]}>
-            <div className={classes.inputColumn}>
-              {MEDICAL_CHOICES.filter((e, i) => i % 2 === 0).map(_medicalChoice => (
-                <div className={classes.toggleInputGroup}>
+          <Grid>
+            <Row>
+              {MEDICAL_CHOICES.map(_medicalChoice => (
+                <Col xs={12} sm={6}>
                   <label>
-                    <ArrayCheckbox field={medicalServices} value={_medicalChoice}/>
+                    <ArrayCheckbox field={medicalServices} value={_medicalChoice} />
                     {_medicalChoice}
                   </label>
-                </div>
+                </Col>
               ))}
-            </div>
-            <div className={classes.inputColumn}>
-              {MEDICAL_CHOICES.filter((e, i) => i % 2 === 1).map(_medicalChoice => (
-                <div className={classes.toggleInputGroup}>
-                  <label>
-                    <ArrayCheckbox field={medicalServices} value={_medicalChoice}/>
-                    {_medicalChoice}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={classes["hide-on-tablet"]}>
-            {MEDICAL_CHOICES.map(_medicalChoice => (
-              <div className={classes.toggleInputGroup}>
-                <label>
-                  <ArrayCheckbox field={medicalServices} value={_medicalChoice}/>
-                  {_medicalChoice}
-                </label>
-              </div>
-            ))}
-          </div>
+            </Row>
+          </Grid>
         </div>
       </div>
 
       <div className={classes.support + " " + classes.section}>
         <div className={classes.inputGroup}>
           <label className={classes.fieldName}>What support services would you like today?</label>
-          <div className={classes.inputColumns + " " + classes["hide-on-phone"]}>
-            <div className={classes.inputColumn}>
-              {SUPPORT_CHOICES.filter((e, i) => i % 2 === 0).map(_supportChoice => (
-                <div className={classes.toggleInputGroup}>
+          <Grid>
+            <Row>
+              {SUPPORT_CHOICES.map(_supportChoice => (
+                <Col xs={12} sm={6}>
                   <label>
                     <ArrayCheckbox field={supportServices} value={_supportChoice} />
                     {_supportChoice}
                   </label>
-                </div>
+                </Col>
               ))}
-            </div>
-            <div className={classes.inputColumn}>
-              {SUPPORT_CHOICES.filter((e, i) => i % 2 === 1).map(_supportChoice => (
-                <div className={classes.toggleInputGroup}>
-                  <label>
-                    <ArrayCheckbox field={supportServices} value={_supportChoice} />
-                    {_supportChoice}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={classes["hide-on-tablet"]}>
-            {SUPPORT_CHOICES.map(_supportChoice => (
-              <div className={classes.toggleInputGroup}>
-                <label>
-                  <ArrayCheckbox field={supportServices} value={_supportChoice} />
-                  {_supportChoice}
-                </label>
-              </div>
-            ))}
-          </div>
+            </Row>
+          </Grid>
         </div>
       </div>
 
