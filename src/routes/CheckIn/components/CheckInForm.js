@@ -21,13 +21,436 @@ import {
 } from '../constants/check-in'
 import classes from './CheckInForm.scss'
 
+const identificationTooltip = (
+  <Tooltip id="tooltip">This is optional and only used for helping us identify you in the future. </Tooltip>
+)
+
+const demographicTooltip = (
+  <Tooltip id="tooltip">
+    We ask this question for the purpose of collecting information about whom we serve,
+    and how to better reach at-risk demographics.
+  </Tooltip>
+)
+
+const BasicInfoPartial = (props) => {
+  let {
+    firstName,
+    lastName,
+    socialSecurityNumber,
+    dateOfBirth,
+    phoneNumber,
+    emailAddress,
+  } = props.fields
+
+  return (
+    <Row>
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>First Name {firstName.touched && firstName.error && <span className={classes.errorMessage}>{firstName.error}</span>}</label>
+        <input className={classes.textInput} type="text" {...firstName} />
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Last Name {lastName.touched && lastName.error && <span className={classes.errorMessage}>{lastName.error}</span>}</label>
+        <input className={classes.textInput} type="text" {...lastName} />
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>
+          { "Social Security Number " }
+          <OverlayTrigger placement="right" overlay={identificationTooltip}>
+            <Glyphicon glyph="info-sign"/ >
+          </OverlayTrigger>
+          {socialSecurityNumber.touched && socialSecurityNumber.error && <span className={classes.errorMessage}>{socialSecurityNumber.error}</span>}
+        </label>
+        <input
+          className={classes.textInput}
+          type="number"
+          {...socialSecurityNumber}
+        />
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>
+          Date of Birth (mm-dd-yyyy) {dateOfBirth.touched && dateOfBirth.error && <span className={classes.errorMessage}>{dateOfBirth.error}</span>}
+        </label>
+        <input
+          className={classes.textInput}
+          type="number"
+          {...dateOfBirth}
+        />
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>
+          Phone {phoneNumber.touched && phoneNumber.error && <span className={classes.errorMessage}>{phoneNumber.error}</span>}
+        </label>
+        <input
+          className={classes.textInput}
+          type="number"
+          {...phoneNumber}
+        />
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Email Address {emailAddress.touched && emailAddress.error && <span className={classes.errorMessage}>{emailAddress.error}</span>}</label>
+        <input
+          className={classes.textInput}
+          type="email"
+          {...emailAddress}
+        />
+      </Col>
+    </Row>
+  )
+}
+
+const GenderLGBTQPartial = (props) => {
+  let {
+    gender,
+    isLGBTQ,
+  } = props.fields;
+
+  return (
+    <Row>
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Gender</label>
+        <Row>
+          <Col xs={12}>
+            <label>
+              <input
+                {...gender}
+                type="radio"
+                value="Male"
+                checked={gender.value === 'Male'}
+              />
+              Male
+            </label>
+          </Col>
+
+          <Col xs={12}>
+            <label>
+              <input
+                {...gender}
+                type="radio"
+                value="Female"
+                checked={gender.value === 'Female'}
+              />
+              Female
+            </label>
+          </Col>
+
+          <Col xs={12}>
+            <label>
+              <input
+                {...gender}
+                type="radio"
+                value="Non-binary"
+                checked={gender.value === 'Non-binary'}
+              />
+              Non-binary gender
+            </label>
+          </Col>
+        </Row>
+
+        {gender.touched && gender.error && <span className={classes.errorMessage}>{gender.error}</span>}
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>
+          Do you identify as LGBTQ?
+          <OverlayTrigger placement="right" overlay={demographicTooltip}>
+            <Glyphicon glyph="info-sign" />
+          </OverlayTrigger>
+        </label>
+
+        <Row>
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...isLGBTQ}
+                value="true"
+                checked={isLGBTQ.value === 'true'}
+              />
+              Yes
+            </label>
+          </Col>
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...isLGBTQ}
+                value="false"
+                checked={isLGBTQ.value === 'false'}
+              />
+              No
+            </label>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+  )
+}
+
+const EthnicityLanguagePartial = (props) => {
+  let {
+    ethnicity,
+    ethnicityOther,
+    language,
+    languageOther,
+  } = props.fields
+  return (
+    <Row>
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>
+          Ethnicity
+          <OverlayTrigger placement="right" overlay={demographicTooltip}>
+            <Glyphicon glyph="info-sign" />
+          </OverlayTrigger>
+        </label>
+
+        <div className={classes.inputs}>
+          {ETHNICITY_CHOICES.map(_ethnicity => (
+            <div className={classes.toggleInputGroup} key={_ethnicity}>
+              <label>
+                <ArrayCheckbox field={ethnicity} value={_ethnicity} />
+                {_ethnicity}
+              </label>
+            </div>
+          ))}
+
+          <div>
+            <label className={classes.otherInput}>
+              Other
+              <input
+                className={classes.otherTextInput}
+                type="text"
+                {...ethnicityOther}
+                onChange={(value) => ethnicityOther.onChange(value) && ethnicity.onChange(value)}
+              />
+            </label>
+          </div>
+        </div>
+        {
+          ethnicityOther.touched &&
+            ethnicityOther.error &&
+            <span className={classes.errorMessage}>{ethnicityOther.error}</span>
+        }
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Primary Language</label>
+        <div className={classes.inputs}>
+          {LANGUAGE_CHOICES.map(_language => (
+            <div className={classes.toggleInputGroup} key={_language}>
+              <label>
+                <input
+                  type="radio"
+                  {...language}
+                  key={_language}
+                  value={_language}
+                  checked={language.value === _language}
+                  onChange={(value) => language.onChange(value) && languageOther.onChange("")}
+                />
+                {_language}
+              </label>
+            </div>
+          ))}
+
+          <div>
+            <label className={classes.otherInput}>
+              Other
+              <input
+                className={classes.otherTextInput}
+                type="text"
+                {...languageOther}
+                onChange={(value) => languageOther.onChange(value) && language.onChange(value)}
+              />
+            </label>
+          </div>
+        </div>
+        {
+          languageOther.touched &&
+            languageOther.error &&
+            <span className={classes.errorMessage}>{languageOther.error}</span>
+        }
+      </Col>
+    </Row>
+  )
+}
+
+const DemographicPartial = (props) => {
+  let {
+    hasBeenInFosterCare,
+    hasServedInTheMilitary,
+    primaryHealthcareLocation,
+    isHomeless,
+    lengthOfHomelessness,
+  } = props.fields
+
+  return (
+    <Row>
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Have you ever been in foster care?</label>
+        <Row>
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...hasBeenInFosterCare}
+                value="true"
+                checked={hasBeenInFosterCare.value === 'true'}
+              />
+              Yes
+            </label>
+          </Col>
+
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...hasBeenInFosterCare}
+                value="false"
+                checked={hasBeenInFosterCare.value === 'false'}
+              />
+              No
+            </label>
+          </Col>
+        </Row>
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Have you ever served in the military?</label>
+        <Row>
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...hasServedInTheMilitary}
+                value="true"
+                checked={hasServedInTheMilitary.value === "true"}
+              />
+              Yes
+            </label>
+          </Col>
+
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...hasServedInTheMilitary}
+                value="false"
+                checked={hasServedInTheMilitary.value === "false"}
+              />
+              No
+            </label>
+          </Col>
+        </Row>
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Where do you usually go for healthcare when you are not feeling well?</label>
+        {primaryHealthcareLocation.touched && primaryHealthcareLocation.error && <span className={classes.errorMessage}>{primaryHealthcareLocation.error}</span>}
+        <Select
+          {...primaryHealthcareLocation}
+          name="primaryHealthcareLocationSelect"
+          value={primaryHealthcareLocation.value || ''}
+          onBlur={() => primaryHealthcareLocation.onBlur(primaryHealthcareLocation.value)}
+          options={PRIMARY_HEALTHCARE_CHOICES}
+        />
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Are you currently homeless?</label>
+        <Row>
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...isHomeless}
+                value="true"
+                checked={isHomeless.value === "true"}
+              />
+              Yes
+            </label>
+          </Col>
+
+           <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...isHomeless}
+                value="false"
+                checked={isHomeless.value === "false"}
+              />
+              No
+            </label>
+          </Col>
+        </Row>
+      </Col>
+
+       {
+        /* only show the duration if ``isHomeless`` */
+        isHomeless.value === "true" &&
+          <Col xs={12} sm={6} className={classes.inputGroup}>
+            <label className={classes.fieldName}>How long have you been homeless for?</label>
+            <Select
+              {...lengthOfHomelessness}
+              name="primaryHealthcareLocationSelect"
+              value={lengthOfHomelessness.value || ''}
+              onBlur={() => lengthOfHomelessness.onBlur(lengthOfHomelessness.value)}
+              options={LENGTH_OF_HOMELESSNESS_CHOICES}
+            />
+          </Col>
+      }
+    </Row>
+  )
+}
+
+const ServicesPartial = (props) => {
+  let {
+    medicalServices,
+    supportServices,
+  } = props.fields
+
+  return (
+    <Row>
+      <Col xs={12}>
+        <label className={classes.fieldName}>What medical services would you like today?</label>
+        <Row>
+          {MEDICAL_CHOICES.map(_medicalChoice => (
+            <Col xs={12} sm={6} className={classes.inputGroup} key={_medicalChoice}>
+              <label>
+                <ArrayCheckbox field={medicalServices} value={_medicalChoice} />
+                {_medicalChoice}
+              </label>
+            </Col>
+          ))}
+        </Row>
+      </Col>
+
+      <Col xs={12}>
+        <label className={classes.fieldName}>What support services would you like today?</label>
+        <Row>
+          {SUPPORT_CHOICES.map(_supportChoice => (
+            <Col xs={12} sm={6} className={classes.inputGroup} key={_supportChoice}>
+              <label>
+                <ArrayCheckbox field={supportServices} value={_supportChoice} />
+                {_supportChoice}
+              </label>
+            </Col>
+          ))}
+        </Row>
+      </Col>
+    </Row>
+  )
+}
+
 export const CheckInForm = (props) => {
   let {
     fields: {
       firstName, lastName, socialSecurityNumber, dateOfBirth, phoneNumber, emailAddress,
       gender, isLGBTQ,
-      ethnicity, ethnicityOther,
-      language, languageOther,
+      ethnicity, ethnicityOther, language, languageOther,
       hasBeenInFosterCare,
       hasServedInTheMilitary,
       primaryHealthcareLocation,
@@ -42,6 +465,39 @@ export const CheckInForm = (props) => {
     submitFailed
   } = props
 
+  const basicInfoFields = {
+    firstName,
+    lastName,
+    socialSecurityNumber,
+    dateOfBirth,
+    phoneNumber,
+    emailAddress,
+  }
+
+  const genderIsLGBTQFields = {
+    gender,
+    isLGBTQ,
+  }
+
+  const ethnicityLanguageFields = {
+    ethnicity,
+    ethnicityOther,
+    language,
+    languageOther,
+  }
+
+  const demographicFields = {
+    hasBeenInFosterCare,
+    hasServedInTheMilitary,
+    primaryHealthcareLocation,
+    isHomeless,
+    lengthOfHomelessness,
+  }
+
+  const servicesFields = {
+    medicalServices,
+    supportServices,
+  }
   // initialize array fields to empty arrays
   ethnicity.value = ethnicity.value || []
   medicalServices.value = medicalServices.value || []
@@ -96,382 +552,15 @@ export const CheckInForm = (props) => {
     }
   }
 
-  const identificationTooltip = (
-    <Tooltip id="tooltip">This is optional and only used for helping us identify you in the future. </Tooltip>
-  )
-
-  const demographicTooltip = (
-    <Tooltip id="tooltip">
-      We ask this question for the purpose of collecting information about whom we serve,
-      and how to better reach at-risk demographics.
-    </Tooltip>
-  )
-
   return (
     <form onSubmit={handleSubmit(_onSubmit)}>
       <Grid fluid>
-        <Row>
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>First Name {firstName.touched && firstName.error && <span className={classes.errorMessage}>{firstName.error}</span>}</label>
-            <input className={classes.textInput} type="text" {...firstName} />
-          </Col>
-
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>Last Name {lastName.touched && lastName.error && <span className={classes.errorMessage}>{lastName.error}</span>}</label>
-            <input className={classes.textInput} type="text" {...lastName} />
-          </Col>
-
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>
-              { "Social Security Number " }
-              <OverlayTrigger placement="right" overlay={identificationTooltip}>
-                <Glyphicon glyph="info-sign"/ >
-              </OverlayTrigger>
-              {socialSecurityNumber.touched && socialSecurityNumber.error && <span className={classes.errorMessage}>{socialSecurityNumber.error}</span>}
-            </label>
-            <input
-              className={classes.textInput}
-              type="number"
-              {...socialSecurityNumber}
-            />
-          </Col>
-
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>
-              Date of Birth (mm-dd-yyyy) {dateOfBirth.touched && dateOfBirth.error && <span className={classes.errorMessage}>{dateOfBirth.error}</span>}
-            </label>
-            <input
-              className={classes.textInput}
-              type="number"
-              {...dateOfBirth}
-            />
-          </Col>
-
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>
-              Phone {phoneNumber.touched && phoneNumber.error && <span className={classes.errorMessage}>{phoneNumber.error}</span>}
-            </label>
-            <input
-              className={classes.textInput}
-              type="number"
-              {...phoneNumber}
-            />
-          </Col>
-
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>Email Address {emailAddress.touched && emailAddress.error && <span className={classes.errorMessage}>{emailAddress.error}</span>}</label>
-            <input
-              className={classes.textInput}
-              type="email"
-              {...emailAddress}
-            />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>Gender</label>
-            <Row>
-              <Col xs={12}>
-                <label>
-                  <input
-                    {...gender}
-                    type="radio"
-                    value="Male"
-                    checked={gender.value === "Male"}
-                  />
-                  Male
-                </label>
-              </Col>
-
-              <Col xs={12}>
-                <label>
-                  <input
-                    {...gender}
-                    type="radio"
-                    value="Female"
-                    checked={gender.value === "Female"}
-                  />
-                  Female
-                </label>
-              </Col>
-
-              <Col xs={12}>
-                <label>
-                  <input
-                    {...gender}
-                    type="radio"
-                    value="Non-binary"
-                    checked={gender.value === 'Non-binary'}
-                  />
-                  Non-binary gender
-                </label>
-              </Col>
-            </Row>
-
-            {gender.touched && gender.error && <span className={classes.errorMessage}>{gender.error}</span>}
-          </Col>
-
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>
-              Do you identify as LGBTQ?
-              <OverlayTrigger placement="right" overlay={demographicTooltip}>
-                <Glyphicon glyph="info-sign" />
-              </OverlayTrigger>
-            </label>
-
-            <Row>
-              <Col xs={6}>
-                <label>
-                  <input
-                    type="radio"
-                    {...isLGBTQ}
-                    value="true"
-                    checked={isLGBTQ.value === 'true'}
-                  />
-                  Yes
-                </label>
-              </Col>
-              <Col xs={6}>
-                <label>
-                  <input
-                    type="radio"
-                    {...isLGBTQ}
-                    value="false"
-                    checked={isLGBTQ.value === 'false'}
-                  />
-                  No
-                </label>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>
-              Ethnicity
-              <OverlayTrigger placement="right" overlay={demographicTooltip}>
-                <Glyphicon glyph="info-sign" />
-              </OverlayTrigger>
-            </label>
-
-            <div className={classes.inputs}>
-              {ETHNICITY_CHOICES.map(_ethnicity => (
-                <div className={classes.toggleInputGroup} key={_ethnicity}>
-                  <label>
-                    <ArrayCheckbox field={ethnicity} value={_ethnicity} />
-                    {_ethnicity}
-                  </label>
-                </div>
-              ))}
-
-              <div>
-                <label className={classes.otherInput}>
-                  Other
-                  <input
-                    className={classes.otherTextInput}
-                    type="text"
-                    {...ethnicityOther}
-                    onChange={(value) => ethnicityOther.onChange(value) && ethnicity.onChange(value)}
-                  />
-                </label>
-              </div>
-            </div>
-            {
-              ethnicityOther.touched &&
-                ethnicityOther.error &&
-                <span className={classes.errorMessage}>{ethnicityOther.error}</span>
-            }
-          </Col>
-
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>Primary Language</label>
-            <div className={classes.inputs}>
-              {LANGUAGE_CHOICES.map(_language => (
-                <div className={classes.toggleInputGroup} key={_language}>
-                  <label>
-                    <input
-                      type="radio"
-                      {...language}
-                      key={_language}
-                      value={_language}
-                      checked={language.value === _language}
-                      onChange={(value) => language.onChange(value) && languageOther.onChange("")}
-                    />
-                    {_language}
-                  </label>
-                </div>
-              ))}
-
-              <div>
-                <label className={classes.otherInput}>
-                  Other
-                  <input
-                    className={classes.otherTextInput}
-                    type="text"
-                    {...languageOther}
-                    onChange={(value) => languageOther.onChange(value) && language.onChange(value)}
-                  />
-                </label>
-              </div>
-            </div>
-            {
-              languageOther.touched &&
-                languageOther.error &&
-                <span className={classes.errorMessage}>{languageOther.error}</span>
-            }
-          </Col>
-        </Row>
-
-        <Row>
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>Have you ever been in foster care?</label>
-            <Row>
-              <Col xs={6}>
-                <label>
-                  <input
-                    type="radio"
-                    {...hasBeenInFosterCare}
-                    value="true"
-                    checked={hasBeenInFosterCare.value === 'true'}
-                  />
-                  Yes
-                </label>
-              </Col>
-
-              <Col xs={6}>
-                <label>
-                  <input
-                    type="radio"
-                    {...hasBeenInFosterCare}
-                    value="false"
-                    checked={hasBeenInFosterCare.value === 'false'}
-                  />
-                  No
-                </label>
-              </Col>
-            </Row>
-          </Col>
-
-          <Col xs={12} s={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>Have you ever served in the military?</label>
-            <Row>
-              <Col xs={6}>
-                <label>
-                  <input
-                    type="radio"
-                    {...hasServedInTheMilitary}
-                    value="true"
-                    checked={hasServedInTheMilitary.value === "true"}
-                  />
-                  Yes
-                </label>
-              </Col>
-
-              <Col xs={6}>
-                <label>
-                  <input
-                    type="radio"
-                    {...hasServedInTheMilitary}
-                    value="false"
-                    checked={hasServedInTheMilitary.value === "false"}
-                  />
-                  No
-                </label>
-              </Col>
-            </Row>
-          </Col>
-
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>Where do you usually go for healthcare when you are not feeling well?</label>
-            {primaryHealthcareLocation.touched && primaryHealthcareLocation.error && <span className={classes.errorMessage}>{primaryHealthcareLocation.error}</span>}
-            <Select
-              {...primaryHealthcareLocation}
-              name="primaryHealthcareLocationSelect"
-              value={primaryHealthcareLocation.value || ''}
-              onBlur={() => primaryHealthcareLocation.onBlur(primaryHealthcareLocation.value)}
-              options={PRIMARY_HEALTHCARE_CHOICES}
-            />
-          </Col>
-
-          <Col xs={12} sm={6} className={classes.inputGroup}>
-            <label className={classes.fieldName}>Are you currently homeless?</label>
-            <Row>
-              <Col xs={6}>
-                <label>
-                  <input
-                    type="radio"
-                    {...isHomeless}
-                    value="true"
-                    checked={isHomeless.value === "true"}
-                  />
-                  Yes
-                </label>
-              </Col>
-
-              <Col xs={6}>
-                <label>
-                  <input
-                    type="radio"
-                    {...isHomeless}
-                    value="false"
-                    checked={isHomeless.value === "false"}
-                  />
-                  No
-                </label>
-              </Col>
-            </Row>
-          </Col>
-
-          {
-            /* only show the duration if ``isHomeless`` */
-            isHomeless.value === "true" &&
-              <Col xs={12} sm={6} className={classes.inputGroup}>
-                <label className={classes.fieldName}>How long have you been homeless for?</label>
-                <Select
-                  {...lengthOfHomelessness}
-                  name="primaryHealthcareLocationSelect"
-                  value={lengthOfHomelessness.value || ''}
-                  onBlur={() => lengthOfHomelessness.onBlur(lengthOfHomelessness.value)}
-                  options={LENGTH_OF_HOMELESSNESS_CHOICES}
-                />
-              </Col>
-          }
-        </Row>
+        <BasicInfoPartial fields={basicInfoFields} />
+        <GenderLGBTQPartial fields={genderIsLGBTQFields} />
+        <EthnicityLanguagePartial fields={ethnicityLanguageFields} />
+        <DemographicPartial fields={demographicFields} />
+        <ServicesPartial fields={servicesFields} />
       </Grid>
-
-      <Row>
-        <Col xs={12}>
-          <label className={classes.fieldName}>What medical services would you like today?</label>
-          <Row>
-            {MEDICAL_CHOICES.map(_medicalChoice => (
-              <Col xs={12} sm={6} className={classes.inputGroup} key={_medicalChoice}>
-                <label>
-                  <ArrayCheckbox field={medicalServices} value={_medicalChoice} />
-                  {_medicalChoice}
-                </label>
-              </Col>
-            ))}
-          </Row>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col xs={12}>
-          <label className={classes.fieldName}>What support services would you like today?</label>
-          <Row>
-            {SUPPORT_CHOICES.map(_supportChoice => (
-              <Col xs={12} sm={6} className={classes.inputGroup} key={_supportChoice}>
-                <label>
-                  <ArrayCheckbox field={supportServices} value={_supportChoice} />
-                  {_supportChoice}
-                </label>
-              </Col>
-            ))}
-          </Row>
-        </Col>
-      </Row>
 
       <div className={classes.footer}>
         <Button
@@ -479,7 +568,7 @@ export const CheckInForm = (props) => {
           type="submit"
           disabled={requesting}
         >
-          { requesting ? "Submitting..." : "Submit" }
+          {requesting ? 'Submitting...' : 'Submit'}
         </Button>
         <Button
           type="button"
@@ -491,18 +580,10 @@ export const CheckInForm = (props) => {
       </div>
 
       {
-        (() => {
-          let hasErrors = false;
-          for (let key in errors) {
-            hasErrors = true;
-          }
-
-          return (
-            <div className={classes.errorNotice + (hasErrors && submitFailed ? "" : " hidden") }>
-              Required fields are missing! Please review the form.
-            </div>
-          )
-        })()
+        (Object.keys(errors).length && submitFailed) &&
+          <div className={classes.errorNotice}>
+            Required fields are missing! Please review the form.
+          </div>
       }
     </form>
   )
