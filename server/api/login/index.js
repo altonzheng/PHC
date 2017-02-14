@@ -1,5 +1,4 @@
 import Router from 'koa-router'
-import Q from 'q'
 import verify from './verify'
 
 const router = Router()

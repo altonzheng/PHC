@@ -36,7 +36,7 @@ app.use(json())
 app.use(bodyParser())
 
 // Load ENV vars
-dotenv.config();
+dotenv.config()
 
 // use router for api
 loadRoutes(router)

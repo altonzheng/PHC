@@ -25,7 +25,7 @@ function handlePUTorPOST (ctx, next) {
     })
 
     // TODO: Should we return something else more useful to the caller?
-    .then(res => ctx.body = res)
+    .then(res => (ctx.body = res))
     .catch(error => handleError(ctx, error))
 }
 
@@ -35,19 +35,19 @@ router
   .get('/search', (ctx, next) => {
     return connect()
       .then(res => searchForAccountByName(res.connection, ctx.query.name))
-      .then(res => ctx.body = res)
+      .then(res => (ctx.body = res))
       .catch(error => handleError(ctx, error))
   })
   .get('/', (ctx, next) => {
     return connect()
       .then(res => getAllAccounts(res.connection))
-      .then(res => ctx.body = res)
+      .then(res => (ctx.body = res))
       .catch(error => handleError(ctx, error))
   })
   .get('/:id', (ctx, next) => {
     return connect()
       .then(res => getAccount(res.connection, ctx.params.id))
-      .then(res => ctx.body = res)
+      .then(res => (ctx.body = res))
       .catch(error => handleError(ctx, error))
   })
   .post('/', handlePUTorPOST)
