@@ -6,7 +6,6 @@ import {
 import {
   transformDateForSalesforce,
   transformDateFromSalesforce,
-  getFormattedBirthdate,
 } from './date'
 
 import { HousingPicklistValues } from '../constants'
@@ -33,9 +32,9 @@ const FORM_FIELD_TO_SALESFORCE_FIELD = {
 
 // Invert the map given above.
 const SALESFORCE_FIELD_TO_FORM_FIELD = Object.keys(FORM_FIELD_TO_SALESFORCE_FIELD).reduce((map, key) => {
-  map[FORM_FIELD_TO_SALESFORCE_FIELD[key]] = key;
-  return map;
-}, {});
+  map[FORM_FIELD_TO_SALESFORCE_FIELD[key]] = key
+  return map
+}, {})
 
 // Performs any additional transformations needed to coerce a field so Salesforce will accept it
 export function transformFieldForSalesforce (field, value) {
@@ -49,7 +48,7 @@ export function transformFieldForSalesforce (field, value) {
   } else if (field === 'isHomeless') {
     return value ? HousingPicklistValues.HOMELESS : HousingPicklistValues.HOUSED
   } else if (value instanceof Array) {
-    return value.join(';')
+    return transformArrayForSalesforce
   } else {
     return value
   }
@@ -60,7 +59,7 @@ export function transformFieldFromSalesforce (field, value) {
   if (field === 'Birthdate__c') {
     return transformDateFromSalesforce(value)
   } else if (field === 'Race__c') {
-    return value && value.split(';')
+    return transformArrayFromSalesforce
   } else if (field === 'SS_Num__c') {
     if (value && value.length === 4) {
       return `00000${value}`

@@ -10,5 +10,5 @@ function logApiUsage (connection) {
 
 export {
   connect,
-  logApiUsage
+  logApiUsage,
 }

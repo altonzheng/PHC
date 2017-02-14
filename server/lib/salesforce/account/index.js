@@ -5,7 +5,7 @@ import logger from '../../logger'
 
 import {
   Account,
-  FETCH_ACCOUNTS_QUERY
+  FETCH_ACCOUNTS_QUERY,
 } from './constants'
 import {
   isFieldMappableFromSalesforce,
@@ -13,7 +13,7 @@ import {
   transformFieldFromSalesforce,
   transformFieldForSalesforce,
   mapFormFieldToSalesforceField,
-  mapSalesforceFieldToFormField
+  mapSalesforceFieldToFormField,
 } from './transform'
 import { getFormattedBirthdate } from './transform/date'
 
@@ -38,26 +38,26 @@ function getAllAccounts(connection) {
           //   Or, return first and last name separately.
           name: `${account.FirstName} ${account.LastName}`,
           id: account.Id,
-          birthdate: getFormattedBirthdate(account.Birthdate__c)
+          birthdate: getFormattedBirthdate(account.Birthdate__c),
         }
       })
 
       // Use Fuse.js to create a fuzzy searchable index of accounts
       fuse = new Fuse(mappedAccounts, {
         keys: ['name'],
-        threshold: 0.2
+        threshold: 0.2,
       })
       logger.debug('Index of ' + accounts.length + ' accounts built.')
 
       deferred.resolve({
-        message: 'Successfully fetched ' + accounts.length + ' accounts!'
+        message: 'Successfully fetched ' + accounts.length + ' accounts!',
       })
     })
     .on('error', (error) => {
       logger.warn('Fetching accounts: error', { error })
       deferred.reject({
         message: 'Error fetching accounts.',
-        error
+        error,
       })
     })
 
@@ -93,7 +93,7 @@ function getAccount(connection, id) {
       }
 
       if (account['Gender__c'] === 'Transgender') {
-        payload.account['isTransexual'] = true;
+        payload.account['isTransexual'] = true
       }
 
       payload.account.id = account.Id
@@ -119,7 +119,7 @@ function createAccount(connection, payload) {
     if (error || !account.success) {
       logger.error('Creating account: error', { error })
       deferred.reject({
-        message: `Error creating account.`,
+        message: 'Error creating account.',
         error,
       })
     } else {
@@ -149,7 +149,7 @@ function updateAccount(connection, payload) {
       logger.error('Updating account: error', { error })
       deferred.reject({
         message: 'Error updating account.',
-        error
+        error,
       })
     } else {
       deferred.resolve({
@@ -175,7 +175,7 @@ function createOrUpdateAccount(connection, id, fields) {
     if (isFieldMappableToSalesforce(field) && fields[field] != null) {
       payload[mapFormFieldToSalesforceField(field)] = transformFieldForSalesforce(field, fields[field])
     } else {
-      logger.debug(`Creating or updating account: found unparseable field`, { field })
+      logger.debug('Creating or updating account: found unparseable field', { field })
     }
   }
 
@@ -189,24 +189,24 @@ function createOrUpdateAccount(connection, id, fields) {
 
 function searchForAccountByName(connection, name) {
   return Q.fcall(() => {
-      // Initialize fuse if first time calling
-      if (fuse === null) {
-        return getAllAccounts(connection)
-      }
-    })
-    .then(() => {
-      return {
-        payload: {
-          // Return top 3 results
-          accounts: fuse.search(name).slice(0,50)
-        }
-      }
-    })
+    // Initialize fuse if first time calling
+    if (fuse === null) {
+      return getAllAccounts(connection)
+    }
+  })
+  .then(() => {
+    return {
+      payload: {
+        // Return top 50 results
+        accounts: fuse.search(name).slice(0, 50),
+      },
+    }
+  })
 }
 
 export {
   getAllAccounts,
   getAccount,
   createOrUpdateAccount,
-  searchForAccountByName
+  searchForAccountByName,
 }

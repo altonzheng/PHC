@@ -24,7 +24,6 @@ export function transformDateFromSalesforce (dateString) {
 }
 
 // Formats date string to something like 'Jan 1' for display on search results
-// TODO: Use a proper library for this
 export function getFormattedBirthdate (dateString) {
   const date = new Date(getDateStringWithTimezone(dateString))
   if (!dateString || !isDate(date)) {
