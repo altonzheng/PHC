@@ -1,8 +1,7 @@
 /* @flow */
-import { push } from 'react-router-redux'
+import { push, LOCATION_CHANGE } from 'react-router-redux'
 
 import { UPDATE_INFO_REQUEST } from '../../CheckIn/modules/check-in'
-import { LOCATION_CHANGE } from 'react-router-redux'
 
 // ------------------------------------
 // Constants
@@ -23,7 +22,7 @@ const CLEAR_CURRENT_ACCOUNT = 'CLEAR_CURRENT_ACCOUNT'
 export function searchForAccountRequest(name) {
   return {
     type: SEARCH_FOR_ACCOUNT_REQUEST,
-    name: name
+    name: name,
   }
 }
 
@@ -31,15 +30,15 @@ export function searchForAccountSuccess(accounts) {
   return {
     type: SEARCH_FOR_ACCOUNT_SUCCESS,
     payload: {
-      accounts
-    }
+      accounts,
+    },
   }
 }
 
 export function searchForAccountFailure(error) {
   return {
     type: SEARCH_FOR_ACCOUNT_FAILURE,
-    error
+    error,
   }
 }
 
@@ -83,11 +82,11 @@ export function searchForAccount(name) {
         if (response.ok) {
           return response.json()
         } else {
-          throw "Account search error!"
+          throw Error('Account search error!')
         }
       })
       .then(data => dispatch(searchForAccountSuccess(data.payload.accounts)))
-      .catch(err => dispatch(searchForAccountFailure(err)));
+      .catch(err => dispatch(searchForAccountFailure(err)))
   }
 }
 
@@ -99,7 +98,7 @@ export function loadAccountData(id) {
         if (response.ok) {
           return response.json()
         } else {
-          throw "Load account data error!"
+          throw Error('Load account data error!')
         }
       })
       .then(data => dispatch(loadAccountDataSuccess(data.payload.account)))
@@ -110,7 +109,7 @@ export function loadAccountData(id) {
 
 export const actions = {
   loadAccountData,
-  searchForAccount
+  searchForAccount,
 }
 
 const ACTION_HANDLERS = {
@@ -175,14 +174,14 @@ const ACTION_HANDLERS = {
     })
   },
   [LOCATION_CHANGE]: (state, action) => {
-    if (action.payload.hash == "#new") {
+    if (action.payload.hash === '#new') {
       return ({
         ...state,
         currentAccount: null,
       })
     }
-    return state;
-  }
+    return state
+  },
 }
 
 // ------------------------------------
@@ -193,7 +192,7 @@ const initialState = {
   fetching: false,
   error: null,
   searching: false,
-  searchResults: []
+  searchResults: [],
 }
 export default function accountReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
