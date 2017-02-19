@@ -86,9 +86,6 @@ function getAccount(connection, id) {
       for (let field in account) {
         if (isFieldMappableFromSalesforce(field)) {
           payload.account[mapSalesforceFieldToFormField(field)] = transformFieldFromSalesforce(field, account[field])
-        } else {
-          // Commenting this out for less log spam
-          // logger.debug(`Fetching account: found unparseable field`, { field })
         }
       }
 

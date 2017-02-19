@@ -66,7 +66,7 @@ const BasicInfoPartial = (props) => {
         </label>
         <input
           className={classes.textInput}
-          type="number"
+          type="text"
           {...socialSecurityNumber}
         />
       </Col>
@@ -77,7 +77,7 @@ const BasicInfoPartial = (props) => {
         </label>
         <input
           className={classes.textInput}
-          type="number"
+          type="text"
           {...dateOfBirth}
         />
       </Col>
@@ -88,7 +88,7 @@ const BasicInfoPartial = (props) => {
         </label>
         <input
           className={classes.textInput}
-          type="number"
+          type="text"
           {...phoneNumber}
         />
       </Col>
@@ -580,11 +580,11 @@ export const CheckInForm = (props) => {
         </Button>
       </div>
 
-      {
-        (Object.keys(errors).length && submitFailed) &&
-          <div className={classes.errorNotice}>
+      {(Object.keys(errors).length && submitFailed)
+          ? <div className={classes.errorNotice}>
             Required fields are missing! Please review the form.
           </div>
+          : null
       }
     </form>
   )
