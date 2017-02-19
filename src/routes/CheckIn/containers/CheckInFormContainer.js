@@ -54,10 +54,10 @@ const validate = (values) => {
 
   if (values.socialSecurityNumber) {
     if (
-      values.socialSecurityNumber.length < 11
-        && !(
-          values.socialSecurityNumber.length === 4
-            && values.socialSecurityNumber.replace(/^\D+/g, '').length === 4
+      values.socialSecurityNumber.length < 11 &&
+        !(
+          values.socialSecurityNumber.length === 4 &&
+            values.socialSecurityNumber.replace(/^\D+/g, '').length === 4
         )
     ) {
       errors.socialSecurityNumber = 'Incomplete'
@@ -79,7 +79,7 @@ const validate = (values) => {
 const mapStateToProps = (state) => ({
   initialValues: state.account && state.account.currentAccount,
   currentAccount: state.account && state.account.currentAccount,
-  requesting: state.checkIn.requesting
+  requesting: state.checkIn.requesting,
 })
 
 const mapDispatchToProps = (dispatch) => ({
