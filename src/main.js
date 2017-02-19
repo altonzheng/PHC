@@ -10,7 +10,7 @@ import AppContainer from './containers/AppContainer'
 // Browser History Setup
 // ========================================================
 const browserHistory = useRouterHistory(createBrowserHistory)({
-  basename: __BASENAME__
+  basename: __BASENAME__,
 })
 
 // ========================================================
@@ -24,7 +24,7 @@ const initialState = window.___INITIAL_STATE__
 
 const store = createStore(initialState, browserHistory)
 const history = syncHistoryWithStore(browserHistory, store, {
-  selectLocationState: (state) => state.router
+  selectLocationState: (state) => state.router,
 })
 
 // ========================================================

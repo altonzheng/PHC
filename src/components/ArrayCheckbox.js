@@ -17,17 +17,17 @@ const ArrayCheckbox = (props) => {
       onChange={event => {
         event.persist() // need to persist event in order to maintain target
 
-        const index = field.value.indexOf(value);
+        const index = field.value.indexOf(value)
 
         if (index < 0) { // wasn't selected
           if (event.target.checked) { // was checked
-            _onChange(field.value.concat(value));
+            _onChange(field.value.concat(value))
           }
         } else {
           if (!event.target.checked) { // was unchecked
-            const copy = [...field.value]; // make copy to not mutate value
-            copy.splice(index, 1); // remove item at index
-            _onChange(copy);
+            const copy = [...field.value] // make copy to not mutate value
+            copy.splice(index, 1) // remove item at index
+            _onChange(copy)
           }
         }
       }}
@@ -38,6 +38,7 @@ const ArrayCheckbox = (props) => {
 
 ArrayCheckbox.propTypes = {
   field: React.PropTypes.object.isRequired,
+  value: React.PropTypes.any,
 }
 
 export default ArrayCheckbox

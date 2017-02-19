@@ -1,5 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import 'react-select/dist/react-select.css'
+
 import Header from '../../components/Header'
 import classes from './CoreLayout.scss'
 import '../../styles/core.scss'
@@ -15,7 +17,7 @@ export const CoreLayout = (props) => (
 )
 
 CoreLayout.propTypes = {
-  children: React.PropTypes.element.isRequired
+  children: React.PropTypes.element.isRequired,
 }
 
 export default CoreLayout
