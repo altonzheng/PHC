@@ -10,6 +10,8 @@ label {
 
 .inputGroup {
   text-align: left;
+  display: flex;
+  flex-flow: column;
 }
 
 .inputColumns {

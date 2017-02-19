@@ -22,7 +22,9 @@ import {
 import classes from './CheckInForm.scss'
 
 const identificationTooltip = (
-  <Tooltip id="tooltip">This is optional and only used for helping us identify you in the future. </Tooltip>
+  <Tooltip id="tooltip">
+    This is optional and only used for helping us identify you in the future.
+  </Tooltip>
 )
 
 const demographicTooltip = (
