@@ -1,12 +1,17 @@
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
-
-import classes from './SearchBar.scss'
-import { Button, Glyphicon, InputGroup, FormControl } from 'react-bootstrap'
+import {
+  Button,
+  Glyphicon,
+  InputGroup,
+  FormControl,
+} from 'react-bootstrap'
 import { Addon } from 'react-bootstrap/lib/InputGroup'
 
+import classes from './SearchBar.scss'
+
 const AccountSuggestion = (props) => {
-  const handleClick = () => props.fetching ? null : props.loadAccountData(props.id)
+  const handleClick = () => props.fetching ? null : props.load(props.id)
 
   return (
     <Button
@@ -26,16 +31,16 @@ AccountSuggestion.propTypes = {
   fetching: PropTypes.bool,
   name: PropTypes.string,
   birthdate: PropTypes.string,
-  loadAccountData: PropTypes.func,
-  id: PropTypes.number,
+  load: PropTypes.func,
+  id: PropTypes.string,
 }
 
 class SearchBar extends React.Component {
   static propTypes = {
     searchForAccount: PropTypes.func,
     searching: PropTypes.bool,
-    searchResults: PropTypes.arrayOf(PropTypes.string),
-    loadAccountData: PropTypes.func,
+    searchResults: PropTypes.arrayOf(PropTypes.object),
+    load: PropTypes.func,
     fetching: PropTypes.bool,
     station: PropTypes.string,
   }
@@ -50,15 +55,6 @@ class SearchBar extends React.Component {
 
   suggest = () => {
     this.props.searchForAccount(this.state.value)
-  }
-
-  loadAccountData = (id) => {
-    const nextUrl = {
-      'check-in': '/check-in',
-      'check-out': '/check-out',
-    }[this.props.station]
-
-    this.props.loadAccountData(id, nextUrl)
   }
 
   handleKeyPress = (e) => {
@@ -102,12 +98,12 @@ class SearchBar extends React.Component {
             Search Results (Name, Date of Birth)
           </div>
 
-          {this.props.searchResults.length === 0 ? 'No results.' : ''}
+          {this.props.searchResults.length === 0 ? 'No results.' : null}
 
           <ul className={classes.suggestionList}>
             {this.props.searchResults.map(result => (
               <AccountSuggestion
-                loadAccountData={this.loadAccountData}
+                load={this.props.load}
                 name={result.name}
                 id={result.id}
                 birthdate={result.birthdate}

@@ -4,9 +4,11 @@ import {
   MenuItem,
 } from 'react-bootstrap'
 
+import * as STATIONS from '../constants/stations'
+
 const stationToLabel = {
-  'check-in': 'Check In',
-  'check-out': 'Check Out',
+  [STATIONS.CHECK_IN]: 'Check In',
+  [STATIONS.CHECK_OUT]: 'Check Out',
 }
 
 const stations = Object.keys(stationToLabel)

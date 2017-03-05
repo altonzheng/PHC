@@ -3,6 +3,11 @@ import classes from './CheckOut.scss'
 import { Button } from 'react-bootstrap'
 import CheckOutForm from '../containers/CheckOutFormContainer'
 
+const fields = [
+  'services',
+  'satisfaction',
+]
+
 export const CheckOut = (props) => {
   const success = (
     <div>
@@ -11,7 +16,7 @@ export const CheckOut = (props) => {
     </div>
   )
 
-  let element = <CheckOutForm />
+  let element = <CheckOutForm fields={fields} />
 
   return (
     <div className={classes.container}>

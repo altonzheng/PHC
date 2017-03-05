@@ -22,6 +22,7 @@
     "max-len": [2, 120, 2],
     "jsx-quotes": [0],
     "space-before-function-paren": [0],
-    "comma-dangle": ["error", "always-multiline"]
+    "comma-dangle": ["error", "always-multiline"],
+    "handle-callback-err": [0]
   }
 }

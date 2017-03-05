@@ -2,6 +2,7 @@
 import { push, LOCATION_CHANGE } from 'react-router-redux'
 
 import { UPDATE_INFO_REQUEST } from '../../CheckIn/modules/check-in'
+import { phcFetch } from '../../../utils/fetch'
 
 // ------------------------------------
 // Constants
@@ -13,6 +14,10 @@ const SEARCH_FOR_ACCOUNT_FAILURE = 'SEARCH_FOR_ACCOUNT_FAILURE'
 const LOAD_ACCOUNT_DATA_REQUEST = 'LOAD_ACCOUNT_DATA_REQUEST'
 const LOAD_ACCOUNT_DATA_SUCCESS = 'LOAD_ACCOUNT_DATA_SUCCESS'
 const LOAD_ACCOUNT_DATA_FAILURE = 'LOAD_ACCOUNT_DATA_FAILURE'
+
+const LOAD_EVENT_REGISTRATION_REQUEST = 'LOAD_EVENT_REGISTRATION_REQUEST'
+const LOAD_EVENT_REGISTRATION_SUCCESS = 'LOAD_EVENT_REGISTRATION_SUCCESS'
+const LOAD_EVENT_REGISTRATION_FAILURE = 'LOAD_EVENT_REGISTRATION_FAILURE'
 
 const CLEAR_CURRENT_ACCOUNT = 'CLEAR_CURRENT_ACCOUNT'
 
@@ -119,8 +124,49 @@ export function loadAccountData(id, nextUrl) {
   }
 }
 
+function loadEventRegistrationRequest(id) {
+  return {
+    type: LOAD_EVENT_REGISTRATION_REQUEST,
+    payload: {
+      id,
+    },
+  }
+}
+
+function loadEventRegistrationSuccess(eventRegistration) {
+  return {
+    type: LOAD_EVENT_REGISTRATION_SUCCESS,
+    payload: {
+      eventRegistration,
+    },
+  }
+}
+
+function loadEventRegistrationFailure(error) {
+  return {
+    type: LOAD_EVENT_REGISTRATION_FAILURE,
+    error,
+  }
+}
+
+export function loadEventRegistration(id, nextUrl) {
+  return dispatch => {
+    dispatch(loadEventRegistrationRequest(id))
+    return phcFetch(`/api/event-registrations/${id}`)
+      .then(data => {
+        const eventRegistration = data.payload.eventRegistration
+
+        // TODO: do something else
+      })
+      .then(data => dispatch(loadEventRegistrationSuccess(data)))
+      .then(_ => dispatch(push(nextUrl)))
+      .catch(error => dispatch(loadEventRegistrationFailure(error)))
+  }
+}
+
 export const actions = {
   loadAccountData,
+  loadEventRegistration,
   searchForAccount,
 }
 

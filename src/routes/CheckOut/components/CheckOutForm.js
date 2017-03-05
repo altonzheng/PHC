@@ -10,7 +10,6 @@ import {
 import classnames from 'classnames'
 
 import 'react-select/dist/react-select.css'
-import ArrayCheckbox from '../../../components/ArrayCheckbox'
 import classes from './CheckOutForm.scss'
 
 const ServicesPartial = (props) => {
@@ -30,10 +29,10 @@ const ServicesPartial = (props) => {
                     <input
                       {...service}
                       type="radio"
-                      value="Male"
-                      checked={service.value === 'Male'}
+                      value="Applied"
+                      checked={service.value === 'Applied'}
                     />
-                    Male
+                   Applied
                   </label>
                 </Col>
 
@@ -42,10 +41,10 @@ const ServicesPartial = (props) => {
                     <input
                       {...service}
                       type="radio"
-                      value="Female"
-                      checked={service.value === 'Female'}
+                      value="Received"
+                      checked={service.value === 'Received'}
                     />
-                    Female
+                   Received
                   </label>
                 </Col>
 
@@ -54,10 +53,22 @@ const ServicesPartial = (props) => {
                     <input
                       {...service}
                       type="radio"
-                      value="Non-binary"
-                      checked={service.value === 'Non-binary'}
+                      value="Drop In"
+                      checked={service.value === 'Drop In'}
                     />
-                    Non-binary gender
+                    Drop In
+                  </label>
+                </Col>
+
+                <Col xs={12}>
+                  <label>
+                    <input
+                      {...service}
+                      type="radio"
+                      value="None"
+                      checked={service.value === 'None'}
+                    />
+                   None
                   </label>
                 </Col>
               </Row>
@@ -73,7 +84,7 @@ export const CheckOutForm = (props) => {
   let {
     fields: {
       services,
-      satisfaction,
+      // satisfaction,
     },
     handleSubmit,
     requesting,
@@ -87,6 +98,7 @@ export const CheckOutForm = (props) => {
     const newFields = {}
 
     for (let field in fields) {
+
     }
 
     props.updateInfo(newFields, currentAccount && currentAccount.id)
