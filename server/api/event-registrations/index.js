@@ -3,6 +3,7 @@ import logger from '../../lib/logger'
 import { connect } from '../../lib/salesforce'
 import {
   getEventRegistration,
+  getEventRegistrationByAccount,
   createEventRegistration,
 } from '../../lib/salesforce/event-registration'
 
@@ -34,6 +35,12 @@ router
   .get('/:id', (ctx, next) => {
     return connect()
       .then(res => getEventRegistration(res.connection, ctx.params.id))
+      .then(res => (ctx.body = res))
+      .catch(error => handleError(ctx, error))
+  })
+  .get('/', (ctx, next) => {
+    return connect()
+      .then(res => getEventRegistrationByAccount(res.connection, ctx.query.accountId))
       .then(res => (ctx.body = res))
       .catch(error => handleError(ctx, error))
   })

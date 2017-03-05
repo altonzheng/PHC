@@ -43,7 +43,7 @@ AccountSuggestion.propTypes = {
   loadAccountData: PropTypes.func,
   loadEventRegistration: PropTypes.func,
   name: PropTypes.string,
-  station: PropTypes.string,
+  station: PropTypes.string
 }
 
 class SearchBar extends React.Component {

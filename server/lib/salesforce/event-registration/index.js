@@ -65,22 +65,8 @@ export function getEventRegistration (connection, id) {
       })
     } else {
       const payload = {
-        eventRegistration: {},
+        eventRegistration
       }
-
-      for (let attribute in eventRegistration) {
-        if (
-          attribute.endsWith('__c') &&
-          !attribute.endsWith('_Time__c') &&
-          attribute !== Account &&
-          attribute !== PhcEvent
-        ) {
-          payload.eventRegistration[attribute] = eventRegistration[attribute]
-        }
-      }
-
-      payload.eventRegistration.id = eventRegistration.Id
-
       deferred.resolve({
         message: `Successfully retrieved event registration ${id}`,
         payload,
@@ -90,3 +76,36 @@ export function getEventRegistration (connection, id) {
 
   return deferred.promise
 }
+
+export function getEventRegistrationByAccount (connection, accountId) {
+  const deferred = Q.defer()
+
+  logger.debug(`Searching for account id: ${accountId} at PHC Event: ${PHC_EVENT_ID}`)
+
+  connection.sobject(EventRegistration).find({
+      "Account__c": accountId,
+      "PHC_Event__c": PHC_EVENT_ID
+    })
+    .sort('-LastModifiedDate') // Sort in descending order of last modified date
+    .execute((error, eventRegistrations) => {
+      logger.debug('Found event registration', eventRegistrations)
+
+      if (error) {
+        logger.error('Fetching event registration: error', { accountId, error })
+        return deferred.reject({
+          message: `Error fetching event registration ${accountId}.`,
+          error
+        })
+      }
+
+      let eventRegistration = eventRegistrations[0]
+
+      deferred.resolve({
+        message: `Successfully retrieved event registration ${eventRegistration.Id} for account ${accountId}`,
+        eventRegistration
+      })
+    });
+
+  return deferred.promise
+}
+
