@@ -1,20 +1,13 @@
 import React, { PropTypes } from 'react'
+
 import classes from './CheckIn.scss'
-import { Button } from 'react-bootstrap'
 import CheckInForm from '../containers/CheckInFormContainer'
+import Success from '../../../components/Success'
 
 export const CheckIn = (props) => {
-  const success = (
-    <div>
-      <h1>Success! Client was registered.</h1>
-      <Button bsStyle="primary" onClick={props.goToHomePage}>Check in a new client</Button>
-    </div>
-  )
-
-  let element = <CheckInForm />
-  if (props.success) {
-    element = success
-  }
+  let element = props.success
+    ? <Success next={props.goToHomePage} title="Success!" body="Client was checked in successfully." />
+    : <CheckInForm />
 
   return (
     <div className={classes.container}>

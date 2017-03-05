@@ -8,10 +8,19 @@ import {
 } from 'react-bootstrap'
 import { Addon } from 'react-bootstrap/lib/InputGroup'
 
+import * as STATIONS from '../../../constants/stations'
 import classes from './SearchBar.scss'
 
 const AccountSuggestion = (props) => {
-  const handleClick = () => props.fetching ? null : props.load(props.id)
+  const handleClick = () => {
+    if (!props.fetching) {
+      if (props.station === STATIONS.CHECK_IN) {
+        props.load(props.eventRegistrationId)
+      } else if (props.station === STATIONS.CHECK_OUT) {
+        props.load(props.accountId)
+      }
+    }
+  }
 
   return (
     <Button
@@ -28,11 +37,13 @@ const AccountSuggestion = (props) => {
 }
 
 AccountSuggestion.propTypes = {
-  fetching: PropTypes.bool,
-  name: PropTypes.string,
+  accountId: PropTypes.string,
   birthdate: PropTypes.string,
+  eventRegistrationId: PropTypes.string,
+  fetching: PropTypes.bool,
   load: PropTypes.func,
-  id: PropTypes.string,
+  name: PropTypes.string,
+  station: PropTypes.string,
 }
 
 class SearchBar extends React.Component {
@@ -65,6 +76,7 @@ class SearchBar extends React.Component {
       this.suggest()
     }
   }
+
 
   render() {
     return (
@@ -103,12 +115,13 @@ class SearchBar extends React.Component {
           <ul className={classes.suggestionList}>
             {this.props.searchResults.map(result => (
               <AccountSuggestion
+                accountId={result.accountId}
+                birthdate={result.birthdate}
+                eventRegistrationId={result.eventRegistrationId}
+                fetching={this.props.fetching}
+                key={result.accountId}
                 load={this.props.load}
                 name={result.name}
-                id={result.id}
-                birthdate={result.birthdate}
-                key={result.id}
-                fetching={this.props.fetching}
               />
             ))}
           </ul>

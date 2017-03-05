@@ -7,10 +7,8 @@ import {
   Row,
   Col,
 } from 'react-bootstrap'
-import classnames from 'classnames'
 
 import 'react-select/dist/react-select.css'
-import classes from './CheckOutForm.scss'
 
 const ServicesPartial = (props) => {
   let { services } = props.fields
@@ -18,10 +16,10 @@ const ServicesPartial = (props) => {
   return (
     <Row>
       <Col xs={12}>
-        <label className={classes.fieldName}>Services</label>
+        <label>Services</label>
         <Row>
           {services.map(service => (
-            <Col xs={12} sm={6} className={classes.inputGroup} key={service}>
+            <Col xs={12} sm={6} key={service}>
               <label>{service}</label>
               <Row>
                 <Col xs={12}>
@@ -79,13 +77,13 @@ const ServicesPartial = (props) => {
     </Row>
   )
 }
+ServicesPartial.propTypes = {
+  fields: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
 
 export const CheckOutForm = (props) => {
   let {
-    fields: {
-      services,
-      // satisfaction,
-    },
+    fields,
     handleSubmit,
     requesting,
     currentAccount,
@@ -110,7 +108,7 @@ export const CheckOutForm = (props) => {
 
   return (
     <div>
-      <ServicesPartial fields={{services}} />
+      <ServicesPartial fields={{fields}} />
     </div>
   )
 }
@@ -121,7 +119,6 @@ CheckOutForm.propTypes = {
   resetForm: PropTypes.func.isRequired,
   requesting: PropTypes.bool.isRequired,
   updateInfo: PropTypes.func.isRequired,
-  clearInfo: PropTypes.func.isRequired,
 }
 
 export default CheckOutForm

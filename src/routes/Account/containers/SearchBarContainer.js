@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
   currentEventRegistration: state.account.currentEventRegistration,
   searching: state.account.searching,
   searchResults: state.account.searchResults,
-  _station: state.station.station,
+  station: state.station.station,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -27,9 +27,9 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const props = {}
   Object.assign(props, ownProps, stateProps, dispatchProps)
 
-  if (props._station === STATIONS.CHECK_IN) {
+  if (props.station === STATIONS.CHECK_IN) {
     props.load = (id) => dispatchProps._loadAccountData(id, '/check-in')
-  } else if (props._station === STATIONS.CHECK_OUT) {
+  } else if (props.station === STATIONS.CHECK_OUT) {
     props.load = (id) => dispatchProps._loadEventRegistration(id, '/check-out')
   }
 

@@ -1,22 +1,18 @@
 import React, { PropTypes } from 'react'
-import classes from './CheckOut.scss'
-import { Button } from 'react-bootstrap'
+
+import Success from '../../../components/Success'
 import CheckOutForm from '../containers/CheckOutFormContainer'
 
+// TODO: Modify fields using props.currentEventRegistration before passing into CheckOutForm
+//       Prepend any requisite services.
 const fields = [
-  'services',
   'satisfaction',
 ]
 
 export const CheckOut = (props) => {
-  const success = (
-    <div>
-      <h1>Success! Client was registered.</h1>
-      <Button bsStyle="primary" onClick={props.goToHomePage}>Check in a new client</Button>
-    </div>
-  )
-
-  let element = <CheckOutForm fields={fields} />
+  let element = props.success
+    ? <Success next={props.goToHomePage} title="Success!" body="Client was checked out successfully." />
+    : <CheckOutForm fields={fields} />
 
   return (
     <div className={classes.container}>
