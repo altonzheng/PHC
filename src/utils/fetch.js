@@ -4,6 +4,8 @@
  * @param {Object} options
  */
 export function phcFetch(url, options) {
+  options = options || {}
+
   if (!options['Content-Type']) {
     options['Content-Type'] = 'application/json'
   }
