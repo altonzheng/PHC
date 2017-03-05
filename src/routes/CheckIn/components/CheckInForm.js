@@ -10,6 +10,7 @@ import {
   Glyphicon,
 } from 'react-bootstrap'
 import 'react-select/dist/react-select.css'
+
 import ArrayCheckbox from '../../../components/ArrayCheckbox'
 import {
   LANGUAGE_CHOICES,

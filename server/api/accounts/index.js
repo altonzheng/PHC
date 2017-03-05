@@ -21,7 +21,6 @@ function handlePUTorPOST (ctx, next) {
       const connection = res.connection
 
       return createOrUpdateAccount(connection, id, fields)
-        .then(res => createEventRegistration(connection, res.payload.account.id, events))
     })
 
     // TODO: Should we return something else more useful to the caller?

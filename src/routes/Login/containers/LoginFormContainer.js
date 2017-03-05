@@ -3,7 +3,7 @@ import LoginForm from '../components/LoginForm'
 import { login } from '../modules/login'
 
 const fields = [
-  'password'
+  'password',
 ]
 
 const mapStateToProps = (state) => ({

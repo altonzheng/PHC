@@ -5,6 +5,7 @@ import logger from '../../logger'
 
 import {
   Account,
+  AccountUpdateableFields,
   FETCH_ACCOUNTS_QUERY,
 } from './constants'
 import {
@@ -32,15 +33,11 @@ function getAllAccounts(connection) {
     .on('end', () => {
       logger.debug('Fetching accounts: complete')
 
-      let mappedAccounts = accounts.map((account) => {
-        return {
-          // TODO: Select their entire name from Salesforce instead of these two separate columns.
-          //   Or, return first and last name separately.
-          name: `${account.FirstName} ${account.LastName}`,
-          id: account.Id,
-          birthdate: getFormattedBirthdate(account.Birthdate__c),
-        }
-      })
+      let mappedAccounts = accounts.map((account) => ({
+        name: `${account.FirstName} ${account.LastName}`,
+        id: account.Id,
+        birthdate: getFormattedBirthdate(account.Birthdate__c),
+      }))
 
       // Use Fuse.js to create a fuzzy searchable index of accounts
       fuse = new Fuse(mappedAccounts, {

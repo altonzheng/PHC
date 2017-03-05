@@ -25,7 +25,7 @@ export const LoginForm = (props) => {
     >
       <div className={classes.inputGroup}>
         <label className={classes.inputLabel}>Password</label>
-          <input className={classes.loginTextInput} type="password" {...password} />
+        <input className={classes.loginTextInput} type="password" {...password} />
       </div>
 
       <div className={classes.footer}>

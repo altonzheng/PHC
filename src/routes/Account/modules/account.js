@@ -90,7 +90,7 @@ export function searchForAccount(name) {
   }
 }
 
-export function loadAccountData(id) {
+export function loadAccountData(id, nextUrl) {
   return (dispatch) => {
     dispatch(loadAccountDataRequest(id))
     return fetch(`/api/accounts/${id}`)
@@ -101,8 +101,20 @@ export function loadAccountData(id) {
           throw Error('Load account data error!')
         }
       })
-      .then(data => dispatch(loadAccountDataSuccess(data.payload.account)))
-      .then(res => dispatch(push('/check-in')))
+      .then(data => {
+        // redux-form expects string-like inputs, so convert booleans to their string representations
+        const account = data.payload.account
+
+        for (const key in account) {
+          if (typeof account[key] === 'boolean') {
+            account[key] = account[key].toString()
+          }
+        }
+
+        return account
+      })
+      .then(data => dispatch(loadAccountDataSuccess(data)))
+      .then(res => dispatch(push(nextUrl)))
       .catch(err => dispatch(loadAccountDataFailure(err)))
   }
 }

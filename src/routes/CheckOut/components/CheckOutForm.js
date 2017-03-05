@@ -1,7 +1,14 @@
 import React, { PropTypes } from 'react'
-import Select from 'react-select'
-import { Button, Tooltip, OverlayTrigger, Glyphicon } from 'react-bootstrap'
+import {
+  Button,
+  Tooltip,
+  OverlayTrigger,
+  Glyphicon,
+  Row,
+  Col,
+} from 'react-bootstrap'
 import classnames from 'classnames'
+
 import 'react-select/dist/react-select.css'
 import ArrayCheckbox from '../../../components/ArrayCheckbox'
 import classes from './CheckOutForm.scss'
@@ -14,12 +21,46 @@ const ServicesPartial = (props) => {
       <Col xs={12}>
         <label className={classes.fieldName}>Services</label>
         <Row>
-          {services.map(_service => (
-            <Col xs={12} sm={6} className={classes.inputGroup} key={_service}>
-              <label>
-                <ArrayCheckbox field={services} value={_service} />
-                {_service}
-              </label>
+          {services.map(service => (
+            <Col xs={12} sm={6} className={classes.inputGroup} key={service}>
+              <label>{service}</label>
+              <Row>
+                <Col xs={12}>
+                  <label>
+                    <input
+                      {...service}
+                      type="radio"
+                      value="Male"
+                      checked={service.value === 'Male'}
+                    />
+                    Male
+                  </label>
+                </Col>
+
+                <Col xs={12}>
+                  <label>
+                    <input
+                      {...service}
+                      type="radio"
+                      value="Female"
+                      checked={service.value === 'Female'}
+                    />
+                    Female
+                  </label>
+                </Col>
+
+                <Col xs={12}>
+                  <label>
+                    <input
+                      {...service}
+                      type="radio"
+                      value="Non-binary"
+                      checked={service.value === 'Non-binary'}
+                    />
+                    Non-binary gender
+                  </label>
+                </Col>
+              </Row>
             </Col>
           ))}
         </Row>
@@ -56,7 +97,9 @@ export const CheckOutForm = (props) => {
   }
 
   return (
-    <div></div>
+    <div>
+      <ServicesPartial fields={{services}} />
+    </div>
   )
 }
 

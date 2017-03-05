@@ -94,7 +94,7 @@ export function resetForm () {
   }
 }
 
-function _updateInfo ({ fields, id }) {
+function createOrUpdateAccount ({ fields, id }) {
   let method = id ? 'PUT' : 'POST'
   let endpoint = id ? `/api/accounts/${id}` : '/api/accounts'
 
@@ -107,9 +107,39 @@ function _updateInfo ({ fields, id }) {
   })
   .then(response => {
     if (!response.ok) {
-      throw Error('Unable to update info')
+      throw Error('Unable to create or modify account.')
     }
   })
+}
+
+function createOrUpdateEventRegistration ({ fields, id }) {
+  let method = id ? 'PUT' : 'POST'
+  let endpoint = id ? `/api/event-registrations/${id}` : '/api/event-registrations'
+
+  return fetch(endpoint, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method,
+    body: JSON.stringify({ fields }),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw Error('Unable to create or modify event registration.')
+    }
+  })
+}
+
+function _updateInfo ({ fields, id }) {
+  return createOrUpdateAccount({ fields, id })
+    .then(response => response.json())
+    .then(response => {
+      const accountId = response.payload.account.id;
+
+      fields.accountId = accountId
+
+      return createOrUpdateEventRegistration({ fields })
+    })
 }
 
 export function updateInfo (info) {
