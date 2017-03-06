@@ -15,9 +15,9 @@ const AccountSuggestion = (props) => {
   const handleClick = () => {
     if (!props.fetching) {
       if (props.station === STATIONS.CHECK_IN) {
-        props.loadAccountData(props.accountId)
+        props.loadAccountData(props.accountId, '/check-in')
       } else if (props.station === STATIONS.CHECK_OUT) {
-        props.loadEventRegistration(props.accountId)
+        props.loadEventRegistration(props.accountId, '/check-out')
       }
     }
   }
@@ -124,6 +124,7 @@ class SearchBar extends React.Component {
                 loadAccountData={this.props.loadAccountData}
                 loadEventRegistration={this.props.loadEventRegistration}
                 name={result.name}
+                station={this.props.station}
               />
             ))}
           </ul>

@@ -35,7 +35,7 @@ function getAllAccounts(connection) {
 
       let mappedAccounts = accounts.map((account) => ({
         name: `${account.FirstName} ${account.LastName}`,
-        id: account.Id,
+        accountId: account.Id,
         birthdate: getFormattedBirthdate(account.Birthdate__c),
       }))
 

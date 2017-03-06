@@ -88,22 +88,31 @@ export function getEventRegistrationByAccount (connection, accountId) {
     })
     .sort('-LastModifiedDate') // Sort in descending order of last modified date
     .execute((error, eventRegistrations) => {
-      logger.debug('Found event registration', eventRegistrations)
+      try {
+        if (error) {
+          logger.error('Fetching event registration: error', { accountId, error })
+          deferred.reject({
+            message: `Error fetching event registration ${accountId}.`,
+            error
+          })
+        }
 
-      if (error) {
-        logger.error('Fetching event registration: error', { accountId, error })
-        return deferred.reject({
-          message: `Error fetching event registration ${accountId}.`,
-          error
+        if (!eventRegistrations.length) {
+          deferred.reject({
+            message: `Did not find event registration for ${accountId}.`,
+            error
+          })
+        }
+
+        let eventRegistration = eventRegistrations[0]
+
+        deferred.resolve({
+          message: `Successfully retrieved event registration ${eventRegistration.Id} for account ${accountId}`,
+          payload: { eventRegistration }
         })
+      } catch(e) {
+        logger.error(e);
       }
-
-      let eventRegistration = eventRegistrations[0]
-
-      deferred.resolve({
-        message: `Successfully retrieved event registration ${eventRegistration.Id} for account ${accountId}`,
-        eventRegistration
-      })
     });
 
   return deferred.promise

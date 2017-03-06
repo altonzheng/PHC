@@ -23,4 +23,4 @@ const mapDispatchToProps = (dispatch) => ({
   searchForAccount: (name) => dispatch(searchForAccount(name)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(SearchBar)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)
