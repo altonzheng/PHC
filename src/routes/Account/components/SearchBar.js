@@ -15,9 +15,9 @@ const AccountSuggestion = (props) => {
   const handleClick = () => {
     if (!props.fetching) {
       if (props.station === STATIONS.CHECK_IN) {
-        props.load(props.eventRegistrationId)
+        props.loadAccountData(props.accountId)
       } else if (props.station === STATIONS.CHECK_OUT) {
-        props.load(props.accountId)
+        props.loadEventRegistration(props.eventRegistrationId)
       }
     }
   }
@@ -41,7 +41,8 @@ AccountSuggestion.propTypes = {
   birthdate: PropTypes.string,
   eventRegistrationId: PropTypes.string,
   fetching: PropTypes.bool,
-  load: PropTypes.func,
+  loadAccountData: PropTypes.func,
+  loadEventRegistration: PropTypes.func,
   name: PropTypes.string,
   station: PropTypes.string,
 }
