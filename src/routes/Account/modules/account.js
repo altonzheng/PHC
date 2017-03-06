@@ -149,10 +149,10 @@ function loadEventRegistrationFailure(error) {
   }
 }
 
-export function loadEventRegistration(id, nextUrl) {
+export function loadEventRegistration(accountId, nextUrl) {
   return dispatch => {
-    dispatch(loadEventRegistrationRequest(id))
-    return phcFetch(`/api/event-registrations/${id}`)
+    dispatch(loadEventRegistrationRequest(accountId))
+    return phcFetch(`/api/event-registrations/?accountId=${accountId}`)
       .then(data => {
         const eventRegistration = data.payload.eventRegistration
 

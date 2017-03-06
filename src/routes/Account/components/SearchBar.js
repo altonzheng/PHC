@@ -17,7 +17,7 @@ const AccountSuggestion = (props) => {
       if (props.station === STATIONS.CHECK_IN) {
         props.loadAccountData(props.accountId)
       } else if (props.station === STATIONS.CHECK_OUT) {
-        props.loadEventRegistration(props.eventRegistrationId)
+        props.loadEventRegistration(props.accountId)
       }
     }
   }
@@ -39,7 +39,6 @@ const AccountSuggestion = (props) => {
 AccountSuggestion.propTypes = {
   accountId: PropTypes.string,
   birthdate: PropTypes.string,
-  eventRegistrationId: PropTypes.string,
   fetching: PropTypes.bool,
   loadAccountData: PropTypes.func,
   loadEventRegistration: PropTypes.func,
@@ -52,7 +51,8 @@ class SearchBar extends React.Component {
     searchForAccount: PropTypes.func,
     searching: PropTypes.bool,
     searchResults: PropTypes.arrayOf(PropTypes.object),
-    load: PropTypes.func,
+    loadAccountData: PropTypes.func,
+    loadEventRegistration: PropTypes.func,
     fetching: PropTypes.bool,
     station: PropTypes.string,
   }
@@ -121,7 +121,8 @@ class SearchBar extends React.Component {
                 eventRegistrationId={result.eventRegistrationId}
                 fetching={this.props.fetching}
                 key={result.accountId}
-                load={this.props.load}
+                loadAccountData={this.props.loadAccountData}
+                loadEventRegistration={this.props.loadEventRegistration}
                 name={result.name}
               />
             ))}
