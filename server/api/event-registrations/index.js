@@ -4,29 +4,13 @@ import { connect } from '../../lib/salesforce'
 import {
   getEventRegistration,
   getEventRegistrationByAccount,
-  createEventRegistration,
+  updateEventRegistration,
 } from '../../lib/salesforce/event-registration'
 
 function handleError (ctx, error) {
   // TODO: Differentiate different types of errors, and return different codes accordingly.
   logger.error(`${error.message}`)
   ctx.throw(error.message, 503)
-}
-
-function handlePUTorPOST (ctx, next) {
-  const fields = ctx.request.body.fields
-  const id = ctx.params.id
-
-  return connect()
-    .then(res => {
-      const connection = res.connection
-
-      return createEventRegistration(connection, id, fields)
-    })
-
-    // TODO: Should we return something else more useful to the caller?
-    .then(res => (ctx.body = res))
-    .catch(error => handleError(ctx, error))
 }
 
 const router = Router()
@@ -44,7 +28,20 @@ router
       .then(res => (ctx.body = res))
       .catch(error => handleError(ctx, error))
   })
-  .post('/', handlePUTorPOST)
-  .put('/:id', handlePUTorPOST)
+  .put('/:id', (ctx, next) => {
+    const fields = ctx.request.body.fields
+    const id = ctx.params.id
+
+    logger.debug(ctx.request.body)
+    logger.debug(ctx.body)
+
+    return connect()
+      .then(res => {
+        const connection = res.connection
+        return updateEventRegistration(connection, id, fields)
+      })
+      .then(res => (ctx.body = res))
+      .catch(error => handleError(ctx, error))
+  })
 
 export default router

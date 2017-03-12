@@ -8,7 +8,6 @@ import {
   FORM_FIELD_TO_SALESFORCE_FIELD,
   PHC_EVENT_ID,
 } from './constants'
-import { Account } from '../account/constants'
 import { PhcEvent } from '../phc-event/constants'
 import {
   transformFromSalesforce,
@@ -51,6 +50,38 @@ export function createEventRegistration (connection, accountId, fields) {
       })
     }
   })
+}
+
+export function updateEventRegistration (connection, id, eventRegistration) {
+  const deferred = Q.defer()
+
+  const payload = transformToSalesforce(eventRegistration)
+  payload.Id = id
+
+  logger.debug('Updating event registration: requesting', { payload })
+
+  connection.sobject(EventRegistration).update(payload, (error, registration) => {
+    logger.debug('Updating event registration: request complete', { registration })
+
+    if (error || !registration.success) {
+      logger.error('Error updating registration', { error })
+      deferred.reject({
+        message: 'Error updating registration.',
+        error,
+      })
+    } else {
+      deferred.resolve({
+        message: `Successfully updated registration ${registration.id}.`,
+        payload: {
+          registration: {
+            id: registration.id,
+          },
+        },
+      })
+    }
+  })
+
+  return deferred.promise
 }
 
 export function getEventRegistration (connection, id) {

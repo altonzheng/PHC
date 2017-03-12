@@ -1,56 +1,60 @@
-import { LOCATION_CHANGE } from 'react-router-redux'
+import {LOCATION_CHANGE} from 'react-router-redux'
 
-import { phcFetch } from '../../../utils/fetch'
+import {phcFetch} from '../../../utils/fetch'
 
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const UPDATE_INFO_REQUEST = 'check-out/UPDATE_INFO_REQUEST'
-export const UPDATE_INFO_SUCCESS = 'check-out/UPDATE_INFO_SUCCESS'
-export const UPDATE_INFO_FAILURE = 'check-out/UPDATE_INFO_FAILURE'
-
-export const RESET_FORM = 'RESET_FORM'
+export const UPDATE_EVENT_REGISTRATION_REQUEST = 'check-out/UPDATE_EVENT_REGISTRATION_REQUEST'
+export const UPDATE_EVENT_REGISTRATION_SUCCESS = 'check-out/UPDATE_EVENT_REGISTRATION_SUCCESS'
+export const UPDATE_EVENT_REGISTRATION_FAILURE = 'check-out/UPDATE_EVENT_REGISTRATION_FAILURE'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 
-export function updateInfoRequest () {
+function updateEventRegistrationRequest () {
   return {
-    type: UPDATE_INFO_REQUEST,
+    type: UPDATE_EVENT_REGISTRATION_REQUEST,
   }
 }
 
-export function updateInfoSuccess (fields) {
+function updateEventRegistrationSuccess () {
   return {
-    type: UPDATE_INFO_SUCCESS,
-    payload: fields,
+    type: UPDATE_EVENT_REGISTRATION_SUCCESS,
   }
 }
 
-export function updateInfoFailure (error) {
+function updateEventRegistrationFailure (error) {
   return {
-    type: UPDATE_INFO_FAILURE,
+    type: UPDATE_EVENT_REGISTRATION_FAILURE,
     error,
   }
 }
 
-export function resetForm () {
-  return {
-    type: RESET_FORM,
-  }
-}
-
-export function updateInfo ({ fields, id }) {
+export function updateEventRegistration ({ fields, id }) {
   return dispatch => {
-    dispatch(updateInfoRequest())
+    dispatch(updateEventRegistrationRequest())
+
+    // Transform form values
+    const payload = {}
+    for (const field in fields) {
+      payload[field] = fields[field].value
+    }
+
+    JSON.stringify({fields: payload})
 
     return phcFetch(`/api/event-registrations/${id}`, {
       method: 'PUT',
-      body: JSON.stringify({ fields }),
+      body: JSON.stringify({
+        fields: payload,
+      }),
     })
-      .then(() => dispatch(updateInfoSuccess()))
-      .catch(error => dispatch(updateInfoFailure(error)))
+      .then(() => dispatch(updateEventRegistrationSuccess()))
+      .catch(error => {
+        throw error
+        dispatch(updateEventRegistrationFailure(error))
+      })
   }
 }
 
@@ -59,7 +63,7 @@ export function updateInfo ({ fields, id }) {
 // ------------------------------------
 
 const ACTION_HANDLERS = {
-  [UPDATE_INFO_REQUEST]: (state, action) => {
+  [UPDATE_EVENT_REGISTRATION_REQUEST]: (state, action) => {
     return {
       ...state,
       requesting: true,
@@ -68,7 +72,7 @@ const ACTION_HANDLERS = {
     }
   },
 
-  [UPDATE_INFO_FAILURE]: (state, action) => {
+  [UPDATE_EVENT_REGISTRATION_FAILURE]: (state, action) => {
     return {
       ...state,
       requesting: false,
@@ -77,20 +81,11 @@ const ACTION_HANDLERS = {
     }
   },
 
-  [UPDATE_INFO_SUCCESS]: (state, action) => {
+  [UPDATE_EVENT_REGISTRATION_SUCCESS]: (state, action) => {
     return {
       ...state,
       requesting: false,
       success: true,
-      failure: false,
-    }
-  },
-
-  [RESET_FORM]: (state, action) => {
-    return {
-      ...state,
-      requesting: false,
-      success: false,
       failure: false,
     }
   },

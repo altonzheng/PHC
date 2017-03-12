@@ -1,7 +1,7 @@
 import {reduxForm} from 'redux-form'
 
 import CheckOutForm from '../components/CheckOutForm'
-import {updateInfo} from '../modules/check-out'
+import {updateEventRegistration} from '../modules/check-out'
 
 const validate = (values) => {
   const errors = {}
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  updateInfo: (fields, id) => dispatch(updateInfo({ fields, id })),
+  updateEventRegistration: (fields, id) => dispatch(updateEventRegistration({ fields, id })),
 })
 
 export default reduxForm({

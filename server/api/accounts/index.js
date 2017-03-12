@@ -2,7 +2,7 @@ import Router from 'koa-router'
 import logger from '../../lib/logger'
 import { connect } from '../../lib/salesforce'
 import { getAccount, getAllAccounts, createOrUpdateAccount, searchForAccountByName } from '../../lib/salesforce/account'
-import { createEventRegistration } from '../../lib/salesforce/event-registration'
+import {createEventRegistration} from '../../lib/salesforce/event-registration'
 
 function handleError (ctx, error) {
   // TODO: Differentiate different types of errors, and return different codes accordingly.

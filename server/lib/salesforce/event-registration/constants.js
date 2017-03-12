@@ -73,6 +73,7 @@ export const EventPicklistValues = {
   APPLIED: 'Applied',
   RECEIVED: 'Received',
   DROP_IN: 'Drop In',
+  NONE: 'None',
 }
 
 // TODO: Fetch the latest PHC Event and cache the lastest id beforehand.

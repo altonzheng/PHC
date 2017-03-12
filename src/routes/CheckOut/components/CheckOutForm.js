@@ -107,13 +107,11 @@ export const CheckOutForm = (props) => {
     handleSubmit,
     requesting,
     submitFailed,
-    clearInfo,
-    updateInfo,
+    updateEventRegistration,
   } = props
 
   const onSubmit = () => {
-    console.log(fields)
-    // updateInfo(newFields, currentEventRegistration && currentEventRegistration.id)
+    updateEventRegistration(fields, currentEventRegistration.id)
   }
 
   const serviceFields = Object.keys(fields)
@@ -143,22 +141,18 @@ export const CheckOutForm = (props) => {
           type="submit"
           disabled={requesting}
         >
-          {requesting ? 'Submitting...' : 'Submit'}
-        </Button>
-        <Button
-          type="button"
-          disabled={requesting}
-          onClick={clearInfo}
-        >
-          Clear Values
+          {requesting
+            ? <Glyphicon className="spinning" glyph="refresh" />
+            : 'Submit'
+          }
         </Button>
       </div>
 
       {(Object.keys(errors).length && submitFailed)
-          ? <div>
-            Required fields are missing! Please review the form.
-          </div>
-          : null
+        ? <div>
+          Required fields are missing! Please review the form.
+        </div>
+        : null
       }
     </form>
   )
@@ -171,7 +165,7 @@ CheckOutForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   requesting: PropTypes.bool.isRequired,
   resetForm: PropTypes.func.isRequired,
-  updateInfo: PropTypes.func.isRequired,
+  updateEventRegistration: PropTypes.func.isRequired,
   clearInfo: PropTypes.func.isRequired,
   submitFailed: PropTypes.bool.isRequired,
 }

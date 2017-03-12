@@ -6,8 +6,10 @@
 export function phcFetch(url, options) {
   options = options || {}
 
-  if (!options['Content-Type']) {
-    options['Content-Type'] = 'application/json'
+  if (!options.headers) {
+    options.headers = {
+      'Content-Type': 'application/json',
+    }
   }
 
   return fetch(url, options)
