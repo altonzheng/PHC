@@ -18,8 +18,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  loadAccountData: (id, nextUrl) => dispatch(loadAccountData(id, nextUrl)),
-  loadEventRegistration: (id, nextUrl) => dispatch(loadEventRegistration(id, nextUrl)),
+  loadAccountData: (id) => dispatch(loadAccountData(id)),
+  loadEventRegistration: (id) => dispatch(loadEventRegistration(id)),
   searchForAccount: (name) => dispatch(searchForAccount(name)),
 })
 

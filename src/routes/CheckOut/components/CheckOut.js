@@ -15,8 +15,8 @@ export const CheckOut = (props) => {
     : <CheckOutForm fields={fields} />
 
   return (
-    <div className={classes.container}>
-      <h2 className={classes.header}>
+    <div>
+      <h2>
         Check Out
       </h2>
       {element}

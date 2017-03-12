@@ -95,17 +95,10 @@ export function searchForAccount(name) {
   }
 }
 
-export function loadAccountData(id, nextUrl) {
+export function loadAccountData(id) {
   return (dispatch) => {
     dispatch(loadAccountDataRequest(id))
-    return fetch(`/api/accounts/${id}`)
-      .then(response => {
-        if (response.ok) {
-          return response.json()
-        } else {
-          throw Error('Load account data error!')
-        }
-      })
+    return phcFetch(`/api/accounts/${id}`)
       .then(data => {
         // redux-form expects string-like inputs, so convert booleans to their string representations
         const account = data.payload.account
@@ -119,7 +112,7 @@ export function loadAccountData(id, nextUrl) {
         return account
       })
       .then(data => dispatch(loadAccountDataSuccess(data)))
-      .then(res => dispatch(push(nextUrl)))
+      .then(_ => dispatch(push('/check-in')))
       .catch(err => dispatch(loadAccountDataFailure(err)))
   }
 }
@@ -149,19 +142,15 @@ function loadEventRegistrationFailure(error) {
   }
 }
 
-export function loadEventRegistration(accountId, nextUrl) {
-  debugger
+export function loadEventRegistration(accountId) {
   return dispatch => {
     dispatch(loadEventRegistrationRequest(accountId))
     return phcFetch(`/api/event-registrations/?accountId=${accountId}`)
       .then(data => {
         const eventRegistration = data.payload.eventRegistration
-        debugger
-        return eventRegistration
-        // TODO: do something else
+        dispatch(loadEventRegistrationSuccess(eventRegistration))
       })
-      .then(data => dispatch(loadEventRegistrationSuccess(data)))
-      .then(_ => dispatch(push(nextUrl)))
+      .then(_ => dispatch(push('/check-out')))
       .catch(error => dispatch(loadEventRegistrationFailure(error)))
   }
 }
@@ -221,6 +210,30 @@ const ACTION_HANDLERS = {
       error: action.error.message,
     })
   },
+  [LOAD_EVENT_REGISTRATION_REQUEST]: (state, action) => {
+    return ({
+      ...state,
+      currentEventRegistration: null,
+      fetching: true,
+      error: null,
+    })
+  },
+  [LOAD_EVENT_REGISTRATION_SUCCESS]: (state, action) => {
+    return ({
+      ...state,
+      currentEventRegistration: action.payload.eventRegistration,
+      fetching: false,
+      error: null,
+    })
+  },
+  [LOAD_EVENT_REGISTRATION_FAILURE]: (state, action) => {
+    return ({
+      ...state,
+      currentEventRegistration: null,
+      fetching: false,
+      error: action.error.message,
+    })
+  },
   [CLEAR_CURRENT_ACCOUNT]: (state, action) => {
     return ({
       ...state,
@@ -249,6 +262,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   currentAccount: null,
+  currentEventRegistration: null,
   fetching: false,
   error: null,
   searching: false,

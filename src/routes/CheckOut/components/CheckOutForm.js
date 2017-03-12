@@ -18,7 +18,7 @@ const ServicesPartial = (props) => {
       <Col xs={12}>
         <label>Services</label>
         <Row>
-          {services.map(service => (
+          {[].map(service => (
             <Col xs={12} sm={6} key={service}>
               <label>{service}</label>
               <Row>

@@ -64,12 +64,11 @@ export function getEventRegistration (connection, id) {
         error,
       })
     } else {
-      const payload = {
-        eventRegistration
-      }
       deferred.resolve({
         message: `Successfully retrieved event registration ${id}`,
-        payload,
+        payload: {
+          eventRegistration,
+        },
       })
     }
   })
@@ -83,9 +82,9 @@ export function getEventRegistrationByAccount (connection, accountId) {
   logger.debug(`Searching for account id: ${accountId} at PHC Event: ${PHC_EVENT_ID}`)
 
   connection.sobject(EventRegistration).find({
-      "Account__c": accountId,
-      "PHC_Event__c": PHC_EVENT_ID
-    })
+    Account__c: accountId,
+    PHC_Event__c: PHC_EVENT_ID,
+  })
     .sort('-LastModifiedDate') // Sort in descending order of last modified date
     .execute((error, eventRegistrations) => {
       try {
@@ -93,14 +92,14 @@ export function getEventRegistrationByAccount (connection, accountId) {
           logger.error('Fetching event registration: error', { accountId, error })
           deferred.reject({
             message: `Error fetching event registration ${accountId}.`,
-            error
+            error,
           })
         }
 
         if (!eventRegistrations.length) {
           deferred.reject({
             message: `Did not find event registration for ${accountId}.`,
-            error
+            error,
           })
         }
 
@@ -108,12 +107,14 @@ export function getEventRegistrationByAccount (connection, accountId) {
 
         deferred.resolve({
           message: `Successfully retrieved event registration ${eventRegistration.Id} for account ${accountId}`,
-          payload: { eventRegistration }
+          payload: {
+            eventRegistration,
+          },
         })
-      } catch(e) {
-        logger.error(e);
+      } catch (e) {
+        logger.error(e)
       }
-    });
+    })
 
   return deferred.promise
 }
