@@ -7,7 +7,7 @@ import {
   Col,
 } from 'react-bootstrap'
 
-import 'react-select/dist/react-select.css'
+import classes from './CheckOutForm.scss'
 
 const ServicesPartial = (props) => {
   let services = props.fields
@@ -15,62 +15,31 @@ const ServicesPartial = (props) => {
   return (
     <Row>
       <Col xs={12}>
-        <label>Services</label>
         <Row>
           {Object.keys(services).map(serviceName => {
             const service = services[serviceName]
 
             return (
-              <Col xs={12} key={serviceName}>
+              <Col
+                xs={12}
+                className={classes.formItemContainer}
+                key={serviceName}
+              >
                 <label>{serviceName}</label>
                 <Row>
-                  <Col xs={3}>
-                    <label>
-                      <input
-                        {...service}
-                        type="radio"
-                        value="Applied"
-                        checked={service.value === 'Applied'}
-                      />
-                    Applied
-                    </label>
-                  </Col>
-
-                  <Col xs={3}>
-                    <label>
-                      <input
-                        {...service}
-                        type="radio"
-                        value="Received"
-                        checked={service.value === 'Received'}
-                      />
-                    Received
-                    </label>
-                  </Col>
-
-                  <Col xs={3}>
-                    <label>
-                      <input
-                        {...service}
-                        type="radio"
-                        value="Drop In"
-                        checked={service.value === 'Drop In'}
-                      />
-                      Drop In
-                    </label>
-                  </Col>
-
-                  <Col xs={3}>
-                    <label>
-                      <input
-                        {...service}
-                        type="radio"
-                        value="None"
-                        checked={service.value === 'None'}
-                      />
-                    None
-                    </label>
-                  </Col>
+                  {['Applied', 'Received', 'Drop In', 'None'].map(value => (
+                    <Col xs={3}>
+                      <label>
+                        <input
+                          {...service}
+                          type="radio"
+                          value={value}
+                          checked={service.value === value}
+                        />
+                      {value}
+                      </label>
+                    </Col>
+                  ))}
                 </Row>
               </Col>
             )
@@ -86,10 +55,30 @@ ServicesPartial.propTypes = {
 }
 
 const SatisfactionPartial = (props) => {
+  let {satisfaction} = props.fields
+
   return (
     <Row>
-      <Col xs={12}>
-        R u satisfied
+      <Col
+        xs={12}
+        className={classes.formItemContainer}
+      >
+        <label>Satisfaction</label>
+        <Row>
+          {['1', '2', '3', '4', '5'].map(value => (
+            <Col xs={2} key={value}>
+              <label>
+                <input
+                  {...satisfaction}
+                  type="radio"
+                  value={value}
+                  checked={satisfaction.value === value}
+                />
+                {value}
+              </label>
+            </Col>
+          ))}
+        </Row>
       </Col>
     </Row>
   )
@@ -125,11 +114,14 @@ export const CheckOutForm = (props) => {
     )
 
   const satisfactionFields = {
-    satisfaction: fields.satisfaction,
+    satisfaction: fields.Satisfaction,
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={classes.form}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <Grid>
         <ServicesPartial fields={serviceFields} />
         <SatisfactionPartial fields={satisfactionFields} />

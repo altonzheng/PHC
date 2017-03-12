@@ -9,10 +9,22 @@ function getFormFieldsFromEventRegistration (eventRegistration) {
 }
 
 export const CheckOut = (props) => {
-  const fields = getFormFieldsFromEventRegistration(props.currentEventRegistration)
+  let {
+    currentEventRegistration,
+    goToHomePage,
+    success,
+  } = props
 
-  let element = props.success
-    ? <Success next={props.goToHomePage} title="Success!" body="Client was checked out successfully." />
+  // If there is no event registration, we cannot proceed.
+  if (!currentEventRegistration) {
+    goToHomePage()
+    return <div></div>
+  }
+
+  const fields = getFormFieldsFromEventRegistration(currentEventRegistration)
+
+  let element = success
+    ? <Success next={goToHomePage} title="Success!" body="Client was checked out successfully." />
     : <CheckOutForm fields={fields} />
 
   return (
@@ -26,9 +38,9 @@ export const CheckOut = (props) => {
 }
 
 CheckOut.propTypes = {
-  currentEventRegistration: PropTypes.object.isRequired,
-  success: PropTypes.bool.isRequired,
+  currentEventRegistration: PropTypes.object,
   goToHomePage: PropTypes.func.isRequired,
+  success: PropTypes.bool.isRequired,
 }
 
 export default CheckOut

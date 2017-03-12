@@ -28,7 +28,7 @@ function updateEventRegistrationSuccess () {
 function updateEventRegistrationFailure (error) {
   return {
     type: UPDATE_EVENT_REGISTRATION_FAILURE,
-    error,
+    error: error.toString(),
   }
 }
 
@@ -51,10 +51,7 @@ export function updateEventRegistration ({ fields, id }) {
       }),
     })
       .then(() => dispatch(updateEventRegistrationSuccess()))
-      .catch(error => {
-        throw error
-        dispatch(updateEventRegistrationFailure(error))
-      })
+      .catch(error => dispatch(updateEventRegistrationFailure(error)))
   }
 }
 
