@@ -23,6 +23,7 @@
     "jsx-quotes": [0],
     "space-before-function-paren": [0],
     "comma-dangle": ["error", "always-multiline"],
-    "handle-callback-err": [0]
+    "handle-callback-err": [0],
+    "operator-linebreak": ["error", "before"]
   }
 }

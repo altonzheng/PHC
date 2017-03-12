@@ -10,6 +10,10 @@ import {
 } from './constants'
 import { Account } from '../account/constants'
 import { PhcEvent } from '../phc-event/constants'
+import {
+  transformFromSalesforce,
+  transformToSalesforce,
+} from './transform'
 
 export function createEventRegistration (connection, accountId, fields) {
   const deferred = Q.defer()
@@ -67,7 +71,7 @@ export function getEventRegistration (connection, id) {
       deferred.resolve({
         message: `Successfully retrieved event registration ${id}`,
         payload: {
-          eventRegistration,
+          eventRegistration: transformFromSalesforce(eventRegistration),
         },
       })
     }
@@ -83,7 +87,7 @@ export function getEventRegistrationByAccount (connection, accountId) {
 
   connection.sobject(EventRegistration).find({
     Account__c: accountId,
-    PHC_Event__c: PHC_EVENT_ID,
+    [PhcEvent]: PHC_EVENT_ID,
   })
     .sort('-LastModifiedDate') // Sort in descending order of last modified date
     .execute((error, eventRegistrations) => {
@@ -108,7 +112,7 @@ export function getEventRegistrationByAccount (connection, accountId) {
         deferred.resolve({
           message: `Successfully retrieved event registration ${eventRegistration.Id} for account ${accountId}`,
           payload: {
-            eventRegistration,
+            eventRegistration: transformFromSalesforce(eventRegistration),
           },
         })
       } catch (e) {

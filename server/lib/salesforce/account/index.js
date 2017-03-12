@@ -16,7 +16,7 @@ import {
   mapFormFieldToSalesforceField,
   mapSalesforceFieldToFormField,
 } from './transform'
-import { getFormattedBirthdate } from './transform/date'
+import { getFormattedBirthdate } from '../date'
 
 // Store accounts in memory lol
 let fuse = null

@@ -1,15 +1,16 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 
 import Success from '../../../components/Success'
 import CheckOutForm from '../containers/CheckOutFormContainer'
 
-// TODO: Modify fields using props.currentEventRegistration before passing into CheckOutForm
-//       Prepend any requisite services.
-const fields = [
-  'satisfaction',
-]
+function getFormFieldsFromEventRegistration (eventRegistration) {
+  return Object.keys(eventRegistration)
+    .filter(attribute => attribute !== 'id')
+}
 
 export const CheckOut = (props) => {
+  const fields = getFormFieldsFromEventRegistration(props.currentEventRegistration)
+
   let element = props.success
     ? <Success next={props.goToHomePage} title="Success!" body="Client was checked out successfully." />
     : <CheckOutForm fields={fields} />
@@ -25,6 +26,7 @@ export const CheckOut = (props) => {
 }
 
 CheckOut.propTypes = {
+  currentEventRegistration: PropTypes.object.isRequired,
   success: PropTypes.bool.isRequired,
   goToHomePage: PropTypes.func.isRequired,
 }

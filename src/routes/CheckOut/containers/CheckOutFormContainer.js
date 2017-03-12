@@ -1,7 +1,7 @@
-import { reduxForm } from 'redux-form'
+import {reduxForm} from 'redux-form'
 
 import CheckOutForm from '../components/CheckOutForm'
-import { updateInfo } from '../modules/check-out'
+import {updateInfo} from '../modules/check-out'
 
 const validate = (values) => {
   const errors = {}

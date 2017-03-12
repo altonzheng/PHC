@@ -56,8 +56,18 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Women\'s and Domestic Violence Services': 'Women_Services__c',
   'Youth Services (up to age 24)': 'Youth_Services__c',
   'Lunch': 'Lunch__c',
-  'Groceries': 'Groceries__c'
+  'Groceries': 'Groceries__c',
+  'Satisfaction': 'Satisfaction__c',
 }
+
+// Invert the map given above.
+export const SALESFORCE_FIELD_TO_FORM_FIELD = (
+  Object.keys(FORM_FIELD_TO_SALESFORCE_FIELD)
+    .reduce((map, key) => {
+      map[FORM_FIELD_TO_SALESFORCE_FIELD[key]] = key
+      return map
+    }, {})
+)
 
 export const EventPicklistValues = {
   APPLIED: 'Applied',
