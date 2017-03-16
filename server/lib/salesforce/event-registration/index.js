@@ -1,7 +1,5 @@
 import Q from 'q'
-
 import logger from '../../logger'
-
 import {
   EventRegistration,
   EventPicklistValues,
@@ -14,18 +12,20 @@ import {
   transformToSalesforce,
 } from './transform'
 
-export function createEventRegistration (connection, accountId, fields) {
+export function createEventRegistration (connection, fields) {
   const deferred = Q.defer()
-
+  logger.debug('EVENT_REG_FIELDS:', fields)
+  const services = fields.medicalServices.concat(fields.supportServices)
   const payload = {}
-
-  for (let field of fields) {
-    if (field in FORM_FIELD_TO_SALESFORCE_FIELD) {
-      payload[FORM_FIELD_TO_SALESFORCE_FIELD[field]] = EventPicklistValues.APPLIED
+  logger.debug('SERVICES', services)
+  for (let service of services) {
+    // Passing services for now - we might want to mirror updateEventRegistration later - AZ
+    if (service in FORM_FIELD_TO_SALESFORCE_FIELD) {
+      payload[FORM_FIELD_TO_SALESFORCE_FIELD[service]] = EventPicklistValues.APPLIED
     }
   }
 
-  payload['Account__c'] = accountId
+  payload['Account__c'] = fields.accountId
   payload['PHC_Event__c'] = PHC_EVENT_ID
 
   logger.debug('Creating event registration: requesting', { payload })

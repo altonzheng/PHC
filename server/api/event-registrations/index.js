@@ -5,6 +5,7 @@ import {
   getEventRegistration,
   getEventRegistrationByAccount,
   updateEventRegistration,
+  createEventRegistration
 } from '../../lib/salesforce/event-registration'
 
 function handleError (ctx, error) {
@@ -29,19 +30,16 @@ router
       .catch(error => handleError(ctx, error))
   })
   .put('/:id', (ctx, next) => {
-    const fields = ctx.request.body.fields
-    const id = ctx.params.id
-
-    logger.debug(ctx.request.body)
-    logger.debug(ctx.body)
-
     return connect()
-      .then(res => {
-        const connection = res.connection
-        return updateEventRegistration(connection, id, fields)
-      })
+      .then(res => updateEventRegistration(res.connection, ctx.params.id, ctx.request.body.fields))
       .then(res => (ctx.body = res))
       .catch(error => handleError(ctx, error))
+  })
+  .post('/', (ctx, next) => {
+    return connect()
+      .then(res => createEventRegistration(res.connection, ctx.request.body.fields))
+      .then(res => (ctx.body = res))
+      // .catch(error => handleError(ctx, error))
   })
 
 export default router

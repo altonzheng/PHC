@@ -2,7 +2,7 @@ import Router from 'koa-router'
 import logger from '../../lib/logger'
 import { connect } from '../../lib/salesforce'
 import { getAccount, getAllAccounts, createOrUpdateAccount, searchForAccountByName } from '../../lib/salesforce/account'
-import {createEventRegistration} from '../../lib/salesforce/event-registration'
+import { createEventRegistration } from '../../lib/salesforce/event-registration'
 
 function handleError (ctx, error) {
   // TODO: Differentiate different types of errors, and return different codes accordingly.
@@ -13,13 +13,12 @@ function handleError (ctx, error) {
 function handlePUTorPOST (ctx, next) {
   const fields = ctx.request.body.fields
   const id = ctx.params.id
-
-  const events = fields.medicalServices.concat(fields.supportServices)
+  console.log(ctx.request.body)
+  // const events = fields.medicalServices.concat(fields.supportServices)
 
   return connect()
     .then(res => {
       const connection = res.connection
-
       return createOrUpdateAccount(connection, id, fields)
     })
 

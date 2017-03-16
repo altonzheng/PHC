@@ -66,7 +66,6 @@ function updateInfoRetryFailure () {
 export function updateInfoRetry (id) {
   return (dispatch, getState) => {
     const state = getState()
-
     const {
       info,
       attempts,
@@ -109,6 +108,7 @@ function createOrUpdateAccount ({ fields, id }) {
     if (!response.ok) {
       throw Error('Unable to create or modify account.')
     }
+    return response;
   })
 }
 
@@ -127,6 +127,7 @@ function createOrUpdateEventRegistration ({ fields, id }) {
     if (!response.ok) {
       throw Error('Unable to create or modify event registration.')
     }
+    return response;
   })
 }
 
@@ -134,10 +135,7 @@ function _updateInfo ({ fields, id }) {
   return createOrUpdateAccount({ fields, id })
     .then(response => response.json())
     .then(response => {
-      const accountId = response.payload.account.id;
-
-      fields.accountId = accountId
-
+      fields.accountId = response.payload.account.id
       return createOrUpdateEventRegistration({ fields })
     })
 }
@@ -191,7 +189,7 @@ const ACTION_HANDLERS = {
     attempts += 1
 
     retries[action.payload.id] = {
-      info: action.payload,
+      info: action.payload.info,
       attempts: 1,
     }
 
