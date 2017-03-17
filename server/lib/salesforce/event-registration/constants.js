@@ -58,6 +58,7 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Lunch': 'Lunch__c',
   'Groceries': 'Groceries__c',
   'Satisfaction': 'Satisfaction__c',
+  'Notes': 'Notes__c'
 }
 
 // Invert the map given above.

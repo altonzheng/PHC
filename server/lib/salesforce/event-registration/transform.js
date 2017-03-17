@@ -11,7 +11,6 @@ import {
  */
 export function transformFromSalesforce (eventRegistration) {
   const transformed = {}
-
   for (let attribute in eventRegistration) {
     if (
       attribute in SALESFORCE_FIELD_TO_FORM_FIELD

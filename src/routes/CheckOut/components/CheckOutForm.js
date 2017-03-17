@@ -4,7 +4,7 @@ import {
   Glyphicon,
   Grid,
   Row,
-  Col,
+  Col
 } from 'react-bootstrap'
 
 import classes from './CheckOutForm.scss'
@@ -65,14 +65,14 @@ const SatisfactionPartial = (props) => {
       >
         <label>Satisfaction</label>
         <Row>
-          {['1', '2', '3', '4', '5'].map(value => (
+          {['1 😩', '2 🙁', '3 😕', '4 🙂', '5 😀'].map(value => (
             <Col xs={2} key={value}>
               <label>
                 <input
                   {...satisfaction}
                   type="radio"
-                  value={value}
-                  checked={satisfaction.value === value}
+                  value={value[0]}
+                  checked={satisfaction.value === value[0]}
                 />
                 {value}
               </label>
@@ -86,6 +86,28 @@ const SatisfactionPartial = (props) => {
 
 SatisfactionPartial.propTypes = {
   fields: PropTypes.object.isRequired,
+}
+
+const NotesPartial = (props) => {
+  let { notes } = props.fields
+
+  return (
+    <Row>
+      <Col
+        xs={12}
+        className={classes.formItemContainer}
+      >
+        <label>Notes (optional)</label>
+        <Row>
+          <textarea
+            {...notes}
+            placeholder="Enter notes here"
+            value={notes.value}
+          />
+        </Row>
+      </Col>
+    </Row>
+  )
 }
 
 export const CheckOutForm = (props) => {
@@ -104,7 +126,7 @@ export const CheckOutForm = (props) => {
   }
 
   const serviceFields = Object.keys(fields)
-    .filter(fieldName => fieldName !== 'Satisfaction')
+    .filter(fieldName => (fieldName !== 'Satisfaction' && fieldName !== 'Notes'))
     .reduce(
       (_fields, fieldName) => {
         _fields[fieldName] = fields[fieldName]
@@ -117,6 +139,10 @@ export const CheckOutForm = (props) => {
     satisfaction: fields.Satisfaction,
   }
 
+  const notesFields = {
+    notes: fields.Notes
+  }
+
   return (
     <form
       className={classes.form}
@@ -125,6 +151,7 @@ export const CheckOutForm = (props) => {
       <Grid>
         <ServicesPartial fields={serviceFields} />
         <SatisfactionPartial fields={satisfactionFields} />
+        <NotesPartial fields={notesFields} />
       </Grid>
 
       <div>
@@ -152,13 +179,13 @@ export const CheckOutForm = (props) => {
 
 CheckOutForm.propTypes = {
   currentEventRegistration: PropTypes.object.isRequired,
-  errors: PropTypes.arrayOf(PropTypes.object).isRequired,
+  errors: PropTypes.object.isRequired,
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   requesting: PropTypes.bool.isRequired,
   resetForm: PropTypes.func.isRequired,
   updateEventRegistration: PropTypes.func.isRequired,
-  clearInfo: PropTypes.func.isRequired,
+  // clearInfo: PropTypes.func.isRequired,
   submitFailed: PropTypes.bool.isRequired,
 }
 

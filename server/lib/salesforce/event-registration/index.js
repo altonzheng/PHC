@@ -14,10 +14,8 @@ import {
 
 export function createEventRegistration (connection, fields) {
   const deferred = Q.defer()
-  logger.debug('EVENT_REG_FIELDS:', fields)
   const services = fields.medicalServices.concat(fields.supportServices)
   const payload = {}
-  logger.debug('SERVICES', services)
   for (let service of services) {
     // Passing services for now - we might want to mirror updateEventRegistration later - AZ
     if (service in FORM_FIELD_TO_SALESFORCE_FIELD) {
