@@ -3,9 +3,9 @@
 export default (store) => (nextState, replace, cb) => {
   const state = store.getState()
 
-  //if (!state.login || state.login && !state.login.authenticated) {
-    //replace('/login')
-  //}
+  if (!state.login || state.login && !state.login.authenticated) {
+    replace('/login')
+  }
 
   cb(null)
 }
