@@ -54,7 +54,6 @@ class SearchBar extends React.Component {
     loadAccountData: PropTypes.func,
     loadEventRegistration: PropTypes.func,
     fetching: PropTypes.bool,
-    station: PropTypes.string,
   }
 
   state = {

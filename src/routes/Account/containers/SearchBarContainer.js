@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
   currentEventRegistration: state.account.currentEventRegistration,
   searching: state.account.searching,
   searchResults: state.account.searchResults,
-  station: state.station.station,
+  station: state.station.station
 })
 
 const mapDispatchToProps = (dispatch) => ({

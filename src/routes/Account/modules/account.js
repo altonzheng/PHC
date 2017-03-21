@@ -21,6 +21,8 @@ const LOAD_EVENT_REGISTRATION_FAILURE = 'LOAD_EVENT_REGISTRATION_FAILURE'
 
 const CLEAR_CURRENT_ACCOUNT = 'CLEAR_CURRENT_ACCOUNT'
 
+const CLOSE_MODAL = 'CLOSE_MODAL'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -155,10 +157,17 @@ export function loadEventRegistration(accountId) {
   }
 }
 
+export function closeModal() {
+  return {
+    type: CLOSE_MODAL
+  }
+}
+
 export const actions = {
   loadAccountData,
   loadEventRegistration,
   searchForAccount,
+  closeModal
 }
 
 const ACTION_HANDLERS = {
@@ -223,7 +232,7 @@ const ACTION_HANDLERS = {
       ...state,
       currentEventRegistration: action.payload.eventRegistration,
       fetching: false,
-      error: null,
+      error: null
     })
   },
   [LOAD_EVENT_REGISTRATION_FAILURE]: (state, action) => {
@@ -232,6 +241,8 @@ const ACTION_HANDLERS = {
       currentEventRegistration: null,
       fetching: false,
       error: action.error.message,
+      showModal: true,
+      modalMessage: "Event registration not found for this account 😞"
     })
   },
   [CLEAR_CURRENT_ACCOUNT]: (state, action) => {
@@ -255,6 +266,14 @@ const ACTION_HANDLERS = {
     }
     return state
   },
+  [CLOSE_MODAL]: (state, action) => {
+    return ({
+      ...state,
+      showModal: false,
+      modalMessage: '',
+      error: null
+    })
+  }
 }
 
 // ------------------------------------
@@ -267,6 +286,8 @@ const initialState = {
   error: null,
   searching: false,
   searchResults: [],
+  showModal: false,
+  modalMessage: ''
 }
 export default function accountReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

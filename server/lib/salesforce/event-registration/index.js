@@ -123,14 +123,14 @@ export function getEventRegistrationByAccount (connection, accountId) {
       try {
         if (error) {
           logger.error('Fetching event registration: error', { accountId, error })
-          deferred.reject({
+          return deferred.reject({
             message: `Error fetching event registration ${accountId}.`,
             error,
           })
         }
 
         if (!eventRegistrations.length) {
-          deferred.reject({
+          return deferred.reject({
             message: `Did not find event registration for ${accountId}.`,
             error,
           })

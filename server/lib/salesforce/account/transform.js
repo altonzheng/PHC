@@ -6,6 +6,7 @@ import {
 import {
   transformDateForSalesforce,
   transformDateFromSalesforce,
+  getFormattedBirthdate
 } from '../date'
 
 import { HousingPicklistValues } from './constants'
@@ -67,6 +68,15 @@ export function transformFieldFromSalesforce (field, value) {
     return value
   } else {
     return value
+  }
+}
+
+// Maps a Salesforce Account object to the fields we index in Search
+export function getSearchIndexFieldsForAccount(account) {
+  return {
+    name: `${account.FirstName} ${account.LastName}`,
+    accountId: account.Id,
+    birthdate: getFormattedBirthdate(account.Birthdate__c)
   }
 }
 

@@ -15,11 +15,17 @@ import {
   transformFieldForSalesforce,
   mapFormFieldToSalesforceField,
   mapSalesforceFieldToFormField,
+  getSearchIndexFieldsForAccount
 } from './transform'
 import { getFormattedBirthdate } from '../date'
 
 // Store accounts in memory lol
 let fuse = null
+
+// Store accounts fetched from last call to Salesforce.
+// We keep this around so we can insert newly created accounts to the search index
+// without querying Salesforce again
+let accountList = null
 
 function getAllAccounts(connection) {
   const deferred = Q.defer()
@@ -33,17 +39,11 @@ function getAllAccounts(connection) {
     .on('end', () => {
       logger.debug('Fetching accounts: complete')
 
-      let mappedAccounts = accounts.map((account) => ({
-        name: `${account.FirstName} ${account.LastName}`,
-        accountId: account.Id,
-        birthdate: getFormattedBirthdate(account.Birthdate__c),
-      }))
+      accountList = accounts.map(getSearchIndexFieldsForAccount)
 
       // Use Fuse.js to create a fuzzy searchable index of accounts
-      fuse = new Fuse(mappedAccounts, {
-        keys: ['name'],
-        threshold: 0.2,
-      })
+      loadFuseIndex(accountList)
+
       logger.debug('Index of ' + accounts.length + ' accounts built.')
 
       deferred.resolve({
@@ -105,6 +105,9 @@ function getAccount(connection, id) {
 function createAccount(connection, payload) {
   const deferred = Q.defer()
 
+  // Payload should be a Salesforce Account object
+  const accountSearchIndexFields = getSearchIndexFieldsForAccount(payload)
+
   logger.debug('Creating account: requesting', { payload })
 
   connection.sobject(Account).create(payload, (error, account) => {
@@ -117,6 +120,17 @@ function createAccount(connection, payload) {
         error,
       })
     } else {
+      logger.error(accountList)
+      debugger
+      if (accountList != null) {
+        // If accountList is null, that means the Fuse index hasn't been built,
+        // so we know the next search will fetch all newly created accounts
+        // Otherwise, add the newly minted Salesforce Account to accountsList and reload fuse.
+        accountSearchIndexFields.accountId = account.id
+        accountList.push(accountSearchIndexFields)
+        loadFuseIndex(accountList)
+      }
+
       deferred.resolve({
         message: `Successfully created account ${account.id}.`,
         payload: {
@@ -196,6 +210,18 @@ function searchForAccountByName(connection, name) {
       },
     }
   })
+}
+
+function loadFuseIndex(accounts) {
+  if (accounts) {
+    let startTime = process.hrtime()
+    fuse = new Fuse(accounts, {
+      keys: ['name'],
+      threshold: 0.2,
+    })
+    let diff = process.hrtime(startTime)
+    logger.info(`Loaded fuse index in ${diff[0] * 1000000 + diff[1] / 1000} microseconds`)
+  }
 }
 
 export {
