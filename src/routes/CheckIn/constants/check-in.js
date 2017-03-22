@@ -86,7 +86,7 @@ export const SUPPORT_CHOICES = [
   'Lifeline Cell Phones',
   'Pet Sitting and VetSOS',
   'Phone Calls and Voicemail',
-  // 'Photo Portraits',
+  'Photo Portraits',
   'Senior Services',
   'Showers',
   'SSI/SSDI and Medi-Cal',
