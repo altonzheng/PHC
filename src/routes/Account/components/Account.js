@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import { Link } from 'react-router'
+import { LinkContainer } from 'react-router-bootstrap'
 
 import SearchBar from '../containers/SearchBarContainer'
 import classes from './Account.scss'
@@ -12,19 +12,18 @@ const CheckInRegistrationPartial = (props) => (
       Register a new client
     </div>
 
-    <Button
-      bsStyle="primary"
-      to="/check-in"
-    >
-      <Link
-        to={{
-          pathname: '/check-in',
-          hash: '#new',
-        }}
+    <LinkContainer to={{
+      pathname: "/check-in",
+      hash: "#new"
+      }}>
+
+      <Button
+        bsStyle="primary"
+        to="/check-in"
       >
-        Register
-      </Link>
-    </Button>
+      Register
+      </Button>
+    </LinkContainer>
   </div>
 )
 
@@ -49,7 +48,7 @@ export const Account = (props) => (
       Search for an existing client
     </div>
 
-
+    <AccountModal message={props.modalMessage} showModal={props.showModal} closeModal={props.closeModal}/>
     <SearchBar />
   </div>
 )

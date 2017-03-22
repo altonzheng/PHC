@@ -94,12 +94,13 @@ const ACTION_HANDLERS = {
     authenticating: false,
     authenticated: false,
   }),
-  [LOGIN_RESET]: (state) => ({
-    ...state,
-    attempted: false,
-    authenticating: false,
-    authenticated: false,
-  }),
+  // TEMPORARILY IGNORE LOGIN_RESET TO FIX LOGIN ISSUES
+  // [LOGIN_RESET]: (state) => ({
+  //   ...state,
+  //   attempted: false,
+  //   authenticating: false,
+  //   authenticated: true,
+  // }),
 }
 
 // ------------------------------------
