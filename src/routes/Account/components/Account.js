@@ -49,7 +49,6 @@ export const Account = (props) => (
       Search for an existing client
     </div>
 
-    <AccountModal message={props.modalMessage} showModal={props.showModal} closeModal={props.closeModal}/>
 
     <SearchBar />
   </div>

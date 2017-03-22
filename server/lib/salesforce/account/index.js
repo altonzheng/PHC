@@ -44,8 +44,6 @@ function getAllAccounts(connection) {
       // Use Fuse.js to create a fuzzy searchable index of accounts
       loadFuseIndex(accountList)
 
-      logger.debug('Index of ' + accounts.length + ' accounts built.')
-
       deferred.resolve({
         message: 'Successfully fetched ' + accounts.length + ' accounts!',
       })
@@ -120,8 +118,6 @@ function createAccount(connection, payload) {
         error,
       })
     } else {
-      logger.error(accountList)
-      debugger
       if (accountList != null) {
         // If accountList is null, that means the Fuse index hasn't been built,
         // so we know the next search will fetch all newly created accounts
