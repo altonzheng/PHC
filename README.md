@@ -10,4 +10,10 @@ https://www.projecthomelessconnect.org/
 
 ## Install
 
-`npm` powers the build process.  `npm install`, and then `npm start` (other commands in `package.json`)
+- Get a copy of the development Salesforce keys, and put these into a file named `.env` in the repository root
+- Install all dependencies with `npm install`
+- Run a local development server with `npm start` (see other commands in `package.json`)
+
+## Miscellaneous
+
+This project was scaffolded with [`react-redux-starter-kit`](https://github.com/davezuko/react-redux-starter-kit).
