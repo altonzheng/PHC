@@ -14,18 +14,11 @@ import config from '../config'
 import webpackDevMiddleware from './middleware/webpack-dev'
 import webpackHMRMiddleware from './middleware/webpack-hmr'
 import loadRoutes from './api'
-import logger from './lib/logger'
 
 const debug = _debug('app:server')
 const paths = config.utils_paths
 const app = new Koa()
 const router = new Router({ prefix: '/api' })
-
-// basic error logging
-// app.on('error', (err, ctx) => {
-//   logger.error(`Error: ${err}`)
-//   logger.error(`ctx was ${ctx}`)
-// })
 
 // Enable koa-proxy if it has been enabled in the config.
 if (config.proxy && config.proxy.enabled) {
