@@ -39,7 +39,7 @@ router
     return connect()
       .then(res => createEventRegistration(res.connection, ctx.request.body.fields))
       .then(res => (ctx.body = res))
-      // .catch(error => handleError(ctx, error))
+      .catch(error => handleError(ctx, error))
   })
 
 export default router
