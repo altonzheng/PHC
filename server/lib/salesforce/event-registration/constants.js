@@ -13,10 +13,10 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Addiction Services': 'Addiction_Support__c',
   'Dental': 'Dental__c',
   'Hearing Tests': 'Hearing_Care__c',
-  'HIV, STI, and Hepatitis C Testing': 'HIV_STI_Testing__c',
+  'HIV/STI/Hepatitis C Testing': 'HIV_STI_Testing__c',
   'Flu Shots': 'Flu_Shots__c',
   // 'Mammograms': '',  // TODO: This isn't in the form?
-
+  'Healthy SF': 'Healthy_SF__c',
   'Massage': 'Massage__c',
   'Medical': 'Medical__c',
   'Mental Health Services': 'Mental_Health__c',
@@ -25,6 +25,7 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   // 'Vision Readers': 'Vision_Readers__c',
   'Reading Glasses': 'Vision_Readers__c',
   'Prescription Glasses': 'Vision_Prescription__c',
+  'TB Testing': 'TB_Testing__c',
   'Vision Screenings': 'Vision_Prescription__c',
 
   // Support Services
