@@ -19,7 +19,7 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'HIV, STI, and Hepatitis C Testing': 'HIV_STI_Testing__c',
   'Flu Shots': 'Flu_Shots__c',
   // 'Mammograms': '',  // TODO: This isn't in the form?
-
+  'Healthy SF': 'Healthy_SF__c',
   'Massage': 'Massage__c',
   'Medical': 'Medical__c',
   'Medical Clinics & Support': 'Medical_Clinics_Support__c', //Added medical clinics & support
