@@ -11,10 +11,10 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   // Medical Services
   'Acupuncture': 'Acupuncture__c',
   'Addiction Services': 'Addiction_Support__c',
-  //'Bugs and Lice Exams': 'Bugs_and_Lice_Exams__c', //Added bugs and lice exam
+  'Bugs and Lice Exams': 'Bugs_Lice_Exams__c', //Added bugs and lice exam
   'Dental': 'Dental__c',
   'Healthy SF': 'Healthy_SF__c', //Added Healthy SF
-  //'Hepatitis A Vaccine': 'Hepatitis_A_Vaccine', //Added Hepatitis A Vaccine   
+  'Hepatitis A Vaccine': 'Hep_A_Vaccine__c', //Added Hepatitis A Vaccine   
   //'Hearing Tests': 'Hearing_Care__c',
   'HIV, STI, and Hepatitis C Testing': 'HIV_STI_Testing__c',
   'Flu Shots': 'Flu_Shots__c',
@@ -22,7 +22,7 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
 
   'Massage': 'Massage__c',
   'Medical': 'Medical__c',
-  //'Medical Clinics & Support': 'Medical_Clinics_Support', //Added medical clinics & support
+  'Medical Clinics & Support': 'Medical_Clinics_Support__c', //Added medical clinics & support
   'Mental Health Services': 'Mental_Health__c',
   //'Needle Exchange': 'Needle_Exchange__c',
   'Podiatry': 'Podiatry__c',
