@@ -10,7 +10,7 @@ export const EventRegistration = 'Event_Registration__c'
 export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   // Medical Services
   'Acupuncture': 'Acupuncture__c',
-  'Addiction Services': 'Addiction_Support__c',
+  'Addiction Support & Harm Reduction': 'Addiction_Support__c',
   'Bugs and Lice Exams': 'Bugs_Lice_Exams__c', //Added bugs and lice exam
   'Dental': 'Dental__c',
   'Healthy SF': 'Healthy_SF__c', //Added Healthy SF
