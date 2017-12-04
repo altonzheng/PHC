@@ -47,7 +47,7 @@ export const LENGTH_OF_HOMELESSNESS_CHOICES = [
 // TODO: Fetch dynamically.
 export const MEDICAL_CHOICES = [
   'Acupuncture',
-  'Addiction Services',
+  'Addiction Support & Harm Reduction',
   'Bugs and Lice Exams', //Needs salesforce
   'Dental',
   'Healthy SF',
