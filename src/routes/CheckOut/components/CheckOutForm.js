@@ -60,8 +60,8 @@ const SatisfactionPartial = (props) => {
   return (
 
     <Row>
-    <Col xs={12} sm={6} className={classes.inputGroup}>
-      <label className={classes.fieldName}>Were you overall satisfied with your services today?</label>
+    <Col xs={12} sm={6} className={classes.formItemContainer}>
+      <label>Were you overall satisfied with your services today?</label>
       <Row>
         <Col xs={6}>
           <label>
@@ -111,8 +111,8 @@ const SatisfactionPartial = (props) => {
       </Row>
     </Col>
 
-    <Col xs={12} sm={6} className={classes.inputGroup}>
-      <label className={classes.fieldName}>In general, do you feel you received services here that you would not have been able to receive otherwise?</label>
+    <Col xs={12} sm={6} className={classes.formItemContainer}>
+      <label>In general, do you feel you received services here that you would not have been able to receive otherwise?</label>
       <Row>
         <Col xs={6}>
           <label>
@@ -142,8 +142,8 @@ const SatisfactionPartial = (props) => {
    {
     /* only show the duration if ``isHomeless`` */
     hasUniqueService.value === "true" &&
-      <Col xs={12} sm={6} className={classes.inputGroup}>
-        <label className={classes.fieldName}>Which unique services?</label>
+      <Col xs={12} sm={6}>
+        <label>Which unique services?</label>
         <textarea
           {...uniqueServices}
           placeholder="Enter unique services here"
@@ -218,7 +218,18 @@ export const CheckOutForm = (props) => {
   const onSubmit = () => {
     console.log(fields)
     console.log(props)
-    updateEventRegistration(fields, currentEventRegistration.id)
+
+    for (let field in fields) {
+      // skip alt fields, which have their own handlers to update fields correctly
+      if (field.endsWith('Other')) continue
+      // deal with checkboxes, and checkbox-like inputs differently
+      if (fields[field].checked !== undefined) {
+        newFields[field] = fields[field].checked
+      } else if (fields[field].value !== '') {
+        newFields[field] = fields[field].value
+      }
+    }
+    updateEventRegistration(newFields, currentEventRegistration.id)
   }
 
   const serviceFields = Object.keys(fields)
