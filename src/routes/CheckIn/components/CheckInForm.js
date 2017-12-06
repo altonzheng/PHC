@@ -19,6 +19,7 @@ import {
   SUPPORT_CHOICES,
   PRIMARY_HEALTHCARE_CHOICES,
   LEARNED_ABOUT_EVENT_CHOICES,
+  STAYING_CHOICES,
   LENGTH_OF_HOMELESSNESS_CHOICES,
 } from '../constants/check-in'
 import classes from './CheckInForm.scss'
@@ -288,6 +289,7 @@ const DemographicPartial = (props) => {
     hasServedInTheMilitary,
     primaryHealthcareLocation,
     learnedAboutEvent,
+    whereStaying,
     isHomeless,
     lengthOfHomelessness,
     hasSeenDoctorThisYear,
@@ -408,6 +410,19 @@ const DemographicPartial = (props) => {
           value={learnedAboutEvent.value || ''}
           onBlur={() => learnedAboutEvent.onBlur(learnedAboutEvent.value)}
           options={LEARNED_ABOUT_EVENT_CHOICES}
+        />
+      </Col>
+
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Where are you currently staying?</label>
+        {whereStaying.touched && whereStaying.error && <span className={classes.errorMessage}>{whereStaying.error}</span>}
+        <Select
+          {...whereStaying}
+          name="whereStayingSelect"
+          value={whereStaying.value || ''}
+          onBlur={() => whereStaying.onBlur(whereStaying.value)}
+          options={STAYING_CHOICES}
         />
       </Col>
 
@@ -624,7 +639,7 @@ export const CheckInForm = (props) => {
       hasBeenInFosterCare,
       hasServedInTheMilitary,
       primaryHealthcareLocation,
-      learnedAboutEvent,
+      learnedAboutEvent, whereStaying,
       isHomeless, lengthOfHomelessness,
       medicalServices, supportServices,
       hasSeenDoctorThisYear, generalHealth,
@@ -664,6 +679,7 @@ export const CheckInForm = (props) => {
     hasServedInTheMilitary,
     primaryHealthcareLocation,
     learnedAboutEvent,
+    whereStaying,
     isHomeless,
     lengthOfHomelessness,
     hasSeenDoctorThisYear,

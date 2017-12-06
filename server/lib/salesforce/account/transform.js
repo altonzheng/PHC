@@ -28,6 +28,7 @@ const FORM_FIELD_TO_SALESFORCE_FIELD = {
   hasServedInTheMilitary: 'Veteran__c',
   primaryHealthcareLocation: 'Where_do_you_usually_go_for_healthcare__c',
   learnedAboutEvent: 'Learned_About_Event__c',
+  whereStaying: 'Where_Staying__c',
   isHomeless: 'Housing_Status_New__c',  // TODO: Is this right?
   lengthOfHomelessness: 'How_long_have_you_been_homeless__c',
   hasSeenDoctorThisYear: 'Seen_Doctor__c',

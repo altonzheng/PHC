@@ -38,6 +38,13 @@ export const LEARNED_ABOUT_EVENT_CHOICES = [
   { value: 'I learned about it at PHC’s office', label: 'I learned about it at PHC’s office' },
 ]
 
+export const STAYING_CHOICES = [
+  { value: 'I am staying on a friend or family member’s couch', label: 'I am staying on a friend or family member’s couch' },
+  { value: 'I am homeless', label: 'I am homeless' },
+  { value: 'I am in a shelter', label: 'I am in a shelter' },
+  { value: 'I am sleeping in a vehicle', label: 'I am sleeping in a vehicle' },
+]
+
 export const LENGTH_OF_HOMELESSNESS_CHOICES = [
   { value: 'Less than 3', label: 'Less than 3' },
   { value: '3-6 months', label: '3-6 months' },
