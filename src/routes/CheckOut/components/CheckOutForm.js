@@ -224,9 +224,10 @@ export const CheckOutForm = (props) => {
       if (field.endsWith('Other')) continue
       // deal with checkboxes, and checkbox-like inputs differently
       if (fields[field].checked !== undefined) {
-        newFields[field] = fields[field].checked
+        newFields[field] = fields[field]
+        newFields[field].checked = fields[field].checked
       } else if (fields[field].value !== '') {
-        newFields[field] = fields[field].value
+        newFields[field] = fields[field]
       }
     }
     console.log(newFields)
