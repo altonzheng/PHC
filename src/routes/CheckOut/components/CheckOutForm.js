@@ -55,7 +55,7 @@ ServicesPartial.propTypes = {
 }
 
 const SatisfactionPartial = (props) => {
-  let {satisfaction} = props.fields
+  let {satisfaction, isOverallSatisfied} = props.fields
 
   return (
 
@@ -158,7 +158,7 @@ export const CheckOutForm = (props) => {
   }
 
   const serviceFields = Object.keys(fields)
-    .filter(fieldName => (fieldName !== 'Satisfaction' && fieldName !== 'Notes'))
+    .filter(fieldName => (fieldName !== 'Satisfaction' && fieldName !== 'Notes' && fieldName !== 'isOverallSatisfied'))
     .reduce(
       (_fields, fieldName) => {
         _fields[fieldName] = fields[fieldName]
