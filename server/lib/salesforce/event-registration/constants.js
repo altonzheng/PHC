@@ -65,9 +65,9 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   //'Groceries': 'Groceries__c',
   'isOverallSatisfied': 'Overall_satisfied__c',
 
-  //'Recommend event to friends and family members?': 'Event_recommendation__c',
-  //'In general, do you feel you received services here that you would not have been able to receive otherwise?': 'Unique_services__c',
-  //'Which unique services?': 'hasUniqueService__c',
+  'recommendation': 'Event_recommendation__c',
+  'uniqueServices': 'Unique_services__c',
+  'hasUniqueService': 'hasUniqueService__c',
   'Satisfaction': 'Satisfaction__c',
   'Notes': 'Notes__c'
 }
