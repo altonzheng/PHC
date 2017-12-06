@@ -216,9 +216,6 @@ export const CheckOutForm = (props) => {
   } = props
 
   const onSubmit = () => {
-    console.log(fields)
-    console.log(props)
-
     updateEventRegistration(fields, currentEventRegistration.id)
   }
 
