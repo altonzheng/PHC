@@ -6,3 +6,19 @@
 textarea {
   width: 100%
 }
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.inputLabel {
+  margin-right: 15px;
+}
+
+.fieldName {
+  font-weight: $weight-regular;
+  color: $black-dark;
+}
