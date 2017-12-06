@@ -111,9 +111,7 @@ const OverallSatisfactionPartial = (props) => {
           </Col>
         </Row>
       </Col>
-    </Row>
 
-    <Row>
       <Col
         xs={12}
         className={classes.formItemContainer}
@@ -135,9 +133,7 @@ const OverallSatisfactionPartial = (props) => {
           ))}
         </Row>
       </Col>
-    </Row>
 
-    <Row>
       <Col xs={12} sm={6} className={classes.inputGroup}>
         <label className={classes.fieldName}>In general, do you feel you received services here that you would not have been able to receive otherwise?</label>
         <Row>
@@ -335,7 +331,10 @@ export const CheckOutForm = (props) => {
   }
 
   const serviceFields = Object.keys(fields)
-    .filter(fieldName => (fieldName !== 'Satisfaction' && fieldName !== 'Notes'))
+    .filter(fieldName => (fieldName !== 'Satisfaction' && fieldName !== 'Notes'
+    && fieldName !== 'First Name' && fieldName !== 'Last Name' && fieldName !== 'Were you overall satisfied with your services today?'
+    && fieldName !== 'Recommend event to friends and family members?' && fieldName !== 'In general, do you feel you received services here that you would not have been able to receive otherwise?'
+    && fieldName !== 'If yes, which ones?'))
     .reduce(
       (_fields, fieldName) => {
         _fields[fieldName] = fields[fieldName]
