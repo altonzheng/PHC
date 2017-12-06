@@ -63,11 +63,10 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Youth Services (up to age 24)': 'Youth_Services__c',
   //'Lunch': 'Lunch__c',
   //'Groceries': 'Groceries__c',
-  //'Were you overall satisfied with your services today?': ,
-  //'Recommend event to friends and family members?': ,
-  //'In general, do you feel you received services here that you would not have been able to receive otherwise?': ,
-  //'Which unique services?': ,
-
+  'Were you overall satisfied with your services today?': 'Overall_satisfied__c',
+  'Recommend event to friends and family members?': 'Event_recommendation__c',
+  'In general, do you feel you received services here that you would not have been able to receive otherwise?': 'Unique_services__c',
+  'Which unique services?': 'hasUniqueService__c',
   'Satisfaction': 'Satisfaction__c',
   'Notes': 'Notes__c'
 }
