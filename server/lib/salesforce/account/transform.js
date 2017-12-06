@@ -31,6 +31,12 @@ const FORM_FIELD_TO_SALESFORCE_FIELD = {
   isHomeless: 'Housing_Status_New__c',  // TODO: Is this right?
   lengthOfHomelessness: 'How_long_have_you_been_homeless__c',
   hasSeenDoctorThisYear: 'Seen_Doctor__c',
+  // TODO HERE @Han Lin
+  generalHealth: ,
+  skinHealth: ,
+  dignityAndConfidence: ,
+  dentalHygiene: ,
+  hygiene: ,
 }
 
 // Invert the map given above.
