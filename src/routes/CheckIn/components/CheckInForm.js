@@ -18,6 +18,7 @@ import {
   MEDICAL_CHOICES,
   SUPPORT_CHOICES,
   PRIMARY_HEALTHCARE_CHOICES,
+  LEARNED_ABOUT_EVENT_CHOICES,
   LENGTH_OF_HOMELESSNESS_CHOICES,
 } from '../constants/check-in'
 import classes from './CheckInForm.scss'
@@ -286,8 +287,15 @@ const DemographicPartial = (props) => {
     hasBeenInFosterCare,
     hasServedInTheMilitary,
     primaryHealthcareLocation,
+    learnedAboutEvent,
     isHomeless,
     lengthOfHomelessness,
+    hasSeenDoctorThisYear,
+    generalHealth,
+    skinHealth,
+    dignityAndConfidence,
+    dentalHygiene, 
+    hygiene,
   } = props.fields
 
   return (
@@ -351,6 +359,35 @@ const DemographicPartial = (props) => {
       </Col>
 
       <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Have you been to a doctor this year?</label>
+        <Row>
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...hasSeenDoctorThisYear}
+                value="true"
+                checked={hasSeenDoctorThisYear.value === "true"}
+              />
+              Yes
+            </label>
+          </Col>
+
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...hasSeenDoctorThisYear}
+                value="false"
+                checked={hasSeenDoctorThisYear.value === "false"}
+              />
+              No
+            </label>
+          </Col>
+        </Row>
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
         <label className={classes.fieldName}>Where do you usually go for healthcare when you are not feeling well?</label>
         {primaryHealthcareLocation.touched && primaryHealthcareLocation.error && <span className={classes.errorMessage}>{primaryHealthcareLocation.error}</span>}
         <Select
@@ -360,6 +397,136 @@ const DemographicPartial = (props) => {
           onBlur={() => primaryHealthcareLocation.onBlur(primaryHealthcareLocation.value)}
           options={PRIMARY_HEALTHCARE_CHOICES}
         />
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>How did you hear about this event?</label>
+        {learnedAboutEvent.touched && learnedAboutEvent.error && <span className={classes.errorMessage}>{learnedAboutEvent.error}</span>}
+        <Select
+          {...learnedAboutEvent}
+          name="learnedAboutEventSelect"
+          value={learnedAboutEvent.value || ''}
+          onBlur={() => learnedAboutEvent.onBlur(learnedAboutEvent.value)}
+          options={LEARNED_ABOUT_EVENT_CHOICES}
+        />
+      </Col>
+
+      <Col
+        xs={12}
+        className={classes.formItemContainer}
+      > 
+
+        <p>Please rate on a scale of 1 (bad) to 5 (great)</p>
+      </Col>
+      <Col
+        xs={12} sm={6}
+        className={classes.formItemContainer}
+      >
+        <label>General health:</label>
+        <Row>
+          {[' 1', ' 2', ' 3', ' 4', ' 5'].map(value => (
+            <Col xs={2} key={value}>
+              <label>
+                <input
+                  {...generalHealth}
+                  type="radio"
+                  value={value[0]}
+                  checked={generalHealth.value === value[0]}
+                />
+                {value}
+              </label>
+            </Col>
+          ))}
+        </Row>
+      </Col>
+
+      <Col
+        xs={12} sm={6}
+        className={classes.formItemContainer}
+      >
+        <label>Skin or dermatological health:</label>
+        <Row>
+          {[' 1', ' 2', ' 3', ' 4', ' 5'].map(value => (
+            <Col xs={2} key={value}>
+              <label>
+                <input
+                  {...skinHealth}
+                  type="radio"
+                  value={value[0]}
+                  checked={skinHealth.value === value[0]}
+                />
+                {value}
+              </label>
+            </Col>
+          ))}
+        </Row>
+      </Col>
+
+      <Col
+        xs={12} sm={6}
+        className={classes.formItemContainer}
+      >
+        <label>Your overall dignity and confidence:</label>
+        <Row>
+          {[' 1', ' 2', ' 3', ' 4', ' 5'].map(value => (
+            <Col xs={2} key={value}>
+              <label>
+                <input
+                  {...dignityAndConfidence}
+                  type="radio"
+                  value={value[0]}
+                  checked={dignityAndConfidence.value === value[0]}
+                />
+                {value}
+              </label>
+            </Col>
+          ))}
+        </Row>
+      </Col>
+
+      <Col
+        xs={12} sm={6}
+        className={classes.formItemContainer}
+      >
+        <label>Dental Hygiene:</label>
+        <Row>
+          {[' 1', ' 2', ' 3', ' 4', ' 5'].map(value => (
+            <Col xs={2} key={value}>
+              <label>
+                <input
+                  {...dentalHygiene}
+                  type="radio"
+                  value={value[0]}
+                  checked={dentalHygiene.value === value[0]}
+                />
+                {value}
+              </label>
+            </Col>
+          ))}
+        </Row>
+      </Col>
+
+
+      <Col
+        xs={12} sm={6}
+        className={classes.formItemContainer}
+      >
+        <label>Hygiene:</label>
+        <Row>
+          {[' 1', ' 2', ' 3', ' 4', ' 5'].map(value => (
+            <Col xs={2} key={value}>
+              <label>
+                <input
+                  {...hygiene}
+                  type="radio"
+                  value={value[0]}
+                  checked={hygiene.value === value[0]}
+                />
+                {value}
+              </label>
+            </Col>
+          ))}
+        </Row>
       </Col>
 
       <Col xs={12} sm={6} className={classes.inputGroup}>
@@ -457,8 +624,12 @@ export const CheckInForm = (props) => {
       hasBeenInFosterCare,
       hasServedInTheMilitary,
       primaryHealthcareLocation,
+      learnedAboutEvent,
       isHomeless, lengthOfHomelessness,
       medicalServices, supportServices,
+      hasSeenDoctorThisYear, generalHealth,
+      skinHealth, dignityAndConfidence,
+      dentalHygiene, hygiene,
     },
     handleSubmit,
     requesting,
@@ -492,8 +663,15 @@ export const CheckInForm = (props) => {
     hasBeenInFosterCare,
     hasServedInTheMilitary,
     primaryHealthcareLocation,
+    learnedAboutEvent,
     isHomeless,
     lengthOfHomelessness,
+    hasSeenDoctorThisYear,
+    generalHealth,
+    skinHealth,
+    dignityAndConfidence,
+    dentalHygiene, 
+    hygiene,
   }
 
   const servicesFields = {
