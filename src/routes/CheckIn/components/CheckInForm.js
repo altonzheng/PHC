@@ -424,7 +424,7 @@ const DemographicPartial = (props) => {
       >
         <label>General health:</label>
         <Row>
-          {[' 1', ' 2', ' 3', ' 4', ' 5'].map(value => (
+          {['1', '2', '3', '4', '5'].map(value => (
             <Col xs={2} key={value}>
               <label>
                 <input
@@ -446,7 +446,7 @@ const DemographicPartial = (props) => {
       >
         <label>Skin or dermatological health:</label>
         <Row>
-          {[' 1', ' 2', ' 3', ' 4', ' 5'].map(value => (
+          {['1', '2', '3', '4', '5'].map(value => (
             <Col xs={2} key={value}>
               <label>
                 <input
@@ -468,7 +468,7 @@ const DemographicPartial = (props) => {
       >
         <label>Your overall dignity and confidence:</label>
         <Row>
-          {[' 1', ' 2', ' 3', ' 4', ' 5'].map(value => (
+          {['1', '2', '3', '4', '5'].map(value => (
             <Col xs={2} key={value}>
               <label>
                 <input
@@ -490,7 +490,7 @@ const DemographicPartial = (props) => {
       >
         <label>Dental Hygiene:</label>
         <Row>
-          {[' 1', ' 2', ' 3', ' 4', ' 5'].map(value => (
+          {['1', '2', '3', '4', '5'].map(value => (
             <Col xs={2} key={value}>
               <label>
                 <input
@@ -513,7 +513,7 @@ const DemographicPartial = (props) => {
       >
         <label>Hygiene:</label>
         <Row>
-          {[' 1', ' 2', ' 3', ' 4', ' 5'].map(value => (
+          {['1', '2', '3', '4', '5'].map(value => (
             <Col xs={2} key={value}>
               <label>
                 <input
