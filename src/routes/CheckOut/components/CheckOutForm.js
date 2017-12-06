@@ -53,7 +53,215 @@ const ServicesPartial = (props) => {
 ServicesPartial.propTypes = {
   fields: PropTypes.object.isRequired,
 }
+//
+const NamePartial = (props) => {
+  let {firstName, lastName} = props.fields
 
+  return (
+    <Row>
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>First Name {firstName.touched && firstName.error && <span className={classes.errorMessage}>{firstName.error}</span>}</label>
+        <input className={classes.textInput} type="text" {...firstName} />
+      </Col>
+
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Last Name {lastName.touched && lastName.error && <span className={classes.errorMessage}>{lastName.error}</span>}</label>
+        <input className={classes.textInput} type="text" {...lastName} />
+      </Col>
+    </Row>
+  )
+}
+
+NamePartial.propTypes = {
+  fields: PropTypes.object.isRequired,
+}
+//
+
+//
+const OverallSatisfactionPartial = (props) => {
+  let {isOverallSatisfied, recommendation, hasUniqueService, uniqueServices} = props.fields
+
+  return (
+    <Row>
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>Were you overall satisfied with your services today?</label>
+        <Row>
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...isOverallSatisfied}
+                value="true"
+                checked={isOverallSatisfied.value === 'true'}
+              />
+              Yes
+            </label>
+          </Col>
+
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...isOverallSatisfied}
+                value="false"
+                checked={isOverallSatisfied.value === 'false'}
+              />
+              No
+            </label>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col
+        xs={12}
+        className={classes.formItemContainer}
+      >
+        <label>Recommend event to friends and family members?</label>
+        <Row>
+          {['1 😩', '2 🙁', '3 😕', '4 🙂', '5 😀'].map(value => (
+            <Col xs={2} key={value}>
+              <label>
+                <input
+                  {...recommendation}
+                  type="radio"
+                  value={value[0]}
+                  checked={recommendation.value === value[0]}
+                />
+                {value}
+              </label>
+            </Col>
+          ))}
+        </Row>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col xs={12} sm={6} className={classes.inputGroup}>
+        <label className={classes.fieldName}>In general, do you feel you received services here that you would not have been able to receive otherwise?</label>
+        <Row>
+          <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...hasUniqueService}
+                value="true"
+                checked={hasUniqueService.value === "true"}
+              />
+              Yes
+            </label>
+          </Col>
+
+           <Col xs={6}>
+            <label>
+              <input
+                type="radio"
+                {...hasUniqueService}
+                value="false"
+                checked={hasUniqueService.value === "false"}
+              />
+              No
+            </label>
+          </Col>
+        </Row>
+      </Col>
+     {
+      /* only show the duration if ``isHomeless`` */
+      hasUniqueService.value === "true" &&
+        <Col xs={12} sm={6} className={classes.inputGroup}>
+          <label className={classes.fieldName}>If yes, which ones?</label>
+          <textarea
+            {...uniqueServices}
+            placeholder="Enter unique services here"
+            value={uniqueServices.value}
+          />
+
+        </Col>
+    }
+  </Row>
+
+  )
+}
+
+OverallSatisfactionPartial.propTypes = {
+  fields: PropTypes.object.isRequired,
+}
+//
+
+//
+/*
+const RecommendationPartial = (props) => {
+  let {recommendation} = props.fields
+
+  return (
+    <Row>
+      <Col
+        xs={12}
+        className={classes.formItemContainer}
+      >
+        <label>Recommend event to friends and family members?</label>
+        <Row>
+          {['1 😩', '2 🙁', '3 😕', '4 🙂', '5 😀'].map(value => (
+            <Col xs={2} key={value}>
+              <label>
+                <input
+                  {...recommendation}
+                  type="radio"
+                  value={value[0]}
+                  checked={recommendation.value === value[0]}
+                />
+                {value}
+              </label>
+            </Col>
+          ))}
+        </Row>
+      </Col>
+    </Row>
+  )
+}
+
+
+RecommendationPartial.propTypes = {
+  fields: PropTypes.object.isRequired,
+}
+//
+const receivedUnique = (props) => {
+  let {receivedUnique} = props.fields
+
+  return (
+    <Row>
+      <Col
+        xs={12}
+        className={classes.formItemContainer}
+      >
+        <label>Recommend event to friends and family members?</label>
+        <Row>
+          {['1 😩', '2 🙁', '3 😕', '4 🙂', '5 😀'].map(value => (
+            <Col xs={2} key={value}>
+              <label>
+                <input
+                  {...recommendation}
+                  type="radio"
+                  value={value[0]}
+                  checked={receivedUnique.value === value[0]}
+                />
+                {value}
+              </label>
+            </Col>
+          ))}
+        </Row>
+      </Col>
+    </Row>
+  )
+}
+
+RecommendationPartial.propTypes = {
+  fields: PropTypes.object.isRequired,
+}
+*/
+
+//
 const SatisfactionPartial = (props) => {
   let {satisfaction} = props.fields
 
@@ -87,6 +295,7 @@ const SatisfactionPartial = (props) => {
 SatisfactionPartial.propTypes = {
   fields: PropTypes.object.isRequired,
 }
+//
 
 const NotesPartial = (props) => {
   let { notes } = props.fields
@@ -143,13 +352,27 @@ export const CheckOutForm = (props) => {
     notes: fields.Notes
   }
 
+  const overallSatisfactionFields = {
+    isOverallSatisfied: fields.isOverallSatisfied,
+    recommendation: fields.recommendation,
+    hasUniqueService: fields.hasUniqueService,
+    uniqueServices: fields.uniqueServices
+  }
+
+  const nameFields = {
+    firstName: fields.firstName,
+    lastName: fields.lastName,
+  }
+
   return (
     <form
       className={classes.form}
       onSubmit={handleSubmit(onSubmit)}
     >
       <Grid>
+        <NamePartial fields={nameFields} />
         <ServicesPartial fields={serviceFields} />
+        <OverallSatisfactionPartial fields={OverallSatisfactionPartial} />
         <SatisfactionPartial fields={satisfactionFields} />
         <NotesPartial fields={notesFields} />
       </Grid>
