@@ -24,6 +24,7 @@ export const AccountUpdateableFields = [
   'Housing_Status_New__c',  // TODO: Is this right?
   'How_long_have_you_been_homeless__c',
   'Learned_About_Event__c',
+  'Where_Staying__c',
   'Seen_Doctor__c',
   'General_health__c',
   'Skin_Health__c',

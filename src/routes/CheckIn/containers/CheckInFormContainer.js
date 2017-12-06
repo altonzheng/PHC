@@ -29,6 +29,7 @@ const fields = [
 
   'primaryHealthcareLocation',
   'learnedAboutEvent',
+  'whereStaying',
 
   'generalHealth', 
   'skinHealth',

@@ -413,7 +413,6 @@ const DemographicPartial = (props) => {
         />
       </Col>
 
-
       <Col xs={12} sm={6} className={classes.inputGroup}>
         <label className={classes.fieldName}>Where are you currently staying?</label>
         {whereStaying.touched && whereStaying.error && <span className={classes.errorMessage}>{whereStaying.error}</span>}
@@ -425,6 +424,7 @@ const DemographicPartial = (props) => {
           options={STAYING_CHOICES}
         />
       </Col>
+
 
       <Col
         xs={12}
