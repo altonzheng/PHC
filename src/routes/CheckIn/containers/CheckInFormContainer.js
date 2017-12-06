@@ -25,8 +25,16 @@ const fields = [
   'hasBeenInFosterCare',
 
   'hasServedInTheMilitary',
+  'hasSeenDoctorThisYear',
 
   'primaryHealthcareLocation',
+  'learnedAboutEvent',
+
+  'generalHealth', 
+  'skinHealth',
+  'dignityAndConfidence',
+  'dentalHygiene', 
+  'hygiene',
 
   'isHomeless',
   'lengthOfHomelessness',

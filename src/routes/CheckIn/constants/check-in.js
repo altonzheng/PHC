@@ -31,6 +31,13 @@ export const PRIMARY_HEALTHCARE_CHOICES = [
   { value: 'Other', label: 'Other' },
 ]
 
+export const LEARNED_ABOUT_EVENT_CHOICES = [
+  { value: 'Outreach', label: 'Outreach' },
+  { value: 'I learned about it today', label: 'I learned about it today' },
+  { value: 'I learned about it from a poster or flyer I saw at another service office', label: 'I learned about it from a poster or flyer I saw at another service office' },
+  { value: 'I learned about it at PHC’s office', label: 'I learned about it at PHC’s office' },
+]
+
 export const LENGTH_OF_HOMELESSNESS_CHOICES = [
   { value: 'Less than 3', label: 'Less than 3' },
   { value: '3-6 months', label: '3-6 months' },
