@@ -55,10 +55,104 @@ ServicesPartial.propTypes = {
 }
 
 const SatisfactionPartial = (props) => {
-  let {satisfaction} = props.fields
+  let {satisfaction, isOverallSatisfied, recommendation, hasUniqueService, uniqueServices} = props.fields
 
   return (
+
     <Row>
+    <Col xs={12} sm={6} className={classes.formItemContainer}>
+      <label>Were you overall satisfied with your services today?</label>
+      <Row>
+        <Col xs={6}>
+          <label>
+            <input
+              type="radio"
+              {...isOverallSatisfied}
+              value="true"
+              checked={isOverallSatisfied.value === 'true'}
+            />
+            Yes
+          </label>
+        </Col>
+
+        <Col xs={6}>
+          <label>
+            <input
+              type="radio"
+              {...isOverallSatisfied}
+              value="false"
+              checked={isOverallSatisfied.value === 'false'}
+            />
+            No
+          </label>
+        </Col>
+      </Row>
+    </Col>
+
+    <Col
+      xs={12}
+      className={classes.formItemContainer}
+    >
+      <label>Recommend event to friends and family members?</label>
+      <Row>
+        {['1 😩', '2 🙁', '3 😕', '4 🙂', '5 😀'].map(value => (
+          <Col xs={2} key={value}>
+            <label>
+              <input
+                {...recommendation}
+                type="radio"
+                value={value[0]}
+                checked={recommendation.value === value[0]}
+              />
+              {value}
+            </label>
+          </Col>
+        ))}
+      </Row>
+    </Col>
+
+    <Col xs={12} sm={6} className={classes.formItemContainer}>
+      <label>In general, do you feel you received services here that you would not have been able to receive otherwise?</label>
+      <Row>
+        <Col xs={6}>
+          <label>
+            <input
+              type="radio"
+              {...hasUniqueService}
+              value="true"
+              checked={hasUniqueService.value === "true"}
+            />
+            Yes
+          </label>
+        </Col>
+
+         <Col xs={6}>
+          <label>
+            <input
+              type="radio"
+              {...hasUniqueService}
+              value="false"
+              checked={hasUniqueService.value === "false"}
+            />
+            No
+          </label>
+        </Col>
+      </Row>
+    </Col>
+   {
+    /* only show the duration if ``isHomeless`` */
+    hasUniqueService.value === "true" &&
+      <Col xs={12} sm={6}>
+        <label>Which unique services?</label>
+        <textarea
+          {...uniqueServices}
+          placeholder="Enter unique services here"
+          value={uniqueServices.value}
+        />
+
+      </Col>
+  }
+
       <Col
         xs={12}
         className={classes.formItemContainer}
@@ -126,7 +220,8 @@ export const CheckOutForm = (props) => {
   }
 
   const serviceFields = Object.keys(fields)
-    .filter(fieldName => (fieldName !== 'Satisfaction' && fieldName !== 'Notes'))
+    .filter(fieldName => (fieldName !== 'Satisfaction' && fieldName !== 'Notes' && fieldName !== 'isOverallSatisfied'
+          && fieldName !== 'hasUniqueService' && fieldName !== 'uniqueServices' && fieldName !== 'recommendation'))
     .reduce(
       (_fields, fieldName) => {
         _fields[fieldName] = fields[fieldName]
@@ -137,10 +232,14 @@ export const CheckOutForm = (props) => {
 
   const satisfactionFields = {
     satisfaction: fields.Satisfaction,
+    isOverallSatisfied : fields.isOverallSatisfied,
+    hasUniqueService : fields.hasUniqueService,
+    uniqueServices : fields.uniqueServices,
+    recommendation : fields.recommendation,
   }
 
   const notesFields = {
-    notes: fields.Notes
+    notes: fields.Notes,
   }
 
   return (

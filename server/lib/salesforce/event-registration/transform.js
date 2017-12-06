@@ -19,6 +19,10 @@ export function transformFromSalesforce (eventRegistration) {
           eventRegistration[attribute] !== null
             || attribute === 'Satisfaction__c'
             || attribute === 'Notes__c'
+            || attribute === 'Overall_satisfied__c'
+            || attribute === 'Event_recommendation__c'
+            || attribute === 'Unique_services__c'
+            || attribute === 'hasUniqueService__c'
         )
     ) {
       transformed[SALESFORCE_FIELD_TO_FORM_FIELD[attribute]] = eventRegistration[attribute]
