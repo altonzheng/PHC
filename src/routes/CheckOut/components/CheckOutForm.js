@@ -218,20 +218,7 @@ export const CheckOutForm = (props) => {
   const onSubmit = () => {
     console.log(fields)
     console.log(props)
-    const newFields = {}
-    for (let field in fields) {
-      // skip alt fields, which have their own handlers to update fields correctly
-      if (field.endsWith('Other')) continue
-      // deal with checkboxes, and checkbox-like inputs differently
-      if (fields[field].checked !== undefined) {
-        newFields[field] = fields[field]
-        newFields[field].checked = fields[field].checked
-      } else if (fields[field].value !== '') {
-        newFields[field] = fields[field]
-      }
-    }
-    console.log(newFields)
-
+    
     updateEventRegistration(newFields, currentEventRegistration.id)
   }
 
