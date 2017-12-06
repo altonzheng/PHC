@@ -53,29 +53,6 @@ const ServicesPartial = (props) => {
 ServicesPartial.propTypes = {
   fields: PropTypes.object.isRequired,
 }
-//
-const NamePartial = (props) => {
-  let {firstName, lastName} = props.fields
-
-  return (
-    <Row>
-      <Col xs={12} sm={6} className={classes.inputGroup}>
-        <label className={classes.fieldName}>First Name {firstName.touched && firstName.error && <span className={classes.errorMessage}>{firstName.error}</span>}</label>
-        <input className={classes.textInput} type="text" {...firstName} />
-      </Col>
-
-      <Col xs={12} sm={6} className={classes.inputGroup}>
-        <label className={classes.fieldName}>Last Name {lastName.touched && lastName.error && <span className={classes.errorMessage}>{lastName.error}</span>}</label>
-        <input className={classes.textInput} type="text" {...lastName} />
-      </Col>
-    </Row>
-  )
-}
-
-NamePartial.propTypes = {
-  fields: PropTypes.object.isRequired,
-}
-//
 
 //
 const OverallSatisfactionPartial = (props) => {
@@ -166,7 +143,7 @@ const OverallSatisfactionPartial = (props) => {
       /* only show the duration if ``isHomeless`` */
       hasUniqueService.value === "true" &&
         <Col xs={12} sm={6} className={classes.inputGroup}>
-          <label className={classes.fieldName}>If yes, which ones?</label>
+          <label className={classes.fieldName}>Which unique services?</label>
           <textarea
             {...uniqueServices}
             placeholder="Enter unique services here"
@@ -358,18 +335,12 @@ export const CheckOutForm = (props) => {
     uniqueServices: fields.uniqueServices
   }
 
-  const nameFields = {
-    firstName: fields.firstName,
-    lastName: fields.lastName,
-  }
-
   return (
     <form
       className={classes.form}
       onSubmit={handleSubmit(onSubmit)}
     >
       <Grid>
-        <NamePartial fields={nameFields} />
         <ServicesPartial fields={serviceFields} />
         <OverallSatisfactionPartial fields={OverallSatisfactionPartial} />
         <SatisfactionPartial fields={satisfactionFields} />
