@@ -218,8 +218,8 @@ export const CheckOutForm = (props) => {
   const onSubmit = () => {
     console.log(fields)
     console.log(props)
-    
-    updateEventRegistration(newFields, currentEventRegistration.id)
+
+    updateEventRegistration(fields, currentEventRegistration.id)
   }
 
   const serviceFields = Object.keys(fields)
