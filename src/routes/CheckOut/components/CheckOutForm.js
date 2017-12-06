@@ -169,10 +169,11 @@ export const CheckOutForm = (props) => {
 
   const satisfactionFields = {
     satisfaction: fields.Satisfaction,
+    isOverallSatisfied : fields.isOverallSatisfied,
   }
 
   const notesFields = {
-    notes: fields.Notes
+    notes: fields.Notes,
   }
 
   return (
