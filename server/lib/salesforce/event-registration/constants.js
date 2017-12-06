@@ -14,7 +14,7 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Bugs and Lice Exams': 'Bugs_Lice_Exams__c', //Added bugs and lice exam
   'Dental': 'Dental__c',
   'Healthy SF': 'Healthy_SF__c', //Added Healthy SF
-  'Hepatitis A Vaccine': 'Hep_A_Vaccine__c', //Added Hepatitis A Vaccine   
+  'Hepatitis A Vaccine': 'Hep_A_Vaccine__c', //Added Hepatitis A Vaccine
   //'Hearing Tests': 'Hearing_Care__c',
   'HIV, STI, and Hepatitis C Testing': 'HIV_STI_Testing__c',
   'Flu Shots': 'Flu_Shots__c',
@@ -63,6 +63,10 @@ export const FORM_FIELD_TO_SALESFORCE_FIELD = {
   'Youth Services (up to age 24)': 'Youth_Services__c',
   //'Lunch': 'Lunch__c',
   //'Groceries': 'Groceries__c',
+  'Were you overall satisfied with your services today?': 'Overall_satisfied__c',
+  //'Recommend event to friends and family members?': 'Event_recommendation__c',
+  //'In general, do you feel you received services here that you would not have been able to receive otherwise?': 'Unique_services__c',
+  //'Which unique services?': 'hasUniqueService__c',
   'Satisfaction': 'Satisfaction__c',
   'Notes': 'Notes__c'
 }
