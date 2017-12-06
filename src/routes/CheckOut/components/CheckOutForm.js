@@ -58,7 +58,37 @@ const SatisfactionPartial = (props) => {
   let {satisfaction} = props.fields
 
   return (
+
     <Row>
+    <Col xs={12} sm={6} className={classes.inputGroup}>
+      <label className={classes.fieldName}>Were you overall satisfied with your services today?</label>
+      <Row>
+        <Col xs={6}>
+          <label>
+            <input
+              type="radio"
+              {...isOverallSatisfied}
+              value="true"
+              checked={isOverallSatisfied.value === 'true'}
+            />
+            Yes
+          </label>
+        </Col>
+
+        <Col xs={6}>
+          <label>
+            <input
+              type="radio"
+              {...isOverallSatisfied}
+              value="false"
+              checked={isOverallSatisfied.value === 'false'}
+            />
+            No
+          </label>
+        </Col>
+      </Row>
+    </Col>
+
       <Col
         xs={12}
         className={classes.formItemContainer}
